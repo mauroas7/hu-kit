@@ -1,0 +1,76 @@
+/*
+ * Los estilos base de marca. Se importa antes de las directivas de Tailwind:
+ *     @import 'hu-kit/estilos.css';
+ *     @tailwind base; …
+ */
+
+/* Montserrat, auto-hospedada y sólo en los tres pesos del manual: 400, 600 y 900.
+   `font-bold` y `font-medium` no están cargados y se dibujan como 900 y 400. */
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/900.css';
+
+/* Material Symbols Outlined, auto-hospedada: el CDN de Google recibe la IP del
+   paciente y, si la red del hospital lo bloquea, los íconos caen al nombre en texto. */
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: block;
+    src: url('./fuentes/material-symbols-outlined.woff2') format('woff2');
+}
+
+@layer base {
+    /* Anillo de foco, visible sólo al navegar con teclado. */
+    :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+        outline: 2px solid theme('colors.primary.light');
+        outline-offset: 2px;
+    }
+
+    /* Sobre un fondo oscuro o sobre `primary` el azul no se ve: pasa a dorado (5,1:1 o más). */
+    :where(.dark, .bg-primary) :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+        outline-color: theme('colors.secondary.DEFAULT');
+    }
+}
+
+@layer components {
+    /* El eje FILL alterna trazo (0) y relleno (1): relleno para la sección en la que se está parado. */
+    .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: inherit;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .material-symbols-outlined.relleno {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Títulos cortos en mayúscula, como pide el manual para jerarquizar. */
+    .titulo-corto {
+        @apply font-black uppercase tracking-wide;
+    }
+}
+
+/* Quien pide menos movimiento en el sistema no recibe los fade-in ni los
+   traslados: se apaga la duración, no la propiedad. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
