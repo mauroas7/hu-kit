@@ -6,7 +6,8 @@ Hospital Universitario. Trae tres cosas:
 - **`estilos/`, la marca como código** — un preset de Tailwind, los estilos
   base y las fuentes, que cada sistema instala como dependencia npm fijada a un
   tag. Es lo que hace que los sistemas se vean iguales sin copiarse valores.
-  Uso, versiones y decisiones en [`estilos/README.md`](estilos/README.md).
+  Uso, versiones y decisiones en [`estilos/README.md`](estilos/README.md); qué
+  trae cada versión, en [`CHANGELOG.md`](CHANGELOG.md).
 - **`componentes/`, los componentes de React** que comparten los sistemas,
   en el mismo paquete (`hu-kit/componentes`). Ver *Componentes*, abajo.
 - **Dos skills de [Claude Code](https://claude.com/claude-code)**, para quien
@@ -30,8 +31,7 @@ su `.gitignore`, y cada quien instala las skills en su usuario.
 
 El paquete sí entra en cada proyecto, pero como dependencia en su
 `package.json` (`github:mauroas7/hu-kit#vX.Y.Z`), nunca como archivos copiados.
-Trae sólo `estilos/` y `componentes/`: ni las skills ni `referencias/` llegan
-al proyecto.
+Trae sólo `estilos/` y `componentes/`: las skills no llegan al proyecto.
 
 Lo que sí se versiona en cada proyecto es **la regla**: como documentación en
 su `docs/` y, cuando se puede, como test. `portal-hospital` dejó sus reglas sólo

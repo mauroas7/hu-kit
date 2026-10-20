@@ -25,7 +25,7 @@ los dan por hechos.
 ## Cómo se usa
 
 ```bash
-npm install github:mauroas7/hu-kit#v1.4.0
+npm install github:mauroas7/hu-kit#vX.Y.Z    # el último tag, en CHANGELOG.md
 ```
 
 ```js
@@ -53,9 +53,8 @@ la sección activa). En React, mejor un componente `Icono` que la ponga.
 
 ## Versiones
 
-El repo es privado: `npm install` lo baja con git usando las credenciales de la
-máquina. Un servidor que corre `npm install` necesita una *deploy key* de sólo
-lectura de este repo.
+El repo es público: `npm install` lo baja de GitHub sin credenciales. Con el
+lock ya resuelto, `npm ci` lo trae por https y no necesita ni git.
 
 Cada sistema fija un tag, y un cambio de marca le llega cuando sube el tag en
 su `package.json`, no solo. Así un cambio acá nunca rompe a un sistema sin que
@@ -68,6 +67,8 @@ alguien lo pruebe.
   íconos— sube el primero: `v2.0.0`. Cada sistema lo adopta revisando sus
   pantallas.
 
+Qué trae cada versión: [`CHANGELOG.md`](../CHANGELOG.md).
+
 Para probar un cambio antes de publicar el tag, sin dejar rastro en el
 proyecto:
 
@@ -77,6 +78,22 @@ npm install <carpeta temporal>/hu-kit-X.Y.Z.tgz         # desde el sistema
 ```
 
 Antes del commit del sistema, la dependencia vuelve a apuntar al tag.
+
+### Publicar una versión
+
+1. `version` en `package.json` pasa al número nuevo.
+2. La versión se anota arriba de todo en `CHANGELOG.md`.
+3. Commit, y tag anotado con el mismo número: `git tag -a vX.Y.Z -m vX.Y.Z`.
+4. `git push origin main vX.Y.Z`.
+5. Si cambiaron las skills, se vuelve a correr `instalar.ps1`.
+6. En cada sistema: el tag nuevo en su `package.json`, `npm install`, build,
+   tests y commit.
+
+**Un tag publicado no se mueve ni se borra, y `main` no se reescribe.** El lock
+de cada sistema guarda el commit exacto que resolvió el tag: si ese commit
+desaparece de GitHub, `npm ci` falla en esa versión del sistema, y con ella la
+vuelta atrás en producción. Un error en una versión publicada se arregla
+publicando la siguiente.
 
 ## Decisiones
 
