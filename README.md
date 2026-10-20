@@ -21,7 +21,8 @@ Hospital Universitario. Trae tres cosas:
     Controller→Service→I/O, cómo se escribe un service, manejo de errores y
     logging, modelos y migraciones, validación, nombres, comentarios, tests de
     arquitectura), generalizadas a partir del backend de `portal-hospital` y del
-    análisis ya hecho en `quirofanohu/docs/analisis/convenciones-portal.md`.
+    análisis ya hecho en quirofanohu, que ese repo ya no tiene en `docs/` y se
+    recupera con `git show d8d24d5:docs/analisis/convenciones-portal.md`.
 
 ## Qué se versiona dónde
 
@@ -35,9 +36,9 @@ Trae sólo `estilos/` y `componentes/`: las skills no llegan al proyecto.
 
 Lo que sí se versiona en cada proyecto es **la regla**: como documentación en
 su `docs/` y, cuando se puede, como test. `portal-hospital` dejó sus reglas sólo
-en `CLAUDE.md` locales y el costo quedó documentado en
-`quirofanohu/docs/analisis/convenciones-portal.md`: esas reglas no existían para
-nadie que clonara el proyecto. La documentación y los tests resuelven eso sin
+en `CLAUDE.md` locales y el costo quedó documentado en el análisis de
+quirofanohu (`git show d8d24d5:docs/analisis/convenciones-portal.md` en ese
+repo): esas reglas no existían para nadie que clonara el proyecto. La documentación y los tests resuelven eso sin
 obligar a nadie a usar Claude.
 
 ## Componentes

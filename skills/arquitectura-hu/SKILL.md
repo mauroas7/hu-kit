@@ -7,9 +7,9 @@ description: Aplica las convenciones de backend de los sistemas del Hospital Uni
 
 Esta skill generaliza lo que **portal-hospital** (el sistema con más años y más
 integraciones externas del hospital) hace bien en su backend, más el trabajo
-de destilación ya hecho para quirofanohu en
-`quirofanohu/docs/analisis/convenciones-portal.md` (63 convenciones evaluadas
-una por una: adoptar, adaptar o descartar). No repitas ese trabajo de análisis
+de destilación ya hecho para quirofanohu (63 convenciones evaluadas una por
+una: adoptar, adaptar o descartar; en ese repo, con
+`git show d8d24d5:docs/analisis/convenciones-portal.md`). No repitas ese trabajo de análisis
 — ya está hecho y verificado contra el código real. Esta skill lo empaqueta
 para que un sistema nuevo lo herede desde el día uno, en vez de tener que
 redescubrirlo leyendo 1500 líneas de análisis.
