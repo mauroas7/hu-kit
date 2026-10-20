@@ -86,8 +86,9 @@ Antes del commit del sistema, la dependencia vuelve a apuntar al tag.
 3. Commit, y tag anotado con el mismo número: `git tag -a vX.Y.Z -m vX.Y.Z`.
 4. `git push origin main vX.Y.Z`.
 5. Si cambiaron las skills, se vuelve a correr `instalar.ps1`.
-6. En cada sistema: el tag nuevo en su `package.json`, `npm install`, build,
-   tests y commit.
+6. En cada sistema: `npm install hu-kit@github:mauroas7/hu-kit#vX.Y.Z`, build,
+   tests y commit. Cambiar el tag a mano y correr `npm install` no alcanza: con
+   una dependencia de git, npm deja en el lock el commit que ya tenía.
 
 **Un tag publicado no se mueve ni se borra, y `main` no se reescribe.** El lock
 de cada sistema guarda el commit exacto que resolvió el tag: si ese commit
