@@ -15,13 +15,15 @@ estado hover — el manual lo pide explícitamente para el botón secundario
 ("cambiar de tono al hacer hover"), y en la práctica se aplica a todos.
 
 **En React no se arma: se importa** `Boton` de `hu-kit/componentes`, que trae
-las dos formas, las variantes y los tamaños. Esto es lo que tiene adentro
-(`hu-kit/componentes/Boton.jsx`, sin los pares `dark:`), para Blade o para
-entender qué hace:
+las dos formas, las variantes y los tamaños. Lo esencial de lo que tiene
+adentro, para Blade o para entender qué hace; la fuente es
+`hu-kit/componentes/Boton.jsx`, que además trae los pares `dark:`:
 
 ```js
+// Todas las variantes llevan borde, transparente si no se ve: así un botón
+// mide lo mismo que un campo y se alinea con él en la fila.
 const BASE =
-    'inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50';
+    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap border transition duration-200 active:scale-98 disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100';
 
 const FORMAS = {
     confirmacion: 'rounded-full', // default
@@ -29,13 +31,32 @@ const FORMAS = {
 };
 
 const VARIANTES = {
-    primario: 'bg-primary text-white hover:bg-primary-light',
-    secundario: 'bg-secondary text-primary hover:bg-secondary-light',
-    contorno: 'border border-primary text-primary hover:bg-primary-faint',
-    fantasma: 'text-brandText hover:bg-brandText-soft/50',
-    peligro: 'bg-red-700 text-white hover:bg-red-800',
+    primario: 'border-transparent bg-primary text-white hover:bg-primary-light', // default
+    secundario: 'border-transparent bg-secondary text-primary hover:bg-secondary-light',
+    exito: 'border-transparent bg-emerald-700 text-white hover:bg-emerald-800',
+    peligro: 'border-transparent bg-red-700 text-white hover:bg-red-800',
+    contorno: 'border-primary text-primary hover:bg-primary-faint',
+    contornoPeligro: 'border-red-700 text-red-700 hover:bg-red-50',
+    contornoExito: 'border-emerald-700 text-emerald-700 hover:bg-emerald-50',
+    fantasma: 'border-transparent text-brandText hover:bg-brandText-soft/50',
+    fantasmaPeligro: 'border-transparent text-red-700 hover:bg-red-50',
+    fantasmaExito: 'border-transparent text-emerald-700 hover:bg-emerald-50',
+};
+
+// El tamaño trae el relleno, el texto y el alto del ícono: por eso va con la
+// prop `tamano` y no con `className`.
+const TAMANOS = {
+    normal: 'px-5 py-2.5 text-sm font-semibold', // default, 42 px como un campo
+    tactil: 'min-h-11 px-5 py-2.5 text-sm font-semibold',
+    compacto: 'px-3 py-1 text-xs font-semibold',
+    icono: 'p-2.5 text-sm font-semibold',
+    iconoCompacto: 'p-1 text-xs font-semibold',
+    ingreso: 'px-5 py-[15px] text-sm font-black uppercase tracking-[0.15em] shadow-lg shadow-primary/20',
 };
 ```
+
+Con `href` es un `<Link>` de Inertia, y con `href` y `externo`, un `<a>` común
+(una descarga, un PDF): por `<Link>`, Inertia corta con su modal de error.
 
 Los dos botones de color **aclaran** en hover (`primary` → `primary-light`,
 `secondary` → `secondary-light`), que es el "cambiar el botón al hacer hover"

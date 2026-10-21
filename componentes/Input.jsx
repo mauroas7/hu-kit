@@ -1,4 +1,4 @@
-import Campo, { claseControl } from './Campo.jsx';
+import Campo, { claseControl, descritoPor } from './Campo.jsx';
 
 /**
  * Campo de texto controlado: el valor y el error son del `useForm` que los
@@ -31,7 +31,7 @@ export default function Input({
                 onChange={onChange}
                 required={requerido}
                 aria-invalid={error ? 'true' : undefined}
-                aria-describedby={error ? `${idCampo}-error` : undefined}
+                aria-describedby={descritoPor(idCampo, error, ayuda)}
                 className={`${claseControl(!!error, variante)} ${className}`}
                 {...props}
             />

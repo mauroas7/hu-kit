@@ -44,7 +44,7 @@ export default function Campo({
 
             {children}
 
-            {ayuda && !error && <p className="text-xs text-brandText-muted dark:text-brandText-mutedDark">{ayuda}</p>}
+            {ayuda && !error && <p id={`${id}-ayuda`} className="text-xs text-brandText-muted dark:text-brandText-mutedDark">{ayuda}</p>}
 
             {error && (
                 <p id={`${id}-error`} className="flex items-start gap-1 text-xs font-semibold text-red-700 dark:text-red-400">
@@ -54,6 +54,13 @@ export default function Campo({
             )}
         </div>
     );
+}
+
+/** El `aria-describedby` del control: el error si lo hay y, si no, la ayuda, que `Campo` muestra de a uno. */
+export function descritoPor(id, error, ayuda) {
+    if (error) return `${id}-error`;
+
+    return ayuda ? `${id}-ayuda` : undefined;
 }
 
 /**

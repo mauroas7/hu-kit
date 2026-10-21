@@ -1,4 +1,4 @@
-import Campo from './Campo.jsx';
+import Campo, { descritoPor } from './Campo.jsx';
 
 /**
  * Casilla de verificación controlada.
@@ -32,7 +32,7 @@ export default function Checkbox({
                     checked={!!valor}
                     onChange={onChange}
                     aria-invalid={error ? 'true' : undefined}
-                    aria-describedby={error ? `${idCampo}-error` : undefined}
+                    aria-describedby={descritoPor(idCampo, error, ayuda)}
                     className={`mt-0.5 ${claseCasilla(!!error)} ${className}`}
                     {...props}
                 />

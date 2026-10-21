@@ -2,7 +2,7 @@
 export { default as Alerta } from './Alerta.jsx';
 export { default as ApplicationLogo } from './ApplicationLogo.jsx';
 export { default as Boton } from './Boton.jsx';
-export { default as Campo, claseControl } from './Campo.jsx';
+export { default as Campo, claseControl, descritoPor } from './Campo.jsx';
 export { default as Checkbox, claseCasilla } from './Checkbox.jsx';
 export { default as ErrorBoundary } from './ErrorBoundary.jsx';
 export { default as Estado } from './Estado.jsx';

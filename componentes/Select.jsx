@@ -1,4 +1,4 @@
-import Campo, { claseControl } from './Campo.jsx';
+import Campo, { claseControl, descritoPor } from './Campo.jsx';
 
 /**
  * Desplegable controlado. `opciones` son pares `[valor, etiqueta]`, en el orden
@@ -33,7 +33,7 @@ export default function Select({
                 onChange={onChange}
                 required={requerido}
                 aria-invalid={error ? 'true' : undefined}
-                aria-describedby={error ? `${idCampo}-error` : undefined}
+                aria-describedby={descritoPor(idCampo, error, ayuda)}
                 className={`${claseControl(!!error)} ${className}`}
                 {...props}
             >

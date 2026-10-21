@@ -5,6 +5,7 @@ import Icono from './Icono.jsx';
 /**
  * Red de contención para toda la app: sin esto, cualquier throw en render
  * desmonta el árbol entero y deja al usuario con una pantalla en blanco.
+ * `onError(error, info)` es para que el sistema lo registre en su backend.
  */
 export default class ErrorBoundary extends Component {
     state = { crashed: false };
@@ -15,6 +16,7 @@ export default class ErrorBoundary extends Component {
 
     componentDidCatch(error, info) {
         console.error('Error no controlado:', error, info);
+        this.props.onError?.(error, info);
     }
 
     render() {

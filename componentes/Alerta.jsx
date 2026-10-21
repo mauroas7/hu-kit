@@ -7,11 +7,14 @@ const ESTILOS = {
     info: ['bg-primary-faint text-primary border-primary-soft dark:bg-primary/20 dark:text-gray-100 dark:border-primary-light', 'info'],
 };
 
+// `alert` interrumpe al lector de pantalla; un éxito o un dato esperan su turno.
+const URGENTES = ['error', 'aviso'];
+
 export default function Alerta({ tipo = 'info', titulo = null, className = '', children }) {
     const [clases, icono] = ESTILOS[tipo] ?? ESTILOS.info;
 
     return (
-        <div role="alert" className={`flex items-start gap-3 rounded-xl border px-4 py-3 text-sm ${clases} ${className}`}>
+        <div role={URGENTES.includes(tipo) ? 'alert' : 'status'} className={`flex items-start gap-3 rounded-xl border px-4 py-3 text-sm ${clases} ${className}`}>
             <Icono nombre={icono} className="mt-px shrink-0 text-lg" relleno />
 
             {/* `min-w-0` deja que el texto largo se parta en vez de empujar el borde. */}

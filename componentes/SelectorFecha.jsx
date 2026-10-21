@@ -1,7 +1,7 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { DayPicker } from 'react-day-picker';
 import { es } from 'react-day-picker/locale';
-import Campo, { claseControl } from './Campo.jsx';
+import Campo, { claseControl, descritoPor } from './Campo.jsx';
 import Icono from './Icono.jsx';
 import { aFecha, fechaCompleta, fechaIso } from './fechas.js';
 
@@ -66,7 +66,7 @@ export default function SelectorFecha({
                 <PopoverButton
                     id={nombre}
                     aria-invalid={error ? 'true' : undefined}
-                    aria-describedby={error ? `${nombre}-error` : undefined}
+                    aria-describedby={descritoPor(nombre, error, ayuda)}
                     className={`${claseControl(!! error)} flex items-center gap-2 text-left`}
                 >
                     <Icono nombre="calendar_month" className="text-lg leading-5 text-primary dark:text-gray-300" />

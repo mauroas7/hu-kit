@@ -3,6 +3,18 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.6.0 — 2026-10-20
+
+- `ErrorBoundary` acepta `onError(error, info)`, para que el sistema registre
+  el error en su backend: hasta acá sólo quedaba en la consola del navegador.
+- `Alerta` interrumpe al lector de pantalla sólo si es `error` o `aviso`
+  (`role="alert"`); `exito` e `info` van como `role="status"`.
+- La ayuda de un campo queda asociada al control con `aria-describedby`, igual
+  que el error. `descritoPor()` arma ese atributo para un control propio
+  adentro de `Campo`, como un `PasswordInput`.
+- El `Boton` de la skill `marca-hu` se pone al día con el componente. Al subir,
+  se vuelve a correr `instalar.ps1`.
+
 ## v1.5.0 — 2026-10-20
 
 - `Select` recibe `opciones` como pares `[valor, etiqueta]`, en el orden en

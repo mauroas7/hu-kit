@@ -1,4 +1,4 @@
-import Campo, { claseControl } from './Campo.jsx';
+import Campo, { claseControl, descritoPor } from './Campo.jsx';
 
 export default function Textarea({
     nombre,
@@ -25,7 +25,7 @@ export default function Textarea({
                 onChange={onChange}
                 required={requerido}
                 aria-invalid={error ? 'true' : undefined}
-                aria-describedby={error ? `${idCampo}-error` : undefined}
+                aria-describedby={descritoPor(idCampo, error, ayuda)}
                 className={`${claseControl(!!error)} ${className}`}
                 {...props}
             />
