@@ -87,14 +87,14 @@ puede validar el documento contra el sistema externo, no crea la cuenta, punto.
 
 ## Autorización contra un sistema que no autentica
 
-Cuando el sistema externo no exige credenciales ni verifica identidad (pasa
-con más de un proveedor del hospital), la autorización se construye del lado
-de acá: **se busca el recurso dentro del conjunto que le pertenece al usuario
-logueado, nunca comparando un ID que vino del navegador o del request**. El
-DNI o el identificador de búsqueda sale siempre de `auth()->user()`, nunca de
-un parámetro. Ésta es, en términos generales, la respuesta a IDOR
-(`/recurso/{id}/...` donde cambiar el `{id}` a mano no debería servir de
-nada) en cualquier endpoint que exponga un recurso propio de un usuario.
+Cuando el sistema externo no exige credenciales ni verifica identidad, la
+autorización se construye del lado de acá: **se busca el recurso dentro del
+conjunto que le pertenece al usuario logueado, nunca comparando un ID que
+vino del navegador o del request**. El DNI o el identificador de búsqueda
+sale siempre de `auth()->user()`, nunca de un parámetro. Ésta es, en
+términos generales, la respuesta a IDOR (`/recurso/{id}/...` donde cambiar
+el `{id}` a mano no debería servir de nada) en cualquier endpoint que exponga
+un recurso propio de un usuario.
 
 ## Credenciales y config
 

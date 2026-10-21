@@ -65,6 +65,12 @@ vive sólo ahí no existe para quien clona.
 - [ ] Ninguna credencial, host ni IP vive fuera de `.env` /
       `config()` — y ningún `config/*.php` tiene un default que apunte a
       infraestructura real.
+- [ ] Toda ruta pide sesión (`auth`): "es de sólo lectura" no es excepción.
+      Sin sesión van sólo las que no pueden tenerla, como el ingreso; si no
+      hay ninguna, no se crea un archivo de rutas sin sesión.
+- [ ] Ningún `verify => false` salvo contra un sistema interno cuyo
+      certificado no valida, y siempre con el comentario que lo explica: sin
+      él, alguien lo "arregla" y rompe la integración.
 - [ ] `$table` explícito en todo modelo de dominio en español.
 - [ ] Toda convención nueva que valga la pena repetir tiene, o va a tener, un
       test — y ese test está versionado.
@@ -72,21 +78,9 @@ vive sólo ahí no existe para quien clona.
 ## Qué no copiar de portal-hospital tal cual
 
 Portal-hospital es la mejor referencia de backend del hospital, pero tiene
-deuda conocida y decisiones que no generalizan. No arrastres esto a un sistema
-nuevo sin pensarlo:
+decisiones que no generalizan. No las arrastres a un sistema nuevo sin
+pensarlo:
 
-- **`verify => false` en llamadas HTTP** — es del entorno de red del hospital.
-  Sólo tiene sentido si tu sistema pega contra otro sistema interno con el
-  mismo problema de certificados, y siempre con el comentario que explica por
-  qué (si no, alguien lo "arregla" y rompe la integración).
-- **Infraestructura hardcodeada como default en `config/database.php`**
-  (host, base, usuario de una conexión externa) — publica topología de red
-  interna en el repo y hace que la app parezca configurada con el `.env`
-  vacío. El default de una conexión externa es vacío, y falla claro si falta.
-- **`routes/api.php` con rutas sin `auth` "porque son de sólo lectura"** — dos
-  quedaron así en portal-hospital y es la última deuda de seguridad que le
-  queda. Si tu sistema no tiene necesidad real de un archivo de rutas sin
-  sesión, no lo crees.
 - **Modelos anémicos (cero scopes, cero accessors)** — funciona en
   portal-hospital porque casi no tiene datos locales. Un sistema con datos de
   dominio reales (turnos, cirugías, materiales) necesita scopes (`vigente()`,

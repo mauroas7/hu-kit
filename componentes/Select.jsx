@@ -1,17 +1,16 @@
 import Campo, { claseControl } from './Campo.jsx';
 
 /**
- * Desplegable controlado.
- *
- * `opciones` es un mapa plano `{ valor: etiqueta }`: quien lo llama aplana
- * antes, porque el componente no sabe recorrer objetos.
+ * Desplegable controlado. `opciones` son pares `[valor, etiqueta]`, en el orden
+ * en que se muestran; un mapa `{ valor: etiqueta }` sirve si las claves no son
+ * números, porque JavaScript ordena las claves numéricas de menor a mayor.
  *
  * `vacio={false}` saca la opción vacía, para las listas con valor por defecto.
  */
 export default function Select({
     nombre,
     etiqueta = null,
-    opciones = {},
+    opciones = [],
     valor = '',
     onChange = null,
     ayuda = null,
@@ -23,6 +22,7 @@ export default function Select({
     ...props
 }) {
     const idCampo = id ?? nombre;
+    const pares = Array.isArray(opciones) ? opciones : Object.entries(opciones);
 
     return (
         <Campo id={idCampo} etiqueta={etiqueta} ayuda={ayuda} error={error} requerido={requerido}>
@@ -39,7 +39,7 @@ export default function Select({
             >
                 {vacio && <option value="">{vacio}</option>}
 
-                {Object.entries(opciones).map(([clave, texto]) => (
+                {pares.map(([clave, texto]) => (
                     <option key={clave} value={clave}>
                         {texto}
                     </option>

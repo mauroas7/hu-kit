@@ -53,7 +53,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `Boton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color y los tamaños, `ingreso` incluido |
 | `Campo`, `claseControl` | La etiqueta, la ayuda y el error de un campo, y la clase del control. Variantes `normal` e `ingreso` |
 | `Input`, `PasswordInput`, `Textarea` | El campo de texto, el de contraseña con el ojito y el de varias líneas |
-| `Select` | El desplegable; recibe un mapa plano `{ valor: etiqueta }` |
+| `Select` | El desplegable; recibe pares `[valor, etiqueta]` en el orden en que se muestran. Un mapa `{ valor: etiqueta }` con claves numéricas, como el de un `pluck('nombre', 'id')`, se muestra ordenado por clave |
 | `Checkbox`, `claseCasilla` | La casilla, y su clase para una casilla o un radio sueltos |
 | `SelectorFecha` | El único calendario: habla `YYYY-MM-DD`, nunca un `type="date"` del navegador |
 | `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera, y el marco para lo que no es una tarjeta con cabecera |

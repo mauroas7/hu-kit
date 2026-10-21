@@ -34,7 +34,7 @@ export default function Campo({
                 <label htmlFor={id} className={`block ${clases.etiqueta}`}>
                     {etiqueta}
                     {requerido && (
-                        <span className="text-red-700" aria-hidden="true">
+                        <span className="text-red-700 dark:text-red-400" aria-hidden="true">
                             {' '}
                             *
                         </span>
@@ -47,7 +47,7 @@ export default function Campo({
             {ayuda && !error && <p className="text-xs text-brandText-muted dark:text-brandText-mutedDark">{ayuda}</p>}
 
             {error && (
-                <p id={`${id}-error`} className="flex items-start gap-1 text-xs font-semibold text-red-700">
+                <p id={`${id}-error`} className="flex items-start gap-1 text-xs font-semibold text-red-700 dark:text-red-400">
                     <Icono nombre="error" className="shrink-0 text-sm leading-4" relleno />
                     {error}
                 </p>

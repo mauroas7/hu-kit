@@ -1,0 +1,11 @@
+Todos los derechos reservados.
+
+Este repositorio es público sólo para que los sistemas que lo usan puedan
+instalarlo con npm sin credenciales. Eso no da permiso para usar, copiar,
+modificar ni distribuir su contenido.
+
+El logo y la marca del Hospital Universitario (`componentes/img/`) son del
+hospital.
+
+La fuente Material Symbols Outlined (`estilos/fuentes/`) es de Google y tiene
+su propia licencia, Apache 2.0, cuyo texto está en `estilos/fuentes/LICENSE`.
