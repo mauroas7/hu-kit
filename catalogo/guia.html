@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Guía de hu-kit</title>
+        <script type="module" src="./guia.js"></script>
+        <style>
+            @page {
+                size: A4;
+                margin: 14mm 14mm 16mm;
+
+                @bottom-right {
+                    content: 'hu-kit · ' counter(page);
+                    font-family: Montserrat, sans-serif;
+                    font-size: 8pt;
+                    color: #6d6d6f;
+                }
+            }
+
+            html {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .hoja {
+                max-width: 182mm;
+                margin: 0 auto;
+            }
+
+            .pagina {
+                break-before: page;
+            }
+
+            figure,
+            tr,
+            pre,
+            .bloque {
+                break-inside: avoid;
+            }
+
+            h2,
+            h3 {
+                break-after: avoid;
+            }
+
+            pre {
+                white-space: pre-wrap;
+            }
+        </style>
+    </head>
+    <body class="bg-white font-sans text-[10.5pt] leading-relaxed text-brandText">
+        <main class="hoja">
+            <!-- Portada -->
+            <section class="flex min-h-[265mm] flex-col justify-between rounded-3xl bg-primary p-12 text-white">
+                <img src="../componentes/img/logo-hu-blanco.svg" alt="Hospital Universitario" class="w-64" />
+
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">Guía para el equipo de sistemas</p>
+                    <h1 class="mt-4 text-6xl font-black uppercase leading-none">hu-kit</h1>
+                    <p class="mt-6 max-w-md text-lg font-semibold text-white/80">
+                        Qué es, cómo se ve un sistema del hospital, cómo se arranca uno nuevo y cómo se trabaja con él todos los días.
+                    </p>
+                </div>
+
+                <div class="flex items-end justify-between text-sm text-white/70">
+                    <p>Versión 1.8.1 · octubre de 2026</p>
+                    <p class="font-semibold uppercase tracking-[0.2em]">Hospital Universitario</p>
+                </div>
+            </section>
+
+            <!-- 1. Las tres piezas -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">1 · En una página</p>
+                <h2 class="text-3xl font-black text-primary">Tres piezas, cada una con su trabajo</h2>
+                <p>
+                    Todos los sistemas del Hospital Universitario se tienen que ver igual, comportarse igual y estar programados de la misma
+                    forma, sin copiarse código entre sí. Para eso hay tres piezas:
+                </p>
+
+                <div class="bloque grid grid-cols-3 gap-4">
+                    <div class="rounded-2xl border-2 border-primary p-5">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-secondary-dark">Se instala</p>
+                        <h3 class="mt-1 text-xl font-black text-primary">hu-kit</h3>
+                        <p class="mt-2 text-sm"><strong class="font-semibold">La caja de herramientas.</strong> Los colores, las fuentes y las piezas de pantalla: botones, formularios, tablas, el menú lateral, los avisos.</p>
+                        <p class="mt-2 text-sm">Cada sistema lo instala con npm. Cuando hu-kit cambia, cada sistema decide cuándo sube de versión.</p>
+                    </div>
+                    <div class="rounded-2xl border-2 border-dashed border-secondary p-5">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-secondary-dark">Se copia una vez</p>
+                        <h3 class="mt-1 text-xl font-black text-primary">hu-plantilla</h3>
+                        <p class="mt-2 text-sm"><strong class="font-semibold">El molde.</strong> Un sistema vacío pero completo: login, menú, roles, tests y documentación, con hu-kit ya instalado.</p>
+                        <p class="mt-2 text-sm">Se copia al arrancar un sistema nuevo y después cada uno sigue por su lado. <em>Todavía no existe: es el próximo paso.</em></p>
+                    </div>
+                    <div class="rounded-2xl border-2 border-brandText-soft p-5">
+                        <p class="text-xs font-semibold uppercase tracking-widest text-secondary-dark">Lo propio</p>
+                        <h3 class="mt-1 text-xl font-black text-primary">Cada sistema</h3>
+                        <p class="mt-2 text-sm"><strong class="font-semibold">Lo que lo hace único.</strong> Sus pantallas, su menú, sus datos, sus reglas: quirofanohu, Bienes HU, el próximo.</p>
+                        <p class="mt-2 text-sm">Sólo escribe lo suyo: el resto lo trae hu-kit.</p>
+                    </div>
+                </div>
+
+                <div class="bloque rounded-2xl bg-primary-faint p-5">
+                    <h3 class="font-black text-primary">La diferencia entre instalar y copiar</h3>
+                    <p class="mt-1 text-sm">
+                        Lo que se <strong class="font-semibold">instala</strong> sigue siendo igual en todos los sistemas: si mañana cambia un botón en
+                        hu-kit, todos lo reciben al subir de versión. Lo que se <strong class="font-semibold">copia</strong> es un punto de partida que
+                        cada sistema después adapta, como sus roles o su menú. Una pieza va a hu-kit cuando <em>tiene que</em> seguir igual; va a la
+                        plantilla cuando alcanza con que <em>arranque</em> igual.
+                    </p>
+                </div>
+
+                <div class="bloque rounded-2xl border border-brandText-soft p-5">
+                    <h3 class="font-black text-primary">El catálogo: la vidriera de hu-kit</h3>
+                    <p class="mt-1 text-sm">
+                        Es una página que vive dentro de hu-kit y muestra armadas todas las piezas, una al lado de la otra, en claro y en oscuro.
+                        No tiene base de datos ni login: los datos son inventados. Sirve para mirar qué hay antes de armar una pantalla, para probar
+                        un cambio en hu-kit sin instalarlo en un sistema, y de ahí salen las capturas de esta guía.
+                    </p>
+                    <pre class="mt-3 rounded-xl bg-canvas p-3 font-mono text-xs text-primary">cd C:\laragon\www\hu-kit
+npm install          (la primera vez)
+npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
+                </div>
+            </section>
+
+            <!-- 2. Cómo se ve -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">2 · Cómo se ve</p>
+                <h2 class="text-3xl font-black text-primary">Un sistema del HU, de punta a punta</h2>
+                <p>
+                    Estas pantallas son de «Pedidos HU», un sistema inventado que vive en el catálogo. Está armado <strong class="font-semibold">sólo con
+                    piezas de hu-kit</strong>: ningún color, botón ni menú está hecho a mano. Así se va a ver cualquier sistema del hospital.
+                </p>
+
+                <figure class="space-y-2">
+                    <img src="capturas/ingreso.png" alt="Pantalla de ingreso" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">El ingreso.</strong> <code>PanelAutenticacion</code>, copiado del login del portal de pacientes. Cada sistema le pasa su nombre y su bajada.</figcaption>
+                </figure>
+
+                <figure class="space-y-2">
+                    <img src="capturas/tablero.png" alt="Tablero" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">El tablero.</strong> El marco (<code>MarcoApp</code>: barra lateral, encabezado, menú de la cuenta) con <code>Metrica</code>, <code>Tarjeta</code>, <code>Estado</code>, <code>SelectorDeVista</code> y <code>Cargando</code>.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/listado.png" alt="Listado de pedidos" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Un listado.</strong> <code>Tarjeta</code> con contador y acción, <code>Buscador</code>, <code>SelectorDeVista</code>, la tabla de hu-kit, <code>Estado</code>, <code>MenuDeAcciones</code> en cada fila y <code>Paginador</code>.</figcaption>
+                </figure>
+
+                <figure class="space-y-2">
+                    <img src="capturas/formulario.png" alt="Formulario de un pedido" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Un formulario.</strong> <code>Input</code>, <code>Select</code>, <code>SelectorFecha</code>, <code>Checkbox</code> y <code>Textarea</code>, con su etiqueta, su ayuda y su error. Arriba, un aviso <code>Flash</code> que dejó el servidor.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/detalle.png" alt="Detalle de un pedido" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Un detalle.</strong> <code>Solapas</code> para las partes del pedido, <code>Alerta</code>, <code>Dato</code> para cada valor de la ficha y <code>MenuDeAcciones</code> para lo que no entra como botón.</figcaption>
+                </figure>
+
+                <figure class="space-y-2">
+                    <img src="capturas/confirmacion.png" alt="Confirmación de una acción destructiva" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Confirmar antes de borrar.</strong> <code>ModalConfirmar</code> con <code>useConfirmacion</code>: toda acción destructiva pregunta antes. Nunca <code>window.confirm()</code>.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/avisos.png" alt="Avisos" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Los avisos.</strong> Arriba, los cuatro tipos de <code>Flash</code> (éxito, error, aviso, información). Abajo a la derecha, <code>AvisoFlotante</code>, para las pantallas donde un aviso arriba no se vería.</figcaption>
+                </figure>
+
+                <figure class="space-y-2">
+                    <img src="capturas/listado-oscuro.png" alt="Listado en modo oscuro" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">El modo oscuro.</strong> Lo trae cada pieza: el sistema no escribe nada para tenerlo. No se guarda entre sesiones, porque las computadoras del hospital son compartidas.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <div class="grid grid-cols-[1fr_auto] items-start gap-6">
+                    <figure class="space-y-2">
+                        <img src="capturas/detalle-oscuro.png" alt="Detalle en modo oscuro" class="rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">El detalle, en oscuro.</strong></figcaption>
+                    </figure>
+                    <figure class="w-44 space-y-2">
+                        <img src="capturas/celular.png" alt="Listado en un celular" class="rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">En un celular.</strong> El menú lateral se esconde detrás del botón de arriba a la izquierda, y la tabla se desplaza de costado.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 3. Las piezas -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">3 · Las piezas</p>
+                <h2 class="text-3xl font-black text-primary">Qué hay en la caja</h2>
+                <p>Todo se importa de <code class="font-semibold">hu-kit/componentes</code>. Si lo que vas a armar está acá, se importa: copiarlo es lo que hace que dos sistemas terminen distintos.</p>
+                <pre class="rounded-xl bg-canvas p-3 font-mono text-xs text-primary">import { Boton, Tarjeta, Estado } from 'hu-kit/componentes';</pre>
+
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Pieza</th>
+                            <th class="py-2 font-semibold">Qué es y cuándo se usa</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft">
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MarcoApp</td><td class="py-1.5">El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y avisos. Cada sistema lo envuelve en su <code>AppLayout</code>.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">PanelAutenticacion</td><td class="py-1.5">La pantalla de ingreso.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Boton</td><td class="py-1.5">Todos los botones. Redondo del todo para confirmar o enviar; esquinas de 12 px para navegar o elegir.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Input · Select · Textarea · Checkbox</td><td class="py-1.5">Los campos de un formulario, con su etiqueta, su ayuda y su error.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">SelectorFecha</td><td class="py-1.5">El único calendario. Nunca el <code>type="date"</code> del navegador.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Buscador</td><td class="py-1.5">El campo de búsqueda con lupa y botón para borrar.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">PasswordInput · Campo</td><td class="py-1.5">La contraseña con el ojito, adentro de <code>Campo</code>, que pone la etiqueta y el error a un control propio.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Tarjeta</td><td class="py-1.5">El contenedor de todo contenido, con título, contador y acciones.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Estado</td><td class="py-1.5">La píldora de estado: éxito, error, aviso, información o neutro.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Alerta</td><td class="py-1.5">Un aviso dentro de la pantalla.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">EstadoVacio · Cargando</td><td class="py-1.5">Lo que se ve cuando no hay nada, y mientras algo llega.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Dato · Rotulo · Metrica</td><td class="py-1.5">Un valor de una ficha; el rótulo chico en mayúsculas; el número grande de un tablero.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Tabla · Paginador</td><td class="py-1.5">Las clases de una tabla de datos y la paginación, a partir del paginador de Laravel.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Solapas · SelectorDeVista</td><td class="py-1.5">Las partes de una pantalla larga; ver lo mismo de otra forma (mes, semana, día).</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MenuDeAcciones</td><td class="py-1.5">Las acciones que no entran como botón, detrás de los tres puntos.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Flash · AvisoFlotante</td><td class="py-1.5">Los mensajes que deja el servidor después de una acción.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Modal · ModalConfirmar</td><td class="py-1.5">Un formulario corto en un diálogo; la confirmación de una acción destructiva.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">SelectorDeArchivo · BarraDeProgreso</td><td class="py-1.5">Elegir un archivo (en el celular, también sacar una foto) y ver cuánto lleva la subida.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Icono · ApplicationLogo</td><td class="py-1.5">Los íconos de Material Symbols y el logo del hospital.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">institucional</td><td class="py-1.5">La dirección, el teléfono, el correo y el WhatsApp de turnos del hospital, en un solo lugar.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/botones.png" alt="Botones" class="rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Botones</strong>, en el catálogo: sus dos formas, sus colores y sus tamaños.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/campos.png" alt="Campos" class="mx-auto max-h-[255mm] rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Campos</strong>, con su ayuda y su error.</figcaption>
+                </figure>
+            </section>
+
+            <section class="pagina space-y-5">
+                <figure class="space-y-2">
+                    <img src="capturas/contenido.png" alt="Piezas de contenido" class="mx-auto max-h-[255mm] rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Contenido</strong>: tarjetas, estados, alertas, vacío, cargando, datos, métricas y tabla.</figcaption>
+                </figure>
+            </section>
+
+            <!-- 4. Crear un sistema nuevo -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">4 · Un sistema nuevo</p>
+                <h2 class="text-3xl font-black text-primary">Arrancar «Farmacia HU»</h2>
+                <p>Supongamos que hay que hacer un sistema nuevo para Farmacia. Así se arranca.</p>
+
+                <div class="bloque rounded-2xl border-2 border-dashed border-secondary p-5">
+                    <h3 class="text-lg font-black text-primary">Con hu-plantilla <span class="text-sm font-semibold text-secondary-dark">· cuando exista</span></h3>
+                    <ol class="mt-3 list-decimal space-y-3 pl-5 text-sm">
+                        <li>En GitHub, en <code>mauroas7/hu-plantilla</code>, tocar <strong class="font-semibold">«Use this template»</strong> y crear el repo <code>farmaciahu</code>.</li>
+                        <li>
+                            Clonarlo e instalarlo:
+                            <pre class="mt-2 rounded-xl bg-canvas p-3 font-mono text-xs text-primary">git clone https://github.com/mauroas7/farmaciahu.git C:\laragon\www\farmaciahu
+cd C:\laragon\www\farmaciahu
+composer install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run dev</pre>
+                        </li>
+                        <li>Abrir <code>http://farmaciahu.test</code> (Laragon lo publica solo): ya aparece el ingreso del HU, con el menú lateral y el modo oscuro andando.</li>
+                        <li>
+                            Cambiar las cinco cosas propias del sistema:
+                            <ul class="mt-1 list-disc space-y-0.5 pl-5">
+                                <li>el nombre, en <code>.env</code> (<code>APP_NAME</code>);</li>
+                                <li>el texto del ingreso, en <code>Components/UI/PanelDeIngreso.jsx</code>;</li>
+                                <li>las opciones del menú, en <code>data/navegacion.js</code>;</li>
+                                <li>los roles, en <code>app/Enums/Rol.php</code>;</li>
+                                <li>el <code>README.md</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>php artisan test</code> tiene que dar verde: trae los tests que vigilan las convenciones.</li>
+                        <li>Para la primera pantalla, abrir el catálogo, elegir las piezas y armar la página con ellas. No hay colores ni estilos que decidir.</li>
+                    </ol>
+                </div>
+
+                <div class="bloque rounded-2xl border border-brandText-soft p-5">
+                    <h3 class="text-lg font-black text-primary">Mientras no exista la plantilla</h3>
+                    <p class="mt-1 text-sm">
+                        Es el camino largo, el que siguió Bienes HU: un Laravel con Inertia y React (por ejemplo, con Breeze), sacarle lo que no se
+                        usa y conectarle hu-kit. Conectar hu-kit son cuatro archivos:
+                    </p>
+                    <pre class="mt-3 rounded-xl bg-canvas p-3 font-mono text-xs text-primary">npm install hu-kit@github:mauroas7/hu-kit#v1.8.1</pre>
+                    <div class="mt-3 space-y-3">
+                        <pre class="rounded-xl bg-canvas p-3 font-mono text-[8pt] leading-snug text-primary">// tailwind.config.js
+import huKit from 'hu-kit/tailwind';
+
+export default {
+    presets: [huKit],
+    content: [
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.{js,jsx}',
+        './node_modules/hu-kit/componentes/**/*.{js,jsx}',
+    ],
+};</pre>
+                        <pre class="rounded-xl bg-canvas p-3 font-mono text-[8pt] leading-snug text-primary">/* resources/css/app.css */
+@import 'hu-kit/estilos.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;</pre>
+                    </div>
+                    <pre class="mt-3 rounded-xl bg-canvas p-3 font-mono text-[8pt] leading-snug text-primary">// resources/js/app.jsx: la red de errores, el modo oscuro y el color de la barra de carga
+import { ErrorBoundary, ThemeProvider } from 'hu-kit/componentes';
+import { colores } from 'hu-kit/tokens';
+…
+root.render(
+    &lt;ErrorBoundary onError={registrarError}&gt;
+        &lt;ThemeProvider usuarioInicial={props.initialPage.props.auth?.usuario?.id ?? null}&gt;
+            &lt;App {...props} /&gt;
+        &lt;/ThemeProvider&gt;
+    &lt;/ErrorBoundary&gt;,
+);
+…
+progress: { color: colores.secondary.DEFAULT },</pre>
+                    <p class="mt-3 text-sm">Y el puente <code>AppLayout</code> de la página siguiente.</p>
+                </div>
+            </section>
+
+            <section class="pagina space-y-5">
+                <h3 class="text-xl font-black text-primary">El puente: el AppLayout de cada sistema</h3>
+                <p class="text-sm">
+                    <code>MarcoApp</code> no sabe nada de un sistema en particular: recibe el menú, el usuario y los enlaces ya armados. Cada sistema
+                    tiene un <code>AppLayout</code> de unas 25 líneas que se los pasa, y sus páginas usan sólo ese <code>AppLayout</code>.
+                </p>
+                <pre class="rounded-xl bg-canvas p-3 font-mono text-[8pt] leading-snug text-primary">// resources/js/Components/UI/AppLayout.jsx
+import { usePage } from '@inertiajs/react';
+import { MarcoApp, rutaActiva } from 'hu-kit/componentes';
+import { seccionesDelRol } from '@/utils/secciones';
+
+const SISTEMA = { nombre: 'Farmacia HU', bajada: 'Pedidos y stock de farmacia' };
+
+export default function AppLayout({ titulo, subtitulo = null, ancho = 'completo', children }) {
+    const { usuario } = usePage().props.auth;
+
+    // El menú es de cada sistema: acá se filtra por rol y se le pone a cada opción su dirección.
+    const secciones = seccionesDelRol(usuario?.rol).map((seccion) => ({
+        ...seccion,
+        href: seccion.ruta &amp;&amp; route(seccion.ruta),
+        activa: Boolean(seccion.ruta) &amp;&amp; rutaActiva(seccion.activaEn ?? seccion.ruta),
+    }));
+
+    return (
+        &lt;MarcoApp
+            titulo={titulo} subtitulo={subtitulo} ancho={ancho}
+            secciones={secciones}
+            inicio={route('inicio')}
+            sistema={SISTEMA}
+            usuario={usuario &amp;&amp; { nombre: usuario.nombre, email: usuario.email, rol: usuario.rolEtiqueta }}
+            enlaces={[{ etiqueta: 'Mi cuenta', icono: 'manage_accounts', href: route('cuenta') }]}
+            salir={route('logout')}
+        &gt;
+            {children}
+        &lt;/MarcoApp&gt;
+    );
+}</pre>
+                <pre class="rounded-xl bg-canvas p-3 font-mono text-[8pt] leading-snug text-primary">// resources/js/data/navegacion.js: el menú, sin lógica
+export const SECCIONES = [
+    { etiqueta: 'Tablero', icono: 'monitoring', ruta: 'tablero', roles: ['farmacia'] },
+    { etiqueta: 'Pedidos', icono: 'list_alt', ruta: 'pedidos.index', activaEn: 'pedidos.', roles: [] },
+    { etiqueta: 'Usuarios', icono: 'manage_accounts', ruta: 'admin.usuarios.index', titulo: 'Administración', roles: ['admin'] },
+];</pre>
+                <div class="bloque rounded-2xl bg-primary-faint p-5 text-sm">
+                    <p class="font-semibold text-primary">Lo que el backend tiene que compartir</p>
+                    <p class="mt-1">
+                        <code>HandleInertiaRequests::share()</code> manda <code>auth.usuario</code> (con <code>id</code>, <code>nombre</code>,
+                        <code>email</code>, <code>rol</code> y <code>rolEtiqueta</code>) y <code>flash</code> con <code>exito</code>, <code>error</code>,
+                        <code>aviso</code> e <code>info</code>. Con eso andan el marco, el menú de la cuenta, el modo oscuro y los avisos.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 5. Acoplar a un sistema existente -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">5 · Un sistema que ya existe</p>
+                <h2 class="text-3xl font-black text-primary">Acoplar hu-kit: el caso de Bienes HU</h2>
+                <p>
+                    Bienes HU ya usaba hu-kit, pero tenía su propio menú lateral, copiado de quirofanohu, que en dos días ya se había separado del
+                    original. Con la versión 1.8.1 ese marco pasa a hu-kit. Así se hizo, paso a paso:
+                </p>
+
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Paso</th>
+                            <th class="w-48 py-2 pr-3 font-semibold">Quién</th>
+                            <th class="py-2 font-semibold">Qué pasa</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft align-top">
+                        <tr><td class="py-2 pr-3 font-black text-primary">1</td><td class="py-2 pr-3">Quien mantiene hu-kit</td><td class="py-2">Arma las piezas nuevas y las mira en el catálogo, en claro y en oscuro.</td></tr>
+                        <tr><td class="py-2 pr-3 font-black text-primary">2</td><td class="py-2 pr-3">Quien mantiene hu-kit</td><td class="py-2">Instala en el sistema una versión de prueba, sin publicar, y cambia sus archivos (tabla de abajo).</td></tr>
+                        <tr><td class="py-2 pr-3 font-black text-primary">3</td><td class="py-2 pr-3">Los dos</td><td class="py-2">Prueban que compile, que pasen los tests y que el sistema se vea igual que antes. Si algo falla, se corrige en hu-kit y se repite el paso 2.</td></tr>
+                        <tr><td class="py-2 pr-3 font-black text-primary">4</td><td class="py-2 pr-3">Quien mantiene hu-kit</td><td class="py-2">Publica la versión: commit, tag <code>v1.8.1</code> y push. Un tag publicado no se mueve nunca.</td></tr>
+                        <tr><td class="py-2 pr-3 font-black text-primary">5</td><td class="py-2 pr-3">Quien trabaja en el sistema</td><td class="py-2">Apunta el sistema a la versión oficial y hace su commit.</td></tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+            <section class="pagina space-y-5">
+                <h3 class="text-lg font-black text-primary">Los comandos</h3>
+                <pre class="rounded-xl bg-canvas p-3 font-mono text-xs text-primary">REM paso 2, la versión de prueba (desde hu-kit y desde el sistema)
+npm pack --pack-destination %TEMP%
+npm install %TEMP%\hu-kit-1.8.1.tgz
+npx vite --force
+
+REM paso 5, la versión oficial (desde el sistema)
+npm install hu-kit@github:mauroas7/hu-kit#v1.8.1</pre>
+
+                <h3 class="text-lg font-black text-primary">Qué cambió adentro de Bienes HU</h3>
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Archivo</th>
+                            <th class="py-2 pr-3 font-semibold">Antes</th>
+                            <th class="py-2 font-semibold">Después</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft align-top">
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Components/UI/AppLayout.jsx</td><td class="py-1.5 pr-3">119 líneas: el marco entero</td><td class="py-1.5">El puente a <code>MarcoApp</code></td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Components/UI/Nav.jsx</td><td class="py-1.5 pr-3">53 líneas</td><td class="py-1.5">Se borra: lo trae hu-kit</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Components/UI/MenuDeUsuario.jsx</td><td class="py-1.5 pr-3">69 líneas</td><td class="py-1.5">Se borra</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Components/UI/Flash.jsx</td><td class="py-1.5 pr-3">17 líneas</td><td class="py-1.5">Se borra</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Components/UI/Dato.jsx</td><td class="py-1.5 pr-3">16 líneas</td><td class="py-1.5">Se borra: <code>Dato</code> pasó a hu-kit</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">utils/rutas.js</td><td class="py-1.5 pr-3">33 líneas</td><td class="py-1.5">Se borra: <code>rutaActiva</code> está en hu-kit</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">data/navegacion.js</td><td class="py-1.5 pr-3">El menú</td><td class="py-1.5">Igual: el menú es de cada sistema</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-mono text-xs">Las 11 páginas</td><td class="py-1.5 pr-3">—</td><td class="py-1.5">No se tocan</td></tr>
+                    </tbody>
+                </table>
+                <p class="text-sm">El resultado: el sistema se ve igual, pero el marco ya no es una copia. Si mañana cambia el menú de la cuenta en hu-kit, todos los sistemas lo reciben al subir de versión.</p>
+            </section>
+
+            <!-- 6. El día a día -->
+            <section class="pagina space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">6 · El día a día</p>
+                <h2 class="text-3xl font-black text-primary">Trabajar con hu-kit</h2>
+
+                <div class="bloque space-y-2">
+                    <h3 class="text-lg font-black text-primary">Hacer una pantalla</h3>
+                    <p class="text-sm">Abrir el catálogo, buscar las piezas que hacen falta e importarlas. Si una pantalla del catálogo se parece a la que vas a hacer, copiá su forma: está en <code>catalogo/ejemplos/</code>.</p>
+                </div>
+
+                <div class="bloque space-y-2">
+                    <h3 class="text-lg font-black text-primary">Falta una pieza</h3>
+                    <p class="text-sm">La pregunta es una sola: <strong class="font-semibold">¿la va a usar otro sistema?</strong></p>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="rounded-xl bg-primary-faint p-4">
+                            <p class="font-black text-primary">Sí → va a hu-kit</p>
+                            <p class="mt-1">Se agrega en <code>componentes/</code>, con su ejemplo en el catálogo, su fila en el README y su entrada en el CHANGELOG. Se publica una versión nueva y el sistema la instala.</p>
+                        </div>
+                        <div class="rounded-xl bg-canvas p-4">
+                            <p class="font-black text-primary">No → queda en el sistema</p>
+                            <p class="mt-1">Se hace en <code>resources/js/Components/</code> del sistema, armada con piezas de hu-kit. Si después aparece en un segundo sistema, recién ahí sube.</p>
+                        </div>
+                    </div>
+                    <p class="text-sm">Lo mismo con un color: si falta un tono, se agrega con nombre en hu-kit. Nunca un color escrito a mano (<code>bg-[#…]</code>).</p>
+                </div>
+
+                <div class="bloque space-y-2">
+                    <h3 class="text-lg font-black text-primary">Subir la versión de hu-kit en un sistema</h3>
+                    <pre class="rounded-xl bg-canvas p-3 font-mono text-xs text-primary">npm install hu-kit@github:mauroas7/hu-kit#vX.Y.Z
+npm run build
+php artisan test</pre>
+                    <p class="text-sm">Antes, leer en el CHANGELOG de hu-kit qué trae la versión y si pide algo «al subir». Cambiar el número a mano en <code>package.json</code> no alcanza: el lock se queda con la versión vieja.</p>
+                </div>
+
+                <div class="bloque space-y-2">
+                    <h3 class="text-lg font-black text-primary">Publicar una versión de hu-kit (quien lo mantiene)</h3>
+                    <ol class="list-decimal space-y-1 pl-5 text-sm">
+                        <li>Probarla en un sistema con la versión de prueba (<code>npm pack</code>), como en el paso 2 de la sección anterior.</li>
+                        <li>Subir <code>version</code> en <code>package.json</code> y anotar la versión arriba de todo en <code>CHANGELOG.md</code>.</li>
+                        <li>Si cambió alguna pieza, <code>npm run guia</code> vuelve a sacar las capturas y este PDF.</li>
+                        <li>Commit, tag anotado con el mismo número y push: <code>git tag -a vX.Y.Z -m vX.Y.Z</code> y <code>git push origin main vX.Y.Z</code>.</li>
+                        <li>Si cambiaron las skills de Claude, volver a correr <code>instalar.ps1</code>.</li>
+                    </ol>
+                    <p class="text-sm">Un error en una versión publicada se arregla publicando la siguiente: un tag no se mueve ni se borra.</p>
+                </div>
+            </section>
+
+            <!-- 7. Dónde va cada cosa -->
+            <section class="pagina space-y-3">
+                <p class="text-sm font-semibold uppercase tracking-widest text-secondary-dark">7 · Referencia</p>
+                <h2 class="text-3xl font-black text-primary">Dónde va cada cosa</h2>
+
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Si lo que vas a agregar es…</th>
+                            <th class="py-2 font-semibold">Va en</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft align-top">
+                        <tr><td class="py-1 pr-3">Un color, una fuente, un ícono, una capa, una animación</td><td class="py-1 font-semibold text-primary">hu-kit, en el preset</td></tr>
+                        <tr><td class="py-1 pr-3">Una pieza de pantalla que se ve igual en todos y no conoce el dominio</td><td class="py-1 font-semibold text-primary">hu-kit, en componentes</td></tr>
+                        <tr><td class="py-1 pr-3">Una regla de cómo se programa (capas, errores, comentarios)</td><td class="py-1 font-semibold text-primary">hu-kit, en las skills; su test, en la plantilla</td></tr>
+                        <tr><td class="py-1 pr-3">El arranque que después cada sistema adapta: login, roles, tests, docs</td><td class="py-1 font-semibold text-primary">hu-plantilla</td></tr>
+                        <tr><td class="py-1 pr-3">El dominio: cirugías, bienes, pedidos; su menú y sus pantallas</td><td class="py-1 font-semibold text-primary">El sistema</td></tr>
+                        <tr><td class="py-1 pr-3">Documentación privada de terceros, o el Manual de Marca</td><td class="py-1 font-semibold text-primary">hu-referencias (privado)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-xl font-black text-primary">La marca, en cinco reglas</h3>
+                <div class="bloque grid grid-cols-3 gap-3">
+                    <div class="overflow-hidden rounded-xl border border-brandText-soft">
+                        <div class="h-9 bg-primary"></div>
+                        <p class="p-2 text-xs"><strong class="font-semibold text-primary">primary</strong> · #003764<br />Pantone 2955 C</p>
+                    </div>
+                    <div class="overflow-hidden rounded-xl border border-brandText-soft">
+                        <div class="h-9 bg-secondary"></div>
+                        <p class="p-2 text-xs"><strong class="font-semibold text-primary">secondary</strong> · #C7A36E<br />Pantone 465 M</p>
+                    </div>
+                    <div class="overflow-hidden rounded-xl border border-brandText-soft">
+                        <div class="h-9 bg-brandText"></div>
+                        <p class="p-2 text-xs"><strong class="font-semibold text-primary">brandText</strong> · #59595B<br />El gris del logotipo</p>
+                    </div>
+                </div>
+                <ol class="list-decimal space-y-1 pl-5 text-sm">
+                    <li><strong class="font-semibold">Tres colores, y sus derivados con nombre.</strong> Nunca un color escrito a mano. Todo texto llega a un contraste de 4,5:1: el dorado sobre fondo claro es <code>secondary-dark</code>.</li>
+                    <li><strong class="font-semibold">Montserrat, en tres pesos:</strong> 400, 600 y 900 (<code>font-normal</code>, <code>font-semibold</code>, <code>font-black</code>). Nunca <code>font-bold</code> ni <code>font-medium</code>.</li>
+                    <li><strong class="font-semibold">Dos formas de botón:</strong> redondo del todo para confirmar o enviar; esquinas de 12 px para navegar o elegir.</li>
+                    <li><strong class="font-semibold">Íconos Material Symbols Outlined:</strong> rellenos sólo en la sección en la que estás parado.</li>
+                    <li><strong class="font-semibold">Español rioplatense, con voseo:</strong> «podés», «tenés», «elegí». Frases cortas, sin signos de exclamación.</li>
+                </ol>
+
+            </section>
+
+            <section class="pagina space-y-4">
+                <h3 class="text-xl font-black text-primary">Dónde está cada cosa</h3>
+                <table class="w-full text-sm">
+                    <tbody class="divide-y divide-brandText-soft align-top">
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">hu-kit</td><td class="py-1"><code>github.com/mauroas7/hu-kit</code>; en la máquina, <code>C:\laragon\www\hu-kit</code></td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">El catálogo</td><td class="py-1"><code>npm run catalogo</code>, dentro de hu-kit</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Esta guía</td><td class="py-1"><code>docs/guia-hu-kit.pdf</code>, dentro de hu-kit; se regenera con <code>npm run guia</code></td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">El Manual de Marca</td><td class="py-1"><code>manual-de-marca/</code>, en el repo privado <code>hu-referencias</code></td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Qué trae cada versión</td><td class="py-1"><code>CHANGELOG.md</code>, dentro de hu-kit</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Las reglas de backend y de marca</td><td class="py-1"><code>skills/arquitectura-hu/</code> y <code>skills/marca-hu/</code>, dentro de hu-kit. Se leen como documentación; quien usa Claude Code las instala con <code>instalar.ps1</code></td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </body>
+</html>

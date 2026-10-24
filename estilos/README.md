@@ -13,7 +13,8 @@ lugar.
 
 | Archivo | Qué es |
 |---|---|
-| `tailwind.js` | Preset de Tailwind 3: colores, Montserrat, capas (`z-dropdown`, `z-modal`, `z-flotante`, `z-toast`), `animate-fade-in`, `scale-98`, los degradés `bg-glow-white` y `bg-glow-secondary` del panel de ingreso, los espaciados `etiqueta` y `control` de `Campo`, el plugin `@tailwindcss/forms`, `darkMode: 'class'` y `hover` sólo con puntero |
+| `tokens.js` | Los colores de la marca, con su porqué. El preset los toma de acá, y un sistema los importa con `hu-kit/tokens` para lo que no lee clases, como la barra de progreso de Inertia |
+| `tailwind.js` | Preset de Tailwind 3: colores (de `tokens.js`), Montserrat, capas (`z-dropdown`, `z-modal`, `z-flotante`, `z-toast`), `animate-fade-in`, `scale-98`, los degradés `bg-glow-white` y `bg-glow-secondary` del panel de ingreso, los espaciados `etiqueta` y `control` de `Campo`, el plugin `@tailwindcss/forms`, `darkMode: 'class'` y `hover` sólo con puntero |
 | `estilos.css` | Montserrat 400/600/900, Material Symbols Outlined, el anillo de foco, `.titulo-corto` y el apagado de movimiento con `prefers-reduced-motion` |
 | `fuentes/` | Material Symbols Outlined, la fuente variable completa, de Google; su licencia (Apache 2.0) en `fuentes/LICENSE` |
 
@@ -50,6 +51,19 @@ export default {
 
 Los íconos se dibujan con la clase `material-symbols-outlined` (y `relleno` para
 la sección activa). En React, mejor un componente `Icono` que la ponga.
+
+Lo que no lee clases de Tailwind toma el color de `hu-kit/tokens`, nunca un hex
+copiado:
+
+```js
+// resources/js/app.jsx
+import { colores } from 'hu-kit/tokens';
+
+createInertiaApp({
+    // …
+    progress: { color: colores.secondary.DEFAULT },
+});
+```
 
 ## Versiones
 

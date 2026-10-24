@@ -5,8 +5,8 @@ description: Aplica el Manual de Marca del Hospital Universitario (colores, tipo
 
 # Marca del Hospital Universitario
 
-Esta skill destila el Manual de Marca HU (10 páginas, vive en
-`portal-hospital/docs/manuales/Manual de Marca HU.pdf`, fuera de ese repo) más
+Esta skill destila el Manual de Marca HU (10 páginas, vive en el repo privado
+`hu-referencias`, en `manual-de-marca/`) más
 cómo lo implementa **portal-hospital** — el sistema que más fielmente lo
 respeta — y cómo lo adoptó **quirofanohu/StartMed**.
 
@@ -44,16 +44,22 @@ quirofanohu ya usa el paquete; portal-hospital todavía tiene su
 
 ## Los componentes se importan, no se copian
 
-El mismo paquete trae los componentes de React (`hu-kit/componentes`): los de
+El mismo paquete trae los componentes de React (`hu-kit/componentes`): el marco
+de la app (`MarcoApp`, con `MenuDeUsuario` y `Flash`, más `rutaActiva`), los de
 formulario (`Boton`, `Campo`, `Input`, `PasswordInput`, `Select`, `Textarea`,
-`Checkbox`, `SelectorFecha`), los de contenido (`Tarjeta`, `Estado`,
-`EstadoVacio`, `Alerta`, `Rotulo`, `Metrica`, `Paginador`, las clases de
-tabla), los modales (`Modal`, `ModalConfirmar` con `useConfirmacion`) y
-`Icono`, `ApplicationLogo`, `PanelAutenticacion`, `ErrorBoundary` y el tema
-(`ThemeProvider`, `useTheme`, `ThemeToggle`). Si lo que vas a armar es uno de
-éstos, se importa: copiarlo es lo que hace que dos sistemas terminen distintos. El catálogo y lo que pide el sistema (la línea de
-`content` de Tailwind) están en el `README.md` de `hu-kit`; las clases de cada
-uno, en `references/componentes.md`.
+`Checkbox`, `SelectorFecha`, `Buscador`), los de contenido (`Tarjeta`,
+`Estado`, `EstadoVacio`, `Cargando`, `Alerta`, `Rotulo`, `Dato`, `Metrica`,
+`Paginador`, las clases de tabla), la navegación (`Solapas`,
+`SelectorDeVista`, `MenuDeAcciones` con `ItemDeMenu`), los avisos
+(`AvisoFlotante`), los modales (`Modal`, `ModalConfirmar` con
+`useConfirmacion`), los archivos (`SelectorDeArchivo`, `useSubidaDeArchivo`,
+`BarraDeProgreso`) y `Icono`, `ApplicationLogo`, `PanelAutenticacion`,
+`ErrorBoundary`, `institucional` y el tema (`ThemeProvider`, `useTheme`,
+`ThemeToggle`). Si lo que vas a armar es uno de éstos, se importa: copiarlo es
+lo que hace que dos sistemas terminen distintos. Cómo se ven, en el catálogo de
+`hu-kit` (`npm run catalogo`); qué pide el sistema (la línea de `content` de
+Tailwind, el `AppLayout` sobre `MarcoApp`), en su `README.md`; las clases de
+cada uno, en `references/componentes.md`.
 
 ## Qué leer según lo que estés por tocar
 

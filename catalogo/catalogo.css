@@ -1,0 +1,5 @@
+@import '../estilos/estilos.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

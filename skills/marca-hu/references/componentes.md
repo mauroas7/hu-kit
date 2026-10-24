@@ -120,6 +120,57 @@ La trae el preset de `hu-kit`. No inventes un número suelto (`z-[9999]`,
 elevación dentro de una tarjeta o un header: esos no compiten con nada fuera
 de su propio contenedor.
 
+## Marco de la app
+
+En React es `MarcoApp` de `hu-kit/componentes`, envuelto en un `AppLayout` de
+cada sistema que le pasa lo suyo ya resuelto: las `secciones` del menú
+filtradas por rol, con su `href` (`route()`) y si están `activa`
+(`rutaActiva`), el `usuario`, los `enlaces` de su menú y la ruta de `salir`.
+Las páginas usan sólo ese `AppLayout`, con `titulo`, `subtitulo` y `ancho`
+(`completo`, `lectura` o `formulario`). Un ejemplo completo está en el README de
+`hu-kit` y en la guía.
+
+Lo que fija, para Blade o para revisar una pantalla:
+
+- Barra lateral `w-64 bg-primary`, fija en escritorio (`lg:sticky lg:h-screen`)
+  y escondida en el celular detrás del botón de menú, con el fondo
+  `bg-primary-dark/50` detrás. Arriba, el logo blanco; abajo, el nombre del
+  sistema y su bajada en `text-white/70`.
+- Cada sección: `rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
+  `hover:bg-white/5`; la activa, `bg-white/10 font-semibold text-white`, con el
+  ícono relleno y una raya dorada `h-5 w-1 bg-secondary` a la derecha. Un
+  `titulo` abre un grupo con una línea y un rótulo `text-xs uppercase
+  tracking-widest`. Una sección sin `href` va atenuada (`text-white/35`).
+- Encabezado `sticky top-0 z-dropdown`, blanco (`surface-dark` en oscuro), con
+  el título en `.titulo-corto text-base text-primary`, el `ThemeToggle` y el
+  menú de la cuenta: nombre en `font-black uppercase`, el detalle en
+  `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
+  bg-primary`.
+- El contenido entra con `animate-fade-in` y arranca con los avisos de `Flash`.
+
+## Solapas, selector de vista y menú de acciones
+
+- **`Solapas`**: una raya `border-b` con las partes de la pantalla; la activa
+  lleva `border-b-2 border-secondary`, texto `primary` e ícono relleno. Con
+  `href`, cada solapa reemplaza a la anterior en el historial: «Volver» sale de
+  la pantalla, no recorre las solapas.
+- **`SelectorDeVista`**: opciones pegadas en una caja `rounded-xl border p-1`;
+  la elegida, `bg-primary text-white`. Para ver lo mismo de otra forma (Mes /
+  Semana / Día), no para navegar a otra cosa.
+- **`MenuDeAcciones`**: los tres puntos en un cuadrado del alto de un control
+  (`size-control rounded-xl border`), y un panel anclado que flota (`anchor`,
+  `z-flotante`), así una tabla con scroll no lo recorta. Las acciones van como
+  `ItemDeMenu`; `peligro` las pinta de rojo y `separado` las aparta con una raya.
+  Lo que se hace seguido va como `Boton` al lado, no escondido acá.
+
+## Archivos
+
+`SelectorDeArchivo` es un `Boton` (`forma="grupo"`, `tamano="tactil"`) que en
+computadora abre el explorador y en el celular ofrece «Sacar una foto» o
+«Elegir un archivo». `useSubidaDeArchivo` sube de a uno con `router.post` y
+`forceFormData`, y da el progreso para una `BarraDeProgreso` (`role=
+"progressbar"`) y el error de la fila que la pidió.
+
 ## Layout de pantallas de autenticación
 
 El login del portal de pacientes (`portal-hospital/resources/js/Pages/Auth/Login.jsx`)

@@ -17,7 +17,8 @@ distinto"*. Un tono derivado nuevo se agrega con nombre al preset de `hu-kit`
 
 ## Paleta completa
 
-La paleta es la del preset de `hu-kit` (`hu-kit/estilos/tailwind.js`): no se
+La paleta es la del preset de `hu-kit` (los valores, en `hu-kit/estilos/tokens.js`;
+para JavaScript, `import { colores } from 'hu-kit/tokens'`): no se
 copia a cada sistema, se instala. Éstos son sus valores; para cambiar uno o
 agregar un tono, se cambia ahí y se publica un tag nuevo.
 

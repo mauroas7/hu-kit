@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { router } from '@inertiajs/react';
 
 /**
  * El modo claro/oscuro. No se persiste: las máquinas del hospital son
@@ -7,15 +8,30 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
  */
 const ThemeContext = createContext({ theme: 'light', alternar: () => {} });
 
-export function ThemeProvider({ usuarioInicial = null, children }) {
-    const [theme, setTheme] = useState('light');
-    const [usuario, setUsuario] = useState(usuarioInicial);
+const usuarioDeAuth = (pagina) => pagina?.props?.auth?.usuario?.id ?? null;
 
-    // Cambió de usuario: vuelve a claro, que es como arranca toda sesión.
-    if (usuario !== usuarioInicial) {
-        setUsuario(usuarioInicial);
-        setTheme('light');
-    }
+/**
+ * El provider va por encima de la app y no ve cambiar sus props: el usuario lo
+ * lee de cada página con `usuarioDe`, porque el login y el logout son visitas
+ * de Inertia que no recargan.
+ */
+export function ThemeProvider({ usuarioInicial = null, usuarioDe = usuarioDeAuth, children }) {
+    const [theme, setTheme] = useState('light');
+    const usuario = useRef(usuarioInicial);
+
+    useEffect(
+        () =>
+            router.on('navigate', (evento) => {
+                const actual = usuarioDe(evento.detail.page);
+
+                // Cambió de usuario: vuelve a claro, que es como arranca toda sesión.
+                if (actual !== usuario.current) {
+                    usuario.current = actual;
+                    setTheme('light');
+                }
+            }),
+        [usuarioDe],
+    );
 
     useEffect(() => {
         document.documentElement.classList.toggle('dark', theme === 'dark');

@@ -1,6 +1,6 @@
 {
     "name": "hu-kit",
-    "version": "1.7.0",
+    "version": "1.8.1",
     "description": "Sistema de diseño de los sistemas del Hospital Universitario: preset de Tailwind, estilos base, fuentes y componentes de React.",
     "license": "UNLICENSED",
     "private": true,
@@ -11,8 +11,14 @@
     ],
     "exports": {
         "./tailwind": "./estilos/tailwind.js",
+        "./tokens": "./estilos/tokens.js",
         "./estilos.css": "./estilos/estilos.css",
         "./componentes": "./componentes/index.js"
+    },
+    "scripts": {
+        "catalogo": "vite --config catalogo/vite.config.js",
+        "catalogo:build": "vite build --config catalogo/vite.config.js",
+        "guia": "node catalogo/guia/generar.mjs"
     },
     "dependencies": {
         "@fontsource/montserrat": "^5.3.0",
@@ -24,5 +30,17 @@
         "react": "^18.3.1",
         "react-day-picker": "^9.14.0",
         "tailwindcss": "^3.4.0"
+    },
+    "devDependencies": {
+        "@headlessui/react": "2.2.10",
+        "@inertiajs/react": "2.3.29",
+        "@vitejs/plugin-react": "4.7.0",
+        "autoprefixer": "10.4.21",
+        "postcss": "8.5.6",
+        "react": "18.3.1",
+        "react-day-picker": "9.14.0",
+        "react-dom": "18.3.1",
+        "tailwindcss": "3.4.19",
+        "vite": "7.3.7"
     }
 }

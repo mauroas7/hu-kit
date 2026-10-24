@@ -9,7 +9,8 @@ Hospital Universitario. Trae tres cosas:
   Uso, versiones y decisiones en [`estilos/README.md`](estilos/README.md); qué
   trae cada versión, en [`CHANGELOG.md`](CHANGELOG.md).
 - **`componentes/`, los componentes de React** que comparten los sistemas,
-  en el mismo paquete (`hu-kit/componentes`). Ver *Componentes*, abajo.
+  en el mismo paquete (`hu-kit/componentes`), con el marco de la app incluido.
+  Ver *Componentes*, abajo; se ven armados en el catálogo (*Catálogo y guía*).
 - **Dos skills de [Claude Code](https://claude.com/claude-code)**, para quien
   programa con Claude:
 
@@ -49,6 +50,9 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 
 | Componente | Qué es |
 |---|---|
+| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y `Flash`. Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*) |
+| `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
+| `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
 | `Boton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color y los tamaños, `ingreso` incluido |
 | `Campo`, `claseControl`, `descritoPor` | La etiqueta, la ayuda y el error de un campo, la clase del control y su `aria-describedby`, para un control propio adentro de `Campo`. Variantes `normal` e `ingreso` |
@@ -56,21 +60,37 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `Select` | El desplegable; recibe pares `[valor, etiqueta]` en el orden en que se muestran. Un mapa `{ valor: etiqueta }` con claves numéricas, como el de un `pluck('nombre', 'id')`, se muestra ordenado por clave |
 | `Checkbox`, `claseCasilla` | La casilla, y su clase para una casilla o un radio sueltos |
 | `SelectorFecha` | El único calendario: habla `YYYY-MM-DD`, nunca un `type="date"` del navegador |
+| `Buscador` | El campo de búsqueda con lupa y botón para borrar. `onChange` recibe el texto, como `SelectorFecha` |
 | `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera, y el marco para lo que no es una tarjeta con cabecera |
 | `Estado` | La píldora de estado, por tono (`exito`, `error`, `aviso`, `info`, `neutro`) |
 | `EstadoVacio` | Lo que se muestra cuando una lista o un paso no tienen nada |
+| `Cargando` | Lo que se muestra mientras llega algo; `enTarjeta` ocupa el lugar de una lista, también como `fallback` de un `<Deferred>` |
 | `Alerta` | El aviso en el flujo de la pantalla, por tipo. `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
+| `Flash` | Los mensajes de `flash` que dejó el controlador, como `Alerta`. `MarcoApp` ya lo trae |
+| `AvisoFlotante` | El mismo `flash`, flotando abajo: el éxito se va solo a los 5 s, un error queda hasta que se cierra |
 | `Rotulo` | El texto chico en mayúsculas que nombra lo que sigue |
+| `Dato` | Un dato de una ficha: el rótulo arriba y el valor, o `siFalta` atenuado |
 | `Metrica` | El número grande de un panel, con su etiqueta y su detalle |
 | `Paginador` | La paginación de un listado, a partir del paginador de Laravel |
 | `encabezadoTabla`, `cuerpoTabla`, `renglonTabla` | Las clases de una tabla de datos |
+| `Solapas` | Las partes de una pantalla larga. Con `href`, cada solapa reemplaza a la anterior en el historial; con `onClick`, cambia sin visitar |
+| `SelectorDeVista` | Opciones pegadas para ver lo mismo de otra forma (Mes / Semana / Día), con las mismas `opciones` que `Solapas` |
+| `MenuDeAcciones`, `ItemDeMenu` | Las acciones que no entran como botón, detrás de los tres puntos. El panel flota anclado: una tabla con scroll no lo recorta |
 | `Modal` | El diálogo para un formulario corto |
 | `ModalConfirmar`, `useConfirmacion` | La confirmación de una acción destructiva y su estado |
+| `SelectorDeArchivo` | El botón para elegir un archivo; en el celular ofrece también sacar una foto |
+| `useSubidaDeArchivo` | Una subida por vez con Inertia, con su progreso y el error de la fila que la pidió |
+| `BarraDeProgreso` | Cuánto lleva algo que tarda, de 0 a 100 |
 | `Icono` | Material Symbols Outlined; `relleno` para la sección activa |
 | `ApplicationLogo` | El isologotipo, con el archivo que corresponde a cada fondo |
-| `ThemeProvider`, `useTheme`, `ThemeToggle` | El modo claro/oscuro, sin persistir; el sistema monta el provider en `app.jsx` |
+| `ThemeProvider`, `useTheme`, `ThemeToggle` | El modo claro/oscuro, sin persistir; el sistema monta el provider en `app.jsx`. Vuelve a claro cuando cambia el usuario, que lee de cada página con `usuarioDe` (por defecto, `auth.usuario.id`) |
 | `ErrorBoundary` | La pantalla de error en vez de una página en blanco; envuelve la app en `app.jsx`. `onError(error, info)` le avisa al sistema, para registrarlo en su backend |
 | `aFecha`, `fechaCompleta`, `fechaIso` | Las fechas que usa `SelectorFecha`: leer una fecha sin correrse de día, mostrarla y volver a `YYYY-MM-DD` |
+| `institucional` | Los datos de contacto del hospital: dirección, teléfono, correo y WhatsApp de turnos. Si cambia uno, se publica una versión |
+
+Y fuera de los componentes, `hu-kit/tokens` exporta los `colores` del preset para
+lo que no lee clases, como la barra de progreso de Inertia
+(`colores.secondary.DEFAULT`).
 
 Viajan como código fuente (`.jsx`) y los compila el Vite del sistema, en el
 build y en desarrollo. Lo que pide el sistema que los usa:
@@ -84,6 +104,16 @@ build y en desarrollo. Lo que pide el sistema que los usa:
   y los hooks y contextos funcionan.
 - **El plugin `@tailwindcss/forms` ya viene en el preset**: el sistema no lo
   agrega en su config, o se registra dos veces.
+- **El backend comparte `auth.usuario` y `flash`** desde
+  `HandleInertiaRequests::share()`: `auth.usuario` con su `id` (lo lee el tema),
+  y `flash` con `exito`, `error`, `aviso` e `info` (los leen `Flash` y
+  `AvisoFlotante`).
+- **Un `AppLayout` propio sobre `MarcoApp`.** El marco no conoce el menú, los
+  roles ni las rutas de nadie. El sistema le pasa sus secciones con el `href`
+  ya armado con `route()` y `activa` con `rutaActiva`, el usuario, «Mi cuenta» y
+  la ruta de salida, y sus páginas usan sólo ese `AppLayout`. Un ejemplo
+  completo, en la guía (`docs/guia-hu-kit.pdf`) y en
+  `sistemabienes/resources/js/Components/UI/AppLayout.jsx`.
 
 Para probar en un sistema un cambio todavía sin publicar (`npm pack`, ver
 `estilos/README.md`), Vite se arranca con `npx vite --force`: si no, sigue
@@ -92,6 +122,37 @@ hace falta, porque el cambio del lock lo obliga a rearmarlos.
 
 El stack de los sistemas es Laravel + Inertia 2 + React 18 + Tailwind 3. Lo que
 es propio de un sistema —su menú, sus pantallas, su dominio— no va acá.
+
+## Catálogo y guía
+
+**El catálogo** (`catalogo/`) es una página que muestra armadas todas las piezas,
+en claro y en oscuro, más las pantallas de un sistema inventado, «Pedidos HU»:
+un tablero, un listado, un formulario, un detalle y el ingreso. No tiene
+servidor: la página de Inertia se arma en el navegador y cada visita cambia de
+sección sin pedir nada. Sirve para mirar qué hay antes de armar una pantalla y
+para probar un cambio sin instalarlo en un sistema.
+
+```bash
+npm install
+npm run catalogo
+```
+
+Con `?seccion=listado&tema=oscuro` se abre directo una sección y un tema. No
+llega a los sistemas: `files` publica sólo `estilos/` y `componentes/`.
+
+**La guía** (`docs/guia-hu-kit.pdf`) es para el equipo, sin Claude de por
+medio: qué es cada pieza, cómo se ve un sistema del hospital, cómo se arranca
+uno nuevo y cómo se acopla hu-kit a uno que ya existe. La fuente es
+`catalogo/guia.html`, y las capturas salen del catálogo. Cuando cambia una
+pieza, se regenera:
+
+```bash
+npm run guia
+```
+
+Compila el catálogo, lo levanta, saca las capturas con Edge sin ventana e
+imprime la guía. Otro navegador basado en Chromium sirve igual, con su ruta en la
+variable `NAVEGADOR`.
 
 ## Instalar o actualizar las skills
 
@@ -106,13 +167,12 @@ mismo comando: no se propaga solo. Con `-Destino <proyecto>` las copia a
 
 ## Sobre el PDF del manual
 
-El Manual de Marca HU original (10 páginas) vive en
-`portal-hospital/docs/manuales/Manual de Marca HU.pdf`, fuera de ese repo
-(está en su `.gitignore`). No se copió acá para no duplicar un binario de
-~1.2MB en un segundo repo — `skills/marca-hu/references/` ya tiene todo lo que
-dice el manual transcripto y con ejemplos de código, así que no hace falta
-abrir el PDF para trabajar con esto. Si el manual cambia alguna vez, el lugar
-donde actualizar es acá.
+El Manual de Marca HU original (10 páginas) vive en el repo privado
+`hu-referencias`, en `manual-de-marca/`: este repo es público y el manual es un
+documento interno del hospital. `skills/marca-hu/references/` ya tiene todo lo
+que dice el manual transcripto y con ejemplos de código, así que no hace falta
+abrir el PDF para trabajar con esto. Si el manual cambia alguna vez, se
+reemplaza en `hu-referencias` y se actualiza acá lo que cambie.
 
 ## Qué falta
 
@@ -120,10 +180,13 @@ donde actualizar es acá.
   propio, con los valores de antes de la `v1.0.0` y sin los tonos de contraste.
   Adoptarlo es instalar la dependencia, cargar el preset y borrar lo que el
   paquete ya trae.
-- **El marco de la app** (`AppLayout`, la barra lateral, el menú de la cuenta,
-  los avisos del servidor) sigue en `quirofanohu/resources/js/Components/UI/`:
-  depende de las rutas y del menú de ese sistema, y para mudarlo el menú tiene
-  que entrar como prop.
+- **quirofanohu todavía tiene su marco propio** (`AppLayout`, `Nav`,
+  `MenuDeUsuario`, `Flash` en `resources/js/Components/UI/`): adoptar `MarcoApp`
+  es lo mismo que hizo sistemabienes en la `v1.8.1`, más `institucional` en
+  lugar de sus datos de contacto escritos a mano.
+- **La plantilla, `hu-plantilla`**: un sistema vacío con hu-kit ya montado,
+  login, roles, tests de convenciones y `docs/`, para copiar al arrancar un
+  sistema nuevo. Qué va a traer y cómo se va a usar, en la guía.
 
 Fuera de eso, si un sistema nuevo revela una convención que no
 está acá (una regla de arquitectura, un patrón de marca), el lugar para

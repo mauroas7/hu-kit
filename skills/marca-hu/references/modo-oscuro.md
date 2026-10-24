@@ -26,7 +26,11 @@ control de modo oscuro aparece en dos lugares de la pantalla (menú mobile y
 desktop, por ejemplo), un estado por componente los desincroniza. En React,
 `ThemeProvider` y `useTheme` vienen de `hu-kit/componentes`, con todo lo de
 arriba ya resuelto: el sistema monta el provider en `app.jsx` y le pasa el id
-del usuario (`usuarioInicial`).
+del usuario (`usuarioInicial`). Como el provider va por encima de la app y el
+login y el logout no recargan la página, el usuario lo lee además de cada
+navegación de Inertia con `usuarioDe(pagina)`; por defecto,
+`pagina.props.auth.usuario.id`. Un sistema que comparte el usuario con otro
+nombre le pasa su propio `usuarioDe`.
 
 ## Pares fijos
 
