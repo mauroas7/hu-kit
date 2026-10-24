@@ -3,6 +3,12 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.7.0 — 2026-10-24
+
+- `EstadoVacio` sola ocupa el ancho de su contenedor: con el tope de lectura
+  que traía, en un monitor dejaba una banda vacía al lado. Quien la quiera
+  angosta la envuelve en un ancho propio.
+
 ## v1.6.0 — 2026-10-20
 
 - `ErrorBoundary` acepta `onError(error, info)`, para que el sistema registre

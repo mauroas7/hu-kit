@@ -3,9 +3,9 @@ import { marcoTarjeta } from './Tarjeta.jsx';
 
 /**
  * Lo que se muestra cuando no hay nada: qué pasa y quién lo va a mover. Sola es
- * una tarjeta, como un paso del portal sin nada que hacer; con `enTarjeta` va
- * adentro de otra, en el lugar de la lista vacía. `listo` es cuando ya está
- * resuelto.
+ * una tarjeta, como un paso del portal sin nada que hacer, y ocupa el ancho de
+ * su contenedor, como las tarjetas de al lado; con `enTarjeta` va adentro de
+ * otra, en el lugar de la lista vacía. `listo` es cuando ya está resuelto.
  */
 export default function EstadoVacio({ icono, titulo = null, listo = false, enTarjeta = false, children }) {
     const circulo = (
@@ -33,7 +33,7 @@ export default function EstadoVacio({ icono, titulo = null, listo = false, enTar
     }
 
     return (
-        <section className={`flex max-w-3xl items-start gap-4 p-4 sm:p-6 ${marcoTarjeta}`}>
+        <section className={`flex items-start gap-4 p-4 sm:p-6 ${marcoTarjeta}`}>
             {circulo}
             <div className="min-w-0">
                 <h2 className="text-xl font-black text-primary dark:text-gray-100">{titulo}</h2>
