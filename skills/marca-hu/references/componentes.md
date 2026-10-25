@@ -41,6 +41,7 @@ const VARIANTES = {
     fantasma: 'border-transparent text-brandText hover:bg-brandText-soft/50',
     fantasmaPeligro: 'border-transparent text-red-700 hover:bg-red-50',
     fantasmaExito: 'border-transparent text-emerald-700 hover:bg-emerald-50',
+    suave: 'border-gray-200 bg-canvas text-primary hover:bg-gray-100', // la acción tenue del portal
 };
 
 // El tamaño trae el relleno, el texto y el alto del ícono: por eso va con la
@@ -48,6 +49,7 @@ const VARIANTES = {
 const TAMANOS = {
     normal: 'px-5 py-2.5 text-sm font-semibold', // default, 42 px como un campo
     tactil: 'min-h-11 px-5 py-2.5 text-sm font-semibold',
+    portal: 'min-h-11 px-5 py-2.5 text-sm font-black uppercase tracking-wider',
     compacto: 'px-3 py-1 text-xs font-semibold',
     icono: 'p-2.5 text-sm font-semibold',
     iconoCompacto: 'p-1 text-xs font-semibold',
@@ -65,8 +67,11 @@ del manual. El dorado lleva texto `primary` y no blanco: blanco sobre
 
 En las pantallas que se usan con el dedo (los portales de pacientes), el botón
 mide 44 px de alto como mínimo: es un tamaño propio (`tamano="tactil"`), no un
-`min-h-*` desde afuera. El botón ancho en mayúsculas del login es
-`tamano="ingreso"` (ver *Layout de pantallas de autenticación*).
+`min-h-*` desde afuera. Los botones del portal de pacientes, en mayúsculas,
+son `tamano="portal"`; el ancho del login, `tamano="ingreso"` (ver *Layout de
+pantallas de autenticación*). Un enlace que no puede ser un `Boton` (porque lo
+dibuja otra pieza) lleva las mismas clases con `claseBoton({ variante, forma,
+tamano })`.
 
 ## Tarjetas (cards)
 
@@ -153,7 +158,8 @@ Lo que fija, para Blade o para revisar una pantalla:
 - **`Solapas`**: una raya `border-b` con las partes de la pantalla; la activa
   lleva `border-b-2 border-secondary`, texto `primary` e ícono relleno. Con
   `href`, cada solapa reemplaza a la anterior en el historial: «Volver» sale de
-  la pantalla, no recorre las solapas.
+  la pantalla, no recorre las solapas. En el celular van en un renglón que se
+  desliza de costado, con la activa a la vista; desde `sm` bajan de renglón.
 - **`SelectorDeVista`**: opciones pegadas en una caja `rounded-xl border p-1`;
   la elegida, `bg-primary text-white`. Para ver lo mismo de otra forma (Mes /
   Semana / Día), no para navegar a otra cosa.
@@ -165,8 +171,8 @@ Lo que fija, para Blade o para revisar una pantalla:
 
 ## Archivos
 
-`SelectorDeArchivo` es un `Boton` (`forma="grupo"`, `tamano="tactil"`) que en
-computadora abre el explorador y en el celular ofrece «Sacar una foto» o
+`SelectorDeArchivo` es un `Boton` (`forma="grupo"`, `tamano="tactil"` o el que
+se le pase; en el portal, `portal`) que en computadora abre el explorador y en el celular ofrece «Sacar una foto» o
 «Elegir un archivo». `useSubidaDeArchivo` sube de a uno con `router.post` y
 `forceFormData`, y da el progreso para una `BarraDeProgreso` (`role=
 "progressbar"`) y el error de la fila que la pidió.

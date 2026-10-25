@@ -14,6 +14,7 @@ export const colores = {
         light: '#0B457F',
         soft: '#D8E3ED', // fondo de estado sobre canvas
         faint: '#EEF3F8', // fondo de sección
+        bright: '#5B8CC2', // relleno en modo oscuro (barras de un gráfico): 5,3:1 sobre `surface-dark`
     },
     secondary: {
         DEFAULT: '#C7A36E', // ★ MANUAL — Pantone 465 M. Como texto, sólo sobre `primary`.

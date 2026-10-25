@@ -17,6 +17,7 @@ export default function Archivos() {
         <div className="space-y-6">
             <Muestra nombre="SelectorDeArchivo" uso="El botón para elegir un archivo. En el celular ofrece sacar una foto o elegir un archivo; en la computadora abre el explorador.">
                 <SelectorDeArchivo texto="Subir el remito" accept=".pdf,image/*" onElegir={(archivo) => setElegido(archivo.name)} />
+                <SelectorDeArchivo texto="Subir" nombre="la orden médica" variante="suave" tamano="portal" accept=".pdf,image/*" onElegir={(archivo) => setElegido(archivo.name)} />
                 {elegido && <p className="basis-full text-sm">Elegiste: {elegido}</p>}
             </Muestra>
 

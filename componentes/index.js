@@ -3,7 +3,7 @@ export { default as Alerta } from './Alerta.jsx';
 export { default as ApplicationLogo } from './ApplicationLogo.jsx';
 export { default as AvisoFlotante } from './AvisoFlotante.jsx';
 export { default as BarraDeProgreso } from './BarraDeProgreso.jsx';
-export { default as Boton } from './Boton.jsx';
+export { default as Boton, claseBoton } from './Boton.jsx';
 export { default as Buscador } from './Buscador.jsx';
 export { default as Campo, claseControl, descritoPor } from './Campo.jsx';
 export { default as Cargando } from './Cargando.jsx';

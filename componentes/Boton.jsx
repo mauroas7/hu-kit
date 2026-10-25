@@ -34,18 +34,22 @@ const VARIANTES = {
     fantasmaExito:
         'border-transparent text-emerald-700 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950/40',
     peligro: 'border-transparent bg-red-700 text-white hover:bg-red-800',
+    suave:
+        'border-gray-200 bg-canvas text-primary hover:bg-gray-100 dark:border-gray-700 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10',
 };
 
 /*
  * El tamaño se elige con la prop y no con `className`: una clase de padding
  * que llega de afuera pierde contra la de acá según el orden del CSS. Cada
  * tamaño trae su peso y su ícono con el mismo alto de renglón que el texto.
- * `tactil` tiene 44 px de alto mínimo; `ingreso`, los 52 px del login del
+ * `tactil` tiene 44 px de alto mínimo; `portal` es `tactil` con la letra de
+ * los botones del portal de pacientes; `ingreso`, los 52 px del login del
  * portal contando el borde.
  */
 const TAMANOS = {
     normal: ['px-5 py-2.5 text-sm font-semibold', 'text-lg leading-5'],
     tactil: ['min-h-11 px-5 py-2.5 text-sm font-semibold', 'text-lg leading-5'],
+    portal: ['min-h-11 px-5 py-2.5 text-sm font-black uppercase tracking-wider', 'text-lg leading-5'],
     compacto: ['px-3 py-1 text-xs font-semibold', 'text-base leading-4'],
     icono: ['p-2.5 text-sm font-semibold', 'text-lg leading-5'],
     iconoCompacto: ['p-1 text-xs font-semibold', 'text-base leading-4'],
@@ -60,6 +64,13 @@ const TAMANOS = {
 const BASE =
     'relative inline-flex items-center justify-center gap-2 whitespace-nowrap border transition duration-200 active:scale-98 disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100';
 
+/** Las clases de un `Boton`, para un enlace que no puede serlo (uno que otra pieza dibuja). */
+export function claseBoton({ variante = 'primario', forma = 'confirmacion', tamano = 'normal' } = {}) {
+    const [claseTamano] = TAMANOS[tamano] ?? TAMANOS.normal;
+
+    return `${BASE} ${claseTamano} ${FORMAS[forma] ?? FORMAS.confirmacion} ${VARIANTES[variante] ?? VARIANTES.primario}`;
+}
+
 export default function Boton({
     variante = 'primario',
     forma = 'confirmacion',
@@ -72,8 +83,8 @@ export default function Boton({
     children,
     ...props
 }) {
-    const [claseTamano, claseIcono] = TAMANOS[tamano] ?? TAMANOS.normal;
-    const clases = `${BASE} ${claseTamano} ${FORMAS[forma] ?? FORMAS.confirmacion} ${VARIANTES[variante] ?? VARIANTES.primario} ${className}`;
+    const [, claseIcono] = TAMANOS[tamano] ?? TAMANOS.normal;
+    const clases = `${claseBoton({ variante, forma, tamano })} ${className}`;
 
     const contenido = (
         <>

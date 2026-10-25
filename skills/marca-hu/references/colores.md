@@ -30,6 +30,7 @@ colors: {
         light: '#0B457F',   // hover del botón primario; anillo de foco
         soft: '#D8E3ED',    // fondo de estado sobre canvas
         faint: '#EEF3F8',   // fondo de sección, hover de botón contorno
+        bright: '#5B8CC2',  // relleno en modo oscuro: 5,3:1 sobre `surface-dark`
     },
     secondary: {
         DEFAULT: '#C7A36E', // ★ MANUAL — Pantone 465 M. Como texto, sólo sobre `primary`.

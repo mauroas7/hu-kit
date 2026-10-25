@@ -53,7 +53,7 @@ export default function Contenido() {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-                <Muestra nombre="Dato · Rotulo" uso="Dato es un valor de una ficha con su rótulo; Rotulo, el texto chico en mayúsculas que nombra lo que sigue." columna>
+                <Muestra nombre="Dato · Rotulo" uso="Dato es un valor de una ficha con su rótulo; Rotulo, el texto chico en mayúsculas que nombra lo que sigue. En el portal de pacientes va con tono='texto'." columna>
                     <Rotulo como="h3" linea>Datos del pedido</Rotulo>
                     <div className="grid grid-cols-2 gap-4">
                         <Dato etiqueta="Área" valor="Quirófano" />
@@ -61,6 +61,7 @@ export default function Contenido() {
                         <Dato etiqueta="Proveedor" valor={null} siFalta="Sin asignar" />
                         <Dato etiqueta="Entrega" valor="viernes 24 de octubre" />
                     </div>
+                    <Rotulo tono="texto">Tono texto, para el portal</Rotulo>
                 </Muestra>
 
                 <Muestra nombre="Metrica" uso="El número grande de un tablero, con su etiqueta y su detalle al pie.">

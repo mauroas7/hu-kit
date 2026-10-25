@@ -3,6 +3,23 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.9.0 — 2026-10-25
+
+- `Solapas`, en el celular, van en un renglón que se desliza de costado, con la
+  activa a la vista: antes partían en renglones antes del contenido. Desde `sm`,
+  como antes. Cambia en todo sistema que las use.
+- `Boton` suma el tamaño `portal` (táctil, en mayúsculas, el de los botones del
+  portal de pacientes) y la variante `suave`, y `claseBoton()` da sus clases
+  para un enlace que no puede ser un `Boton`.
+- `SelectorDeArchivo` recibe `tamano` y `nombre` (lo que se sube, para el
+  lector de pantalla).
+- `Rotulo` suma `tono="texto"`, el gris del texto que piden los rótulos del
+  portal.
+- El token `primary-bright`, el azul para un relleno en modo oscuro (5,3:1
+  sobre `surface-dark`), y su par en la skill `marca-hu`. Al subir, se vuelve
+  a correr `instalar.ps1`.
+- Nada deja de andar: lo que ya se usaba no cambia de nombre ni de valor.
+
 ## v1.8.3 — 2026-10-25
 
 - El tag `v1.8.2` quedó apuntando por error al commit de la `v1.8.1`: no trae

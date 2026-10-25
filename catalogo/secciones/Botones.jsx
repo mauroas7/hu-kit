@@ -2,7 +2,7 @@ import { Boton } from '../../componentes/index.js';
 import { href } from '../datos.js';
 import Muestra from '../Muestra.jsx';
 
-const VARIANTES = ['primario', 'secundario', 'exito', 'peligro', 'contorno', 'contornoPeligro', 'contornoExito', 'fantasma', 'fantasmaPeligro', 'fantasmaExito'];
+const VARIANTES = ['primario', 'secundario', 'exito', 'peligro', 'contorno', 'contornoPeligro', 'contornoExito', 'suave', 'fantasma', 'fantasmaPeligro', 'fantasmaExito'];
 
 export default function Botones() {
     return (
@@ -33,6 +33,16 @@ export default function Botones() {
                 <Boton tipo="button" tamano="icono" icono="edit" aria-label="Editar" />
                 <Boton tipo="button" tamano="iconoCompacto" icono="edit" aria-label="Editar" />
                 <Boton tipo="button" tamano="ingreso" className="w-64">Ingresar</Boton>
+            </Muestra>
+
+            <Muestra
+                nombre="Boton tamano='portal'"
+                uso="Los botones del portal de pacientes: táctil, en mayúsculas. Un enlace que no puede ser un Boton lleva las mismas clases con claseBoton({ variante, forma, tamano })."
+            >
+                <Boton tipo="button" forma="grupo" tamano="portal" icono="upload_file">Subir documentación</Boton>
+                <Boton tipo="button" variante="secundario" forma="grupo" tamano="portal" icono="chat">Escribir por WhatsApp</Boton>
+                <Boton tipo="button" variante="contorno" forma="grupo" tamano="portal">Ver mis respuestas</Boton>
+                <Boton tipo="button" variante="suave" forma="grupo" tamano="portal" icono="visibility">Ver</Boton>
             </Muestra>
 
             <Muestra nombre="Boton href · disabled" uso="Con href es un enlace de Inertia; con href y externo, un enlace común (una descarga). Deshabilitado baja la opacidad y no responde.">
