@@ -24,26 +24,32 @@ export default function AvisoFlotante({ className = 'inset-x-3 bottom-6 lg:inset
         return () => clearTimeout(temporizador);
     }, [flash]);
 
-    if (! visible || (! exito && ! error)) return null;
-
-    return (
-        <div role={error ? 'alert' : 'status'} className={`fixed z-toast flex justify-center ${className}`}>
-            <p
-                className={`flex max-w-md animate-fade-in items-center gap-3 rounded-2xl px-5 py-4 text-base font-semibold text-white shadow-2xl ${
-                    error ? 'bg-red-700' : 'bg-emerald-700'
-                }`}
+    const mensaje = visible ? (error ?? exito) : null;
+    const caja = mensaje && (
+        <p
+            className={`flex max-w-md animate-fade-in items-center gap-3 rounded-2xl px-5 py-4 text-base font-semibold text-white shadow-2xl ${
+                error ? 'bg-red-700' : 'bg-emerald-700'
+            }`}
+        >
+            <Icono nombre={error ? 'error' : 'check_circle'} className="text-2xl" relleno />
+            <span className="flex-1">{mensaje}</span>
+            <button
+                type="button"
+                onClick={() => setVisible(false)}
+                aria-label="Cerrar el aviso"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:bg-white/15"
             >
-                <Icono nombre={error ? 'error' : 'check_circle'} className="text-2xl" relleno />
-                <span className="flex-1">{error ?? exito}</span>
-                <button
-                    type="button"
-                    onClick={() => setVisible(false)}
-                    aria-label="Cerrar el aviso"
-                    className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:bg-white/15"
-                >
-                    <Icono nombre="close" className="text-xl" />
-                </button>
-            </p>
+                <Icono nombre="close" className="text-xl" />
+            </button>
+        </p>
+    );
+
+    // El `status` está montado antes que el éxito: uno que aparece ya escrito no lo
+    // anuncian todos los lectores. Un `alert`, en cambio, se anuncia al aparecer.
+    return (
+        <div className={`fixed z-toast flex justify-center ${className}`}>
+            <div role="status">{! error && caja}</div>
+            {error && caja && <div role="alert">{caja}</div>}
         </div>
     );
 }

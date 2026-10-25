@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import ApplicationLogo from './ApplicationLogo.jsx';
 import Flash from './Flash.jsx';
@@ -94,14 +94,24 @@ export default function MarcoApp({
 
     const cerrarMenu = () => setMenuAbierto(false);
 
+    useEffect(() => {
+        if (! menuAbierto) return undefined;
+
+        const alTeclear = (e) => e.key === 'Escape' && cerrarMenu();
+        document.addEventListener('keydown', alTeclear);
+
+        return () => document.removeEventListener('keydown', alTeclear);
+    }, [menuAbierto]);
+
     return (
         <div className="flex min-h-screen">
             <Head title={titulo} />
 
-            {/* Barra lateral. En móvil se muestra/oculta con el botón del encabezado. */}
+            {/* Barra lateral. En móvil se muestra/oculta con el botón del encabezado; cerrada,
+                `invisible` la saca del orden del teclado, no sólo de la pantalla. */}
             <aside
-                className={`fixed inset-y-0 left-0 z-dropdown flex w-64 flex-col bg-primary transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${
-                    menuAbierto ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed inset-y-0 left-0 z-dropdown flex w-64 flex-col bg-primary transition-[transform,visibility] lg:visible lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${
+                    menuAbierto ? 'visible translate-x-0' : 'invisible -translate-x-full'
                 }`}
             >
                 <div className="flex items-center justify-between gap-3 border-b border-white/10 px-6 py-6">
@@ -152,11 +162,11 @@ export default function MarcoApp({
                         </button>
 
                         <div className="min-w-0 flex-1">
-                            <h1 className="titulo-corto truncate text-base text-primary dark:text-gray-100">
+                            <h1 className="titulo-corto line-clamp-2 break-words text-base text-primary dark:text-gray-100">
                                 {titulo}
                             </h1>
                             {subtitulo && (
-                                <p className="truncate text-xs text-brandText-muted dark:text-brandText-mutedDark">{subtitulo}</p>
+                                <p className="line-clamp-2 text-xs text-brandText-muted dark:text-brandText-mutedDark">{subtitulo}</p>
                             )}
                         </div>
 

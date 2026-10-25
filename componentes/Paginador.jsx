@@ -30,7 +30,7 @@ function Flecha({ url, etiqueta, rotar = false, alNavegar }) {
 
     if (!url) {
         return (
-            <span className={`${CELDA} text-brandText-soft`} aria-hidden="true">
+            <span className={`${CELDA} text-brandText-soft dark:text-gray-600`} aria-hidden="true">
                 {icono}
             </span>
         );

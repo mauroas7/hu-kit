@@ -3,6 +3,25 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.8.3 — 2026-10-25
+
+- El tag `v1.8.2` quedó apuntando por error al commit de la `v1.8.1`: no trae
+  nada de lo de abajo. No se usa; un tag publicado no se mueve, así que esta
+  versión es la que trae los cambios.
+- `MarcoApp` en el celular: la barra lateral cerrada sale del orden del
+  teclado (antes eran paradas invisibles antes del contenido), abierta se
+  cierra con Escape, y el título y el subtítulo del encabezado ocupan hasta dos
+  renglones en lugar de cortarse.
+- `Flash` y `AvisoFlotante` dejan montada la región que lee el lector de
+  pantalla y el mensaje llega después: un `status` que aparece ya escrito no
+  lo anuncian todos. Sirve cuando la página sigue montada, como al volver de
+  guardar a la misma pantalla.
+- La flecha deshabilitada del `Paginador` tiene su tono en oscuro.
+- En la skill `marca-hu`, el par oscuro de borde es `border-brandText-soft` →
+  `border-gray-800`, el que usa el kit. Al subir, se vuelve a correr
+  `instalar.ps1`.
+- Nada cambia de API: los sistemas sólo suben el tag.
+
 ## v1.8.1 — 2026-10-24
 
 - El tag `v1.8.0` quedó apuntando por error al commit de la `v1.7.0`: no trae

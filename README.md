@@ -180,10 +180,6 @@ reemplaza en `hu-referencias` y se actualiza acá lo que cambie.
   propio, con los valores de antes de la `v1.0.0` y sin los tonos de contraste.
   Adoptarlo es instalar la dependencia, cargar el preset y borrar lo que el
   paquete ya trae.
-- **quirofanohu todavía tiene su marco propio** (`AppLayout`, `Nav`,
-  `MenuDeUsuario`, `Flash` en `resources/js/Components/UI/`): adoptar `MarcoApp`
-  es lo mismo que hizo sistemabienes en la `v1.8.1`, más `institucional` en
-  lugar de sus datos de contacto escritos a mano.
 - **La plantilla, `hu-plantilla`**: un sistema vacío con hu-kit ya montado,
   login, roles, tests de convenciones y `docs/`, para copiar al arrancar un
   sistema nuevo. Qué va a traer y cómo se va a usar, en la guía.

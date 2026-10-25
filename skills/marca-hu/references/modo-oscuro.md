@@ -43,7 +43,7 @@ nombre le pasa su propio `usuarioDe`.
 | `text-secondary-dark` | `text-secondary` |
 | `text-primary` | `text-gray-100` |
 | `focus:border-primary` | `focus:border-secondary` |
-| `border-gray-100` | `border-gray-800` |
+| `border-brandText-soft` | `border-gray-800` |
 
 Los tonos de texto para fondo claro (`brandText-muted`, `secondary-dark`) dan
 3,4–3,6:1 sobre los fondos oscuros: sin su par, el texto no llega a 4,5:1. El
