@@ -10,12 +10,13 @@ import ThemeToggle from './ThemeToggle.jsx';
  * `completo` es para las pantallas de datos —listados, agenda, tableros—, que
  * aprovechan todo el ancho. `lectura` es para formularios y documentos: los
  * mantiene en 1152 px para que los renglones no se estiren en pantallas anchas.
- * `formulario` centra en 768 px un formulario de una sola columna de tarjetas.
+ * `formulario`, en 768 px, un formulario de una sola columna de tarjetas. Los
+ * dos arrancan a la izquierda, alineados con el título de la cabecera.
  */
 const ANCHOS = {
     completo: '',
-    lectura: 'mx-auto max-w-6xl',
-    formulario: 'mx-auto max-w-3xl',
+    lectura: 'max-w-6xl',
+    formulario: 'max-w-3xl',
 };
 
 /** El menú lateral. Una sección sin `href` queda atenuada y no navega: todavía no tiene pantalla. */

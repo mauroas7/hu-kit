@@ -3,6 +3,14 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.10.0 — 2026-10-25
+
+- Los anchos `lectura` y `formulario` de `MarcoApp` arrancan a la izquierda,
+  alineados con el título de la cabecera, en vez de centrarse: al pasar de un
+  listado a un formulario el contenido ya no salta. Conservan su tope (1152 y
+  768 px). Cambia en todo sistema que los use.
+- Nada deja de andar: los nombres de los anchos no cambian.
+
 ## v1.9.0 — 2026-10-25
 
 - `Solapas`, en el celular, van en un renglón que se desliza de costado, con la
