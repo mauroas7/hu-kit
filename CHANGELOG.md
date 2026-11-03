@@ -3,6 +3,17 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.11.0 — 2026-11-03
+
+- Los estilos base ya no dejan una palabra sola en el último renglón de un
+  párrafo, un ítem o una etiqueta (`text-wrap: pretty`), y parten parejos los
+  títulos de más de un renglón (`balance`). Cambia en todo sistema que los use;
+  cualquier utilidad le gana a la regla.
+- `Boton` suma la variante `contornoSobrePrimario`, para una acción secundaria
+  dentro de un bloque `primary`. También en el catálogo y en la skill
+  `marca-hu`: al subir, se vuelve a correr `instalar.ps1`.
+- Nada deja de andar: lo que ya se usaba no cambia de nombre ni de valor.
+
 ## v1.10.0 — 2026-10-25
 
 - Los anchos `lectura` y `formulario` de `MarcoApp` arrancan a la izquierda,

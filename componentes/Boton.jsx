@@ -36,6 +36,8 @@ const VARIANTES = {
     peligro: 'border-transparent bg-red-700 text-white hover:bg-red-800',
     suave:
         'border-gray-200 bg-canvas text-primary hover:bg-gray-100 dark:border-gray-700 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10',
+    // La acción secundaria sobre un fondo `primary`. Sin `dark:`: el fondo ya es oscuro.
+    contornoSobrePrimario: 'border-white/40 text-white hover:bg-white/10',
 };
 
 /*
