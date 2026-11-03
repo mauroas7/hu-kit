@@ -54,7 +54,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
-| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color y los tamaños, `portal` e `ingreso` incluidos; `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
+| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños, `portal` e `ingreso` incluidos; `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
 | `Campo`, `claseControl`, `descritoPor` | La etiqueta, la ayuda y el error de un campo, la clase del control y su `aria-describedby`, para un control propio adentro de `Campo`. Variantes `normal` e `ingreso` |
 | `Input`, `PasswordInput`, `Textarea` | El campo de texto, el de contraseña con el ojito y el de varias líneas |
 | `Select` | El desplegable; recibe pares `[valor, etiqueta]` en el orden en que se muestran. Un mapa `{ valor: etiqueta }` con claves numéricas, como el de un `pluck('nombre', 'id')`, se muestra ordenado por clave |

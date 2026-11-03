@@ -157,6 +157,18 @@ no sobre `primary` (1,3:1) ni en modo oscuro (1,8:1). Ahí pasa a `secondary`,
 que da 5,1:1 sobre `primary` y 7,8:1 sobre `surface-dark`; un indicador de foco
 pide 3:1.
 
+El borde de `contornoSobrePrimario` (`white/40`) da 3,2:1 sobre `primary`, y el
+borde de un control pide 3:1.
+
+### Cortes de renglón
+
+Los párrafos, los ítems de lista y las etiquetas llevan `text-wrap: pretty`: el
+navegador no deja una palabra sola en el último renglón. Los títulos, `balance`:
+dos renglones de largo parecido, en vez de uno lleno y otro con una palabra. Va
+en `@layer base` con `:where()`, que no suma especificidad, así que cualquier
+utilidad le gana (`whitespace-nowrap`, `truncate`, `text-wrap`). Un navegador que
+no lo soporta parte el texto como siempre.
+
 ### Tamaños
 
 - **Ningún texto de menos de 12 px** (`text-xs`). Los rótulos chicos en

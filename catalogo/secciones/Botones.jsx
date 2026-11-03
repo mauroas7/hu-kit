@@ -45,6 +45,16 @@ export default function Botones() {
                 <Boton tipo="button" variante="suave" forma="grupo" tamano="portal" icono="visibility">Ver</Boton>
             </Muestra>
 
+            <Muestra
+                nombre="Boton variante='contornoSobrePrimario'"
+                uso="La acción secundaria dentro de un bloque azul, como el turno del portal: no le gana a lo que el bloque destaca."
+            >
+                <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-primary p-5">
+                    <Boton tipo="button" variante="secundario" forma="grupo" tamano="portal">Principal</Boton>
+                    <Boton tipo="button" variante="contornoSobrePrimario" forma="grupo" tamano="portal" icono="chat">Escribinos</Boton>
+                </div>
+            </Muestra>
+
             <Muestra nombre="Boton href · disabled" uso="Con href es un enlace de Inertia; con href y externo, un enlace común (una descarga). Deshabilitado baja la opacidad y no responde.">
                 <Boton href={href('inicio')} variante="contorno" forma="grupo" icono="arrow_back">Enlace</Boton>
                 <Boton href="#" externo variante="contorno" forma="grupo" icono="download">Descargar PDF</Boton>

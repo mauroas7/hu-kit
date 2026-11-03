@@ -31,6 +31,16 @@
     :where(.dark, .bg-primary) :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
         outline-color: theme('colors.secondary.DEFAULT');
     }
+
+    /* Sin una palabra sola en el último renglón, y títulos partidos parejos.
+       `:where()` no pesa: cualquier utilidad (`whitespace-nowrap`, `truncate`) le gana. */
+    :where(p, li, dd, dt, label, figcaption) {
+        text-wrap: pretty;
+    }
+
+    :where(h1, h2, h3, h4) {
+        text-wrap: balance;
+    }
 }
 
 @layer components {

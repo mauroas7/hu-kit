@@ -42,6 +42,7 @@ const VARIANTES = {
     fantasmaPeligro: 'border-transparent text-red-700 hover:bg-red-50',
     fantasmaExito: 'border-transparent text-emerald-700 hover:bg-emerald-50',
     suave: 'border-gray-200 bg-canvas text-primary hover:bg-gray-100', // la acción tenue del portal
+    contornoSobrePrimario: 'border-white/40 text-white hover:bg-white/10', // lo secundario sobre `primary`
 };
 
 // El tamaño trae el relleno, el texto y el alto del ícono: por eso va con la
