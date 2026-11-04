@@ -5,7 +5,7 @@
  * su ruta va en la variable NAVEGADOR.
  */
 import { execFile } from 'node:child_process';
-import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,7 +41,22 @@ const CAPTURAS_DE_LA_GUIA = [
     ['archivos', 'seccion=archivos'],
 ];
 
+// Edge devuelve el control antes de terminar de escribir: se espera a que el archivo exista y deje de crecer.
+async function esperar(archivo) {
+    let tamano = -1;
+
+    for (let intento = 0; intento < 120; intento++) {
+        await new Promise((listo) => setTimeout(listo, 500));
+        const actual = existsSync(archivo) ? statSync(archivo).size : -1;
+        if (actual > 0 && actual === tamano) return;
+        tamano = actual;
+    }
+
+    throw new Error('El navegador no generó ' + archivo);
+}
+
 async function capturar(perfil, url, archivo, alto, ancho) {
+    rmSync(archivo, { force: true });
     await ejecutar(NAVEGADOR, [
         '--headless=new',
         '--disable-gpu',
@@ -49,14 +64,16 @@ async function capturar(perfil, url, archivo, alto, ancho) {
         '--no-first-run',
         `--user-data-dir=${perfil}`,
         `--window-size=${ancho},${alto}`,
-        // Deja terminar las animaciones de entrada antes de sacar la foto; el aviso flotante de éxito se va a los 5 s.
+        // Deja terminar las animaciones de entrada antes de sacar la foto; el toast de éxito se va a los 5 s, así que sigue a la vista a los 3 s de la captura.
         '--virtual-time-budget=3000',
         `--screenshot=${archivo}`,
         url,
     ]);
+    await esperar(archivo);
 }
 
 async function imprimir(perfil, url, archivo) {
+    rmSync(archivo, { force: true });
     await ejecutar(NAVEGADOR, [
         '--headless=new',
         '--disable-gpu',
@@ -67,6 +84,7 @@ async function imprimir(perfil, url, archivo) {
         `--print-to-pdf=${archivo}`,
         url,
     ]);
+    await esperar(archivo);
 }
 
 await build({ configFile: CONFIG, logLevel: 'warn' });
@@ -88,5 +106,5 @@ try {
     console.log(`PDF: ${PDF}`);
 } finally {
     await new Promise((listo) => servidor.httpServer.close(listo));
-    rmSync(perfil, { recursive: true, force: true });
+    rmSync(perfil, { recursive: true, force: true, maxRetries: 10, retryDelay: 500 });
 }

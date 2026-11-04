@@ -50,7 +50,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 
 | Componente | Qué es |
 |---|---|
-| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y `Flash`. Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*) |
+| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*) |
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
@@ -65,9 +65,9 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `Estado` | La píldora de estado, por tono (`exito`, `error`, `aviso`, `info`, `neutro`) |
 | `EstadoVacio` | Lo que se muestra cuando una lista o un paso no tienen nada |
 | `Cargando` | Lo que se muestra mientras llega algo; `enTarjeta` ocupa el lugar de una lista, también como `fallback` de un `<Deferred>` |
-| `Alerta` | El aviso en el flujo de la pantalla, por tipo. `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
-| `Flash` | Los mensajes de `flash` que dejó el controlador, como `Alerta`. `MarcoApp` ya lo trae |
-| `AvisoFlotante` | El mismo `flash`, flotando abajo: el éxito se va solo a los 5 s, un error queda hasta que se cierra |
+| `Alerta` | Un **estado**: algo que sigue siendo cierto y queda en pantalla, en el flujo, por tipo. `tamano` `equipo` (por defecto) o `portal` (texto base y más aire). `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
+| `Flash` | Alias de `AvisoFlotante`: lo que `MarcoApp` y las pantallas de ingreso montan. `MarcoApp` ya lo trae |
+| `AvisoFlotante` | El toast, para un **evento** (algo que acaba de pasar): lo que el controlador dejó en `flash`, una tarjeta por tipo (máximo 3) con título y detalle. Cada mensaje es un string o `{ titulo, detalle }`. Éxito e info se van solos a los 5 s (se frenan con el puntero, el foco o la pestaña oculta); error y aviso quedan hasta cerrarlos |
 | `Rotulo` | El texto chico en mayúsculas que nombra lo que sigue; `tono="texto"` para el portal de pacientes |
 | `Dato` | Un dato de una ficha: el rótulo arriba y el valor, o `siFalta` atenuado |
 | `Metrica` | El número grande de un panel, con su etiqueta y su detalle |
@@ -106,8 +106,8 @@ build y en desarrollo. Lo que pide el sistema que los usa:
   agrega en su config, o se registra dos veces.
 - **El backend comparte `auth.usuario` y `flash`** desde
   `HandleInertiaRequests::share()`: `auth.usuario` con su `id` (lo lee el tema),
-  y `flash` con `exito`, `error`, `aviso` e `info` (los leen `Flash` y
-  `AvisoFlotante`).
+  y `flash` con `exito`, `error`, `aviso` e `info` (los lee el toast, `AvisoFlotante`, también como `Flash`); cada valor
+  es un string o `{ titulo, detalle }`.
 - **Un `AppLayout` propio sobre `MarcoApp`.** El marco no conoce el menú, los
   roles ni las rutas de nadie. El sistema le pasa sus secciones con el `href`
   ya armado con `route()` y `activa` con `rutaActiva`, el usuario, «Mi cuenta» y

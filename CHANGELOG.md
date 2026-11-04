@@ -3,6 +3,20 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.12.0 — 2026-11-04
+
+- El aviso de `flash` pasa a ser un toast: una tarjeta por tipo (máximo 3) con
+  título y detalle, botón para cerrarla, barra de tiempo en el éxito y la info, y
+  pausa con el puntero, el foco o la pestaña oculta. Éxito e info se van a los
+  5 s; error y aviso quedan hasta cerrarlos. Cada mensaje de `flash` puede ser
+  un string o `{ titulo, detalle }`.
+- `Flash` queda como alias de `AvisoFlotante`: dibuja el mismo toast.
+- `Alerta` suma `tamano`: `equipo` (el de siempre) o `portal`, con texto base y
+  más aire. También en el catálogo y en la skill `marca-hu`: al subir, se vuelve
+  a correr `instalar.ps1`.
+- Nada deja de andar: lo que ya se usaba no cambia de nombre ni de valor; un
+  `flash` con strings se ve en el toast nuevo.
+
 ## v1.11.0 — 2026-11-03
 
 - Los estilos base ya no dejan una palabra sola en el último renglón de un

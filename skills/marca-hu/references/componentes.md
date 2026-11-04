@@ -152,7 +152,7 @@ Lo que fija, para Blade o para revisar una pantalla:
   menú de la cuenta: nombre en `font-black uppercase`, el detalle en
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
   bg-primary`.
-- El contenido entra con `animate-fade-in` y arranca con los avisos de `Flash`.
+- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de `AvisoFlotante`).
 
 ## Solapas, selector de vista y menú de acciones
 

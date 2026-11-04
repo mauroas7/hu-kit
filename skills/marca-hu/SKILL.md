@@ -45,13 +45,13 @@ quirofanohu ya usa el paquete; portal-hospital todavía tiene su
 ## Los componentes se importan, no se copian
 
 El mismo paquete trae los componentes de React (`hu-kit/componentes`): el marco
-de la app (`MarcoApp`, con `MenuDeUsuario` y `Flash`, más `rutaActiva`), los de
+de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `Flash`, más `rutaActiva`), los de
 formulario (`Boton`, `Campo`, `Input`, `PasswordInput`, `Select`, `Textarea`,
 `Checkbox`, `SelectorFecha`, `Buscador`), los de contenido (`Tarjeta`,
-`Estado`, `EstadoVacio`, `Cargando`, `Alerta`, `Rotulo`, `Dato`, `Metrica`,
+`Estado`, `EstadoVacio`, `Cargando`, `Alerta` (un estado en el flujo; `tamano="portal"` para el portal), `Rotulo`, `Dato`, `Metrica`,
 `Paginador`, las clases de tabla), la navegación (`Solapas`,
 `SelectorDeVista`, `MenuDeAcciones` con `ItemDeMenu`), los avisos
-(`AvisoFlotante`), los modales (`Modal`, `ModalConfirmar` con
+(`AvisoFlotante`, el toast de un evento; `Flash` es su alias; el mensaje es un string o `{ titulo, detalle }`), los modales (`Modal`, `ModalConfirmar` con
 `useConfirmacion`), los archivos (`SelectorDeArchivo`, `useSubidaDeArchivo`,
 `BarraDeProgreso`) y `Icono`, `ApplicationLogo`, `PanelAutenticacion`,
 `ErrorBoundary`, `institucional` y el tema (`ThemeProvider`, `useTheme`,

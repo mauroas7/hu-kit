@@ -9,9 +9,10 @@ export const USUARIO = {
 
 const FLASH = {
     avisos: {
+        // Un mensaje es un string o { titulo, detalle }: acá hay de las dos formas.
         exito: 'Se guardó el pedido.',
-        error: 'No se pudo enviar el correo de aviso. El pedido quedó guardado.',
-        aviso: 'Hay dos pedidos sin revisar desde la semana pasada.',
+        error: { titulo: 'No se pudo enviar el correo de aviso', detalle: 'El pedido quedó guardado.' },
+        aviso: { titulo: 'Hay dos pedidos sin revisar', detalle: 'Llevan más de una semana sin respuesta.' },
         info: 'El sistema se va a actualizar el viernes a las 20 h.',
     },
     formulario: { exito: 'Se guardó el borrador del pedido.' },
