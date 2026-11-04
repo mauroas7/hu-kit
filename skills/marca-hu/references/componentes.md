@@ -151,8 +151,8 @@ Lo que fija, para Blade o para revisar una pantalla:
   el título en `.titulo-corto text-base text-primary`, el `ThemeToggle` y el
   menú de la cuenta: nombre en `font-black uppercase`, el detalle en
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
-  bg-primary`. Una ficha suma `volver` (flecha `arrow_back`, entre el menú y
-  el título; un href o una función) y `estado` (un nodo junto al título).
+  bg-primary`. Una ficha suma `volver` (flecha `arrow_back` pegada al título,
+  alineada con su renglón; un href, una función o `{ href | onClick, etiqueta }`) y `estado` (un nodo junto al título).
 - El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
   `AvisoFlotante`).
 
@@ -182,13 +182,13 @@ Lo que fija, para Blade o para revisar una pantalla:
 
 ## Solapas, selector de vista y menú de acciones
 
-- **`Solapas`**: una raya `border-b` con las partes de la pantalla; la activa
-  lleva `border-b-2 border-secondary`, texto `primary` e ícono relleno. Con
-  `href`, cada solapa reemplaza a la anterior en el historial: «Volver» sale de
-  la pantalla, no recorre las solapas. En el celular van en un renglón que se
-  desliza de costado, con la activa a la vista; desde `sm` bajan de renglón.
-  Con `alFinal` (lo que va a la derecha, sobre la misma raya) van siempre en un
-  renglón que se desliza: lo del final no puede quedar en un segundo renglón.
+- **`Solapas`**: una barra con el marco de las tarjetas con las partes de la
+  pantalla; la activa lleva `border-b-2 border-secondary`, texto `primary` e
+  ícono relleno, y las otras `brandText`. Con `href`, cada solapa reemplaza a
+  la anterior en el historial: «Volver» sale de la pantalla, no recorre las
+  solapas. Van siempre en un renglón que se desliza de costado, con la activa
+  a la vista. Con `alFinal` (lo que va a la derecha, en la misma barra, centrado)
+  la barra es como la cabecera de una tarjeta.
 - **`SelectorDeVista`**: opciones pegadas en una caja `rounded-xl border p-1`;
   la elegida, `bg-primary text-white`. Para ver lo mismo de otra forma (Mes /
   Semana / Día), no para navegar a otra cosa.

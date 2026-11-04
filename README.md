@@ -50,7 +50,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 
 | Componente | Qué es |
 |---|---|
-| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*). Una ficha suma `volver` y `estado` en el encabezado |
+| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*). Una ficha suma `volver` (un href, una función u `{ href \| onClick, etiqueta }`) y `estado` en el encabezado |
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
