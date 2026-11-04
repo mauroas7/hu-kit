@@ -3,6 +3,15 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.14.0 — 2026-11-04
+
+- El subtítulo del encabezado de `MarcoApp` pasa de `text-xs` en
+  `brandText-muted` a `text-sm` en `brandText` (7:1 sobre blanco; en oscuro,
+  `brandText-dark`): es lo que dice de qué se trata la pantalla, y se leía
+  chico y tenue. Cambia en todo sistema que lo use; el encabezado crece unos
+  4 px.
+- Nada deja de andar: las props no cambian de nombre ni de valor.
+
 ## v1.13.0 — 2026-11-04
 
 - `MarcoApp` suma `volver` (un href, o una función) y `estado` (un nodo junto
