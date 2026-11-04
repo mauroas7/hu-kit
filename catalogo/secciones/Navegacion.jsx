@@ -25,6 +25,20 @@ export default function Navegacion() {
                 <p className="text-sm">Solapa elegida: {solapa}.</p>
             </Muestra>
 
+            <Muestra nombre="Solapas · alFinal" uso="Una ficha con acciones: alFinal pone a la derecha, sobre la misma raya, el menú «Acciones». La fila no se parte en renglones: se desliza en todos los anchos." columna>
+                <Solapas
+                    etiqueta="Partes del pedido"
+                    actual={solapa}
+                    opciones={SOLAPAS.map((s) => ({ ...s, onClick: () => setSolapa(s.clave) }))}
+                    alFinal={
+                        <MenuDeAcciones texto="Acciones" etiqueta="Acciones del pedido">
+                            <ItemDeMenu icono="edit" onClick={() => {}}>Editar</ItemDeMenu>
+                            <ItemDeMenu icono="content_copy" onClick={() => {}}>Duplicar</ItemDeMenu>
+                        </MenuDeAcciones>
+                    }
+                />
+            </Muestra>
+
             <Muestra nombre="SelectorDeVista" uso="Ver lo mismo de otra forma: mes, semana o día; activos o todos.">
                 <SelectorDeVista etiqueta="Vista de la agenda" actual={vista} opciones={VISTAS.map((v) => ({ ...v, onClick: () => setVista(v.clave) }))} />
             </Muestra>
@@ -36,6 +50,13 @@ export default function Navegacion() {
                     <ItemDeMenu icono="delete" onClick={() => {}} peligro separado>
                         Cancelar pedido
                     </ItemDeMenu>
+                </MenuDeAcciones>
+            </Muestra>
+
+            <Muestra nombre="MenuDeAcciones · texto" uso="Para el menú de una ficha, al final de las solapas: desde 1366 px dice «Acciones» con una flecha y debajo vuelve a los tres puntos. etiqueta debe contener el texto.">
+                <MenuDeAcciones texto="Acciones" etiqueta="Acciones del pedido">
+                    <ItemDeMenu icono="check" onClick={() => {}}>Aprobar</ItemDeMenu>
+                    <ItemDeMenu icono="edit" onClick={() => {}}>Editar</ItemDeMenu>
                 </MenuDeAcciones>
             </Muestra>
         </div>

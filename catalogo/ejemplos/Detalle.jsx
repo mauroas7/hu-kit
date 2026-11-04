@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import {
     Alerta,
     BarraDeProgreso,
-    Boton,
     Dato,
-    Estado,
     EstadoVacio,
     ItemDeMenu,
     MenuDeAcciones,
@@ -131,19 +129,15 @@ export default function Detalle() {
 
     return (
         <div>
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-                <Boton href={href('listado')} variante="fantasma" forma="grupo" icono="arrow_back">
-                    Volver
-                </Boton>
-
-                <div className="flex flex-wrap items-center gap-2">
-                    <Estado tono="aviso" icono="schedule">
-                        Pendiente
-                    </Estado>
-                    <Boton tipo="button" variante="contorno" forma="grupo" icono="check">
-                        Aprobar
-                    </Boton>
-                    <MenuDeAcciones>
+            <Solapas
+                etiqueta="Partes del pedido"
+                actual={solapa}
+                opciones={SOLAPAS.map((s) => ({ clave: s.clave, etiqueta: s.etiqueta, icono: s.icono, onClick: () => setSolapa(s.clave) }))}
+                alFinal={
+                    <MenuDeAcciones texto="Acciones" etiqueta="Acciones del pedido">
+                        <ItemDeMenu icono="check" onClick={() => {}}>
+                            Aprobar
+                        </ItemDeMenu>
                         <ItemDeMenu icono="edit" href={href('formulario')}>
                             Editar
                         </ItemDeMenu>
@@ -154,19 +148,13 @@ export default function Detalle() {
                             Cancelar pedido
                         </ItemDeMenu>
                     </MenuDeAcciones>
-                </div>
-            </div>
+                }
+                className="mb-6"
+            />
 
             <Alerta tipo="aviso" titulo="Supera el consumo habitual" className="mb-6">
                 El área pidió 40 unidades y suele usar 30 por semana. Patrimonio lo va a revisar antes de aprobarlo.
             </Alerta>
-
-            <Solapas
-                etiqueta="Partes del pedido"
-                actual={solapa}
-                opciones={SOLAPAS.map((s) => ({ clave: s.clave, etiqueta: s.etiqueta, icono: s.icono, onClick: () => setSolapa(s.clave) }))}
-                className="mb-6"
-            />
 
             <Vista />
 

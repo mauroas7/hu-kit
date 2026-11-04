@@ -72,17 +72,43 @@ function Nav({ secciones, onNavegar }) {
     );
 }
 
+/** «Volver» del encabezado: un enlace si `volver` es un href, un botón si es una función. */
+function BotonVolver({ volver }) {
+    const props = {
+        'aria-label': 'Volver',
+        title: 'Volver',
+        className:
+            '-mx-2 flex size-10 shrink-0 items-center justify-center rounded-xl text-primary transition-colors hover:bg-canvas dark:text-gray-100 dark:hover:bg-white/5',
+    };
+    const icono = <Icono nombre="arrow_back" className="text-2xl" />;
+
+    return typeof volver === 'string' ? (
+        <Link href={volver} {...props}>
+            {icono}
+        </Link>
+    ) : (
+        <button type="button" onClick={volver} {...props}>
+            {icono}
+        </button>
+    );
+}
+
 /**
  * El marco de todas las pantallas con sesión: barra lateral, encabezado y área
  * de contenido, con los avisos de `Flash` arriba. Lo propio del sistema llega
  * resuelto: las `secciones` ya filtradas por rol, con su `href` y si están
  * `activa`; el `usuario` y los `enlaces` de su menú. Cada sistema lo envuelve
  * en su `AppLayout`, así sus páginas pasan sólo `titulo`, `subtitulo` y `ancho`.
+ * Una ficha de detalle suma `volver` (un href, o una función si no navega) y
+ * `estado` (un nodo junto al título): así no hace falta una franja con «Volver»
+ * y el estado entre el encabezado y el contenido.
  */
 export default function MarcoApp({
     titulo = 'Inicio',
     subtitulo = null,
     ancho = 'completo',
+    volver = null,
+    estado = null,
     secciones = [],
     inicio = '/',
     sistema = null,
@@ -94,6 +120,12 @@ export default function MarcoApp({
     const [menuAbierto, setMenuAbierto] = useState(false);
 
     const cerrarMenu = () => setMenuAbierto(false);
+
+    const encabezadoDelTitulo = (
+        <h1 className={`titulo-corto line-clamp-2 break-words text-base text-primary dark:text-gray-100${estado ? ' min-w-0' : ''}`}>
+            {titulo}
+        </h1>
+    );
 
     useEffect(() => {
         if (! menuAbierto) return undefined;
@@ -162,10 +194,17 @@ export default function MarcoApp({
                             <Icono nombre="menu" className="text-2xl" />
                         </button>
 
+                        {volver && <BotonVolver volver={volver} />}
+
                         <div className="min-w-0 flex-1">
-                            <h1 className="titulo-corto line-clamp-2 break-words text-base text-primary dark:text-gray-100">
-                                {titulo}
-                            </h1>
+                            {estado ? (
+                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                    {encabezadoDelTitulo}
+                                    {estado}
+                                </div>
+                            ) : (
+                                encabezadoDelTitulo
+                            )}
                             {subtitulo && (
                                 <p className="line-clamp-2 text-xs text-brandText-muted dark:text-brandText-mutedDark">{subtitulo}</p>
                             )}
