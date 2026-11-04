@@ -206,7 +206,7 @@ export default function MarcoApp({
                                 encabezadoDelTitulo
                             )}
                             {subtitulo && (
-                                <p className="line-clamp-2 text-xs text-brandText-muted dark:text-brandText-mutedDark">{subtitulo}</p>
+                                <p className="line-clamp-2 text-sm text-brandText dark:text-brandText-dark">{subtitulo}</p>
                             )}
                         </div>
 
