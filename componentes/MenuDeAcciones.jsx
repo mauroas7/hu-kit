@@ -6,16 +6,32 @@ import Icono from './Icono.jsx';
  * Las acciones que no entran como botón, detrás de los tres puntos. El panel
  * flota anclado al botón (`anchor`): una tabla con scroll no lo recorta y,
  * dentro de un modal, queda por encima. Las acciones van como `ItemDeMenu`.
+ * Con `texto` el botón dice «Acciones» con una flecha desde 1366 px, donde las
+ * solapas de una ficha más el botón entran en la columna de contenido (en una
+ * de 1280, no); debajo quedan los tres puntos, en el mismo lugar. `etiqueta`
+ * debe contener ese `texto` para que el nombre accesible lo incluya (WCAG 2.5.3).
  */
-export default function MenuDeAcciones({ etiqueta = 'Más acciones', icono = 'more_vert', children }) {
+export default function MenuDeAcciones({ etiqueta = 'Más acciones', icono = 'more_vert', texto = null, children }) {
     return (
         <Menu>
             <MenuButton
                 aria-label={etiqueta}
                 title={etiqueta}
-                className="flex size-control shrink-0 items-center justify-center rounded-xl border border-brandText-soft/80 bg-white text-brandText-muted transition-colors hover:border-secondary hover:text-primary dark:border-gray-700 dark:bg-surface-dark dark:text-brandText-mutedDark dark:hover:text-gray-100"
+                className={
+                    texto
+                        ? 'flex h-control min-w-control shrink-0 items-center justify-center gap-1.5 rounded-xl border border-brandText-soft/80 bg-white px-2.5 text-sm font-semibold text-primary transition-colors hover:border-secondary min-[1366px]:pl-4 min-[1366px]:pr-3 dark:border-gray-700 dark:bg-surface-dark dark:text-gray-100'
+                        : 'flex size-control shrink-0 items-center justify-center rounded-xl border border-brandText-soft/80 bg-white text-brandText-muted transition-colors hover:border-secondary hover:text-primary dark:border-gray-700 dark:bg-surface-dark dark:text-brandText-mutedDark dark:hover:text-gray-100'
+                }
             >
-                <Icono nombre={icono} className="text-xl" />
+                {texto ? (
+                    <>
+                        <Icono nombre={icono} className="text-xl min-[1366px]:hidden" />
+                        <span className="hidden min-[1366px]:inline">{texto}</span>
+                        <Icono nombre="expand_more" className="hidden text-xl min-[1366px]:inline-block" />
+                    </>
+                ) : (
+                    <Icono nombre={icono} className="text-xl" />
+                )}
             </MenuButton>
 
             <MenuItems

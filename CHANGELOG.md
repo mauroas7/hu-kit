@@ -3,6 +3,19 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.13.0 — 2026-11-04
+
+- `MarcoApp` suma `volver` (un href, o una función) y `estado` (un nodo junto
+  al título): una ficha de detalle ya no necesita la franja de «Volver» y el
+  estado entre el encabezado y las solapas.
+- `Solapas` suma `alFinal`: lo que va a la derecha de la fila, sobre la misma
+  raya. Con él la fila va en un solo renglón que se desliza en todos los anchos.
+- `MenuDeAcciones` suma `texto`: desde 1366 px el botón dice «Acciones» con una
+  flecha; debajo quedan los tres puntos.
+- El ejemplo «Pedido 1048» del catálogo usa el patrón nuevo. La skill
+  `marca-hu` cambia: al subir, se vuelve a correr `instalar.ps1`.
+- Nada deja de andar: lo que ya se usaba no cambia de nombre ni de valor.
+
 ## v1.12.0 — 2026-11-04
 
 - El aviso de `flash` pasa a ser un toast: una tarjeta por tipo (máximo 3) con

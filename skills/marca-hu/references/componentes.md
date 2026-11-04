@@ -151,7 +151,8 @@ Lo que fija, para Blade o para revisar una pantalla:
   el título en `.titulo-corto text-base text-primary`, el `ThemeToggle` y el
   menú de la cuenta: nombre en `font-black uppercase`, el detalle en
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
-  bg-primary`.
+  bg-primary`. Una ficha suma `volver` (flecha `arrow_back`, entre el menú y
+  el título; un href o una función) y `estado` (un nodo junto al título).
 - El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de `AvisoFlotante`).
 
 ## Solapas, selector de vista y menú de acciones
@@ -161,6 +162,8 @@ Lo que fija, para Blade o para revisar una pantalla:
   `href`, cada solapa reemplaza a la anterior en el historial: «Volver» sale de
   la pantalla, no recorre las solapas. En el celular van en un renglón que se
   desliza de costado, con la activa a la vista; desde `sm` bajan de renglón.
+  Con `alFinal` (lo que va a la derecha, sobre la misma raya) van siempre en un
+  renglón que se desliza: lo del final no puede quedar en un segundo renglón.
 - **`SelectorDeVista`**: opciones pegadas en una caja `rounded-xl border p-1`;
   la elegida, `bg-primary text-white`. Para ver lo mismo de otra forma (Mes /
   Semana / Día), no para navegar a otra cosa.
@@ -168,7 +171,13 @@ Lo que fija, para Blade o para revisar una pantalla:
   (`size-control rounded-xl border`), y un panel anclado que flota (`anchor`,
   `z-flotante`), así una tabla con scroll no lo recorta. Las acciones van como
   `ItemDeMenu`; `peligro` las pinta de rojo y `separado` las aparta con una raya.
-  Lo que se hace seguido va como `Boton` al lado, no escondido acá.
+  Lo que se hace seguido va como `Boton` al lado, no escondido acá. Con `texto`
+  el botón dice «Acciones» con una flecha desde 1366 px (debajo, los tres
+  puntos); `etiqueta` debe contener ese texto (WCAG 2.5.3).
+- **Pantallas de detalle (una ficha)**: volver y el estado van en el
+  encabezado; las acciones, en «Acciones» al final de las solapas; nada de una
+  franja entre el encabezado y las solapas. Lo que se hace siempre puede ir
+  como botón; lo que se hace poco, en el menú.
 
 ## Archivos
 

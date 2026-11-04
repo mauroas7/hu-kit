@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
-import { MarcoApp, useTheme } from '../componentes/index.js';
+import { Estado, MarcoApp, useTheme } from '../componentes/index.js';
 import { href } from './datos.js';
 import Archivos from './secciones/Archivos.jsx';
 import Avisos from './secciones/Avisos.jsx';
@@ -33,7 +33,22 @@ export const EJEMPLOS = [
     { clave: 'tablero', etiqueta: 'Tablero', icono: 'monitoring', vista: Tablero, subtitulo: 'Cómo vienen los pedidos este mes' },
     { clave: 'listado', etiqueta: 'Pedidos', icono: 'list_alt', vista: Listado, subtitulo: 'Los pedidos de insumos de todas las áreas' },
     { clave: 'formulario', etiqueta: 'Nuevo pedido', icono: 'add_box', vista: Formulario, ancho: 'formulario' },
-    { clave: 'detalle', etiqueta: 'Pedido 1048', icono: 'description', vista: Detalle, ancho: 'lectura', enMenu: false, activaEn: 'listado' },
+    {
+        clave: 'detalle',
+        etiqueta: 'Pedido 1048',
+        subtitulo: 'Insumos de Enfermería · pedido el 2 nov',
+        icono: 'description',
+        vista: Detalle,
+        ancho: 'lectura',
+        enMenu: false,
+        activaEn: 'listado',
+        volver: href('listado'),
+        estado: (
+            <Estado tono="aviso" icono="schedule">
+                Pendiente
+            </Estado>
+        ),
+    },
 ];
 
 const ENLACES = [{ etiqueta: 'Mi cuenta', icono: 'manage_accounts', href: href('inicio') }];
@@ -86,6 +101,8 @@ export default function Catalogo() {
             titulo={actual.titulo ?? actual.etiqueta}
             subtitulo={actual.subtitulo ?? null}
             ancho={actual.ancho ?? 'completo'}
+            volver={actual.volver ?? null}
+            estado={actual.estado ?? null}
             secciones={secciones}
             inicio={href(ejemplo ? 'tablero' : 'inicio')}
             sistema={ejemplo ? { nombre: 'Pedidos HU', bajada: 'Un sistema de ejemplo' } : { nombre: 'hu-kit', bajada: 'Catálogo de piezas' }}

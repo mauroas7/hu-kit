@@ -157,7 +157,7 @@ npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
             <section class="pagina space-y-5">
                 <figure class="space-y-2">
                     <img src="capturas/detalle.png" alt="Detalle de un pedido" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
-                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Un detalle.</strong> <code>Solapas</code> para las partes del pedido, <code>Alerta</code>, <code>Dato</code> para cada valor de la ficha y <code>MenuDeAcciones</code> para lo que no entra como botón.</figcaption>
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Un detalle.</strong> Volver y el estado van en el encabezado del marco; <code>Solapas</code> para las partes del pedido, con el menú <code>MenuDeAcciones</code> «Acciones» al final de la fila; luego <code>Alerta</code> y <code>Dato</code> para cada valor de la ficha.</figcaption>
                 </figure>
 
                 <figure class="space-y-2">
@@ -206,7 +206,7 @@ npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-brandText-soft">
-                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MarcoApp</td><td class="py-1.5">El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y avisos. Cada sistema lo envuelve en su <code>AppLayout</code>.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MarcoApp</td><td class="py-1.5">El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y avisos. Cada sistema lo envuelve en su <code>AppLayout</code>. <code>volver</code> y <code>estado</code> para una ficha.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">PanelAutenticacion</td><td class="py-1.5">La pantalla de ingreso.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Boton</td><td class="py-1.5">Todos los botones. Redondo del todo para confirmar o enviar; esquinas de 12 px para navegar o elegir.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Input · Select · Textarea · Checkbox</td><td class="py-1.5">Los campos de un formulario, con su etiqueta, su ayuda y su error.</td></tr>
@@ -219,8 +219,8 @@ npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">EstadoVacio · Cargando</td><td class="py-1.5">Lo que se ve cuando no hay nada, y mientras algo llega.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Dato · Rotulo · Metrica</td><td class="py-1.5">Un valor de una ficha; el rótulo chico en mayúsculas; el número grande de un tablero.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Tabla · Paginador</td><td class="py-1.5">Las clases de una tabla de datos y la paginación, a partir del paginador de Laravel.</td></tr>
-                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Solapas · SelectorDeVista</td><td class="py-1.5">Las partes de una pantalla larga; ver lo mismo de otra forma (mes, semana, día).</td></tr>
-                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MenuDeAcciones</td><td class="py-1.5">Las acciones que no entran como botón, detrás de los tres puntos.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Solapas · SelectorDeVista</td><td class="py-1.5">Las partes de una pantalla larga; ver lo mismo de otra forma (mes, semana, día). <code>alFinal</code> pone un menú a la derecha de las solapas.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MenuDeAcciones</td><td class="py-1.5">Las acciones que no entran como botón, detrás de los tres puntos. Con <code>texto</code> dice «Acciones» desde 1366 px.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Flash · AvisoFlotante</td><td class="py-1.5">El toast con los mensajes que deja el servidor después de una acción: éxito e información se van a los 5 s; error y aviso quedan hasta cerrarlos. <code>Flash</code> es el mismo con otro nombre.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Modal · ModalConfirmar</td><td class="py-1.5">Un formulario corto en un diálogo; la confirmación de una acción destructiva.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">SelectorDeArchivo · BarraDeProgreso</td><td class="py-1.5">Elegir un archivo (en el celular, también sacar una foto) y ver cuánto lleva la subida.</td></tr>

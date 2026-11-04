@@ -50,7 +50,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 
 | Componente | Qué es |
 |---|---|
-| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*) |
+| `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*). Una ficha suma `volver` y `estado` en el encabezado |
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
@@ -73,9 +73,9 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `Metrica` | El número grande de un panel, con su etiqueta y su detalle |
 | `Paginador` | La paginación de un listado, a partir del paginador de Laravel |
 | `encabezadoTabla`, `cuerpoTabla`, `renglonTabla` | Las clases de una tabla de datos |
-| `Solapas` | Las partes de una pantalla larga. Con `href`, cada solapa reemplaza a la anterior en el historial; con `onClick`, cambia sin visitar |
+| `Solapas` | Las partes de una pantalla larga. Con `href`, cada solapa reemplaza a la anterior en el historial; con `onClick`, cambia sin visitar. `alFinal` pone un menú a la derecha, en un solo renglón |
 | `SelectorDeVista` | Opciones pegadas para ver lo mismo de otra forma (Mes / Semana / Día), con las mismas `opciones` que `Solapas` |
-| `MenuDeAcciones`, `ItemDeMenu` | Las acciones que no entran como botón, detrás de los tres puntos. El panel flota anclado: una tabla con scroll no lo recorta |
+| `MenuDeAcciones`, `ItemDeMenu` | Las acciones que no entran como botón, detrás de los tres puntos (con `texto`, «Acciones» desde 1366 px). El panel flota anclado: una tabla con scroll no lo recorta |
 | `Modal` | El diálogo para un formulario corto |
 | `ModalConfirmar`, `useConfirmacion` | La confirmación de una acción destructiva y su estado |
 | `SelectorDeArchivo` | El botón para elegir un archivo; en el celular ofrece también sacar una foto |
