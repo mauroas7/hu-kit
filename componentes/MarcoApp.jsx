@@ -95,7 +95,7 @@ function BotonVolver({ volver }) {
 
 /**
  * El marco de todas las pantallas con sesión: barra lateral, encabezado y área
- * de contenido, con los avisos de `Flash` arriba. Lo propio del sistema llega
+ * de contenido, y trae el toast (`Flash`). Lo propio del sistema llega
  * resuelto: las `secciones` ya filtradas por rol, con su `href` y si están
  * `activa`; el `usuario` y los `enlaces` de su menú. Cada sistema lo envuelve
  * en su `AppLayout`, así sus páginas pasan sólo `titulo`, `subtitulo` y `ancho`.

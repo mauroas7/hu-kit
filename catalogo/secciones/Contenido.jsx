@@ -38,7 +38,7 @@ export default function Contenido() {
                 <Alerta tipo="error" titulo="No se pudo consultar el stock">Probá de nuevo en unos minutos.</Alerta>
                 <Alerta tipo="aviso">El pedido supera el consumo habitual del área.</Alerta>
                 <Alerta tipo="info">Los pedidos se aprueban de lunes a viernes.</Alerta>
-                <Alerta tipo="aviso" tamano="portal" titulo="Tamaño portal">Texto base y más aire, para el portal de pacientes.</Alerta>
+                <Alerta tipo="aviso" tamano="portal" titulo="Tamaño portal">Texto base y más aire, el del portal de pacientes y el del cartel de estado que responde a lo que se acaba de hacer.</Alerta>
             </Muestra>
 
             <div className="grid gap-6 lg:grid-cols-2">

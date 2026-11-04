@@ -65,7 +65,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `Estado` | La píldora de estado, por tono (`exito`, `error`, `aviso`, `info`, `neutro`) |
 | `EstadoVacio` | Lo que se muestra cuando una lista o un paso no tienen nada |
 | `Cargando` | Lo que se muestra mientras llega algo; `enTarjeta` ocupa el lugar de una lista, también como `fallback` de un `<Deferred>` |
-| `Alerta` | Un **estado**: algo que sigue siendo cierto y queda en pantalla, en el flujo, por tipo. `tamano` `equipo` (por defecto) o `portal` (texto base y más aire). `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
+| `Alerta` | Un **estado**: algo que sigue siendo cierto y queda en pantalla, en el flujo, por tipo. `tamano` `equipo` (por defecto) o `portal` (texto base y más aire, el del portal de pacientes y el del cartel de estado que responde a lo que se acaba de hacer). `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
 | `Flash` | Alias de `AvisoFlotante`: lo que `MarcoApp` y las pantallas de ingreso montan. `MarcoApp` ya lo trae |
 | `AvisoFlotante` | El toast, para un **evento** (algo que acaba de pasar): lo que el controlador dejó en `flash`, una tarjeta por tipo (máximo 3) con título y detalle. Cada mensaje es un string o `{ titulo, detalle }`. Éxito e info se van solos a los 5 s (se frenan con el puntero, el foco o la pestaña oculta); error y aviso quedan hasta cerrarlos |
 | `Rotulo` | El texto chico en mayúsculas que nombra lo que sigue; `tono="texto"` para el portal de pacientes |
@@ -106,8 +106,9 @@ build y en desarrollo. Lo que pide el sistema que los usa:
   agrega en su config, o se registra dos veces.
 - **El backend comparte `auth.usuario` y `flash`** desde
   `HandleInertiaRequests::share()`: `auth.usuario` con su `id` (lo lee el tema),
-  y `flash` con `exito`, `error`, `aviso` e `info` (los lee el toast, `AvisoFlotante`, también como `Flash`); cada valor
-  es un string o `{ titulo, detalle }`.
+  y `flash` con `exito`, `error`, `aviso` e `info` (los lee el toast,
+  `AvisoFlotante`, que `Flash` también dibuja); cada valor es un string o
+  `{ titulo, detalle }`.
 - **Un `AppLayout` propio sobre `MarcoApp`.** El marco no conoce el menú, los
   roles ni las rutas de nadie. El sistema le pasa sus secciones con el `href`
   ya armado con `route()` y `activa` con `rutaActiva`, el usuario, «Mi cuenta» y
@@ -122,6 +123,19 @@ hace falta, porque el cambio del lock lo obliga a rearmarlos.
 
 El stack de los sistemas es Laravel + Inertia 2 + React 18 + Tailwind 3. Lo que
 es propio de un sistema —su menú, sus pantallas, su dominio— no va acá.
+
+## Avisos
+
+- Un **estado** (algo que sigue siendo cierto) va en el flujo de la pantalla,
+  con `Alerta`. Un **evento** (algo que acaba de pasar) es el toast, que el
+  controlador alimenta con `flash`; `MarcoApp` ya lo monta.
+- El mensaje es un string o `{ titulo, detalle }`; el detalle, sólo si hay una
+  consecuencia que contar.
+- Éxito e info se van solos a los 5 s; error y aviso quedan hasta cerrarlos. Un
+  mensaje con una instrucción es un `aviso`, y su título dice el problema.
+- El toast no lleva acciones, sólo cerrar. Se ven tres a la vez como mucho.
+- El cartel de estado que responde a lo que se acaba de hacer lleva
+  `tamano="portal"`.
 
 ## Catálogo y guía
 

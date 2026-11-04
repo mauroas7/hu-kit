@@ -45,14 +45,18 @@ quirofanohu ya usa el paquete; portal-hospital todavía tiene su
 ## Los componentes se importan, no se copian
 
 El mismo paquete trae los componentes de React (`hu-kit/componentes`): el marco
-de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `Flash`, más `rutaActiva`), los de
-formulario (`Boton`, `Campo`, `Input`, `PasswordInput`, `Select`, `Textarea`,
-`Checkbox`, `SelectorFecha`, `Buscador`), los de contenido (`Tarjeta`,
-`Estado`, `EstadoVacio`, `Cargando`, `Alerta` (un estado en el flujo; `tamano="portal"` para el portal), `Rotulo`, `Dato`, `Metrica`,
-`Paginador`, las clases de tabla), la navegación (`Solapas`,
-`SelectorDeVista`, `MenuDeAcciones` con `ItemDeMenu`), los avisos
-(`AvisoFlotante`, el toast de un evento; `Flash` es su alias; el mensaje es un string o `{ titulo, detalle }`), los modales (`Modal`, `ModalConfirmar` con
-`useConfirmacion`), los archivos (`SelectorDeArchivo`, `useSubidaDeArchivo`,
+de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `Flash`, más
+`rutaActiva`), los de formulario (`Boton`, `Campo`, `Input`, `PasswordInput`,
+`Select`, `Textarea`, `Checkbox`, `SelectorFecha`, `Buscador`), los de
+contenido (`Tarjeta`, `Estado`, `EstadoVacio`, `Cargando`, `Alerta` (un estado
+en el flujo; `tamano="portal"` en el portal y en el cartel que responde a lo
+que se acaba de hacer), `Rotulo`, `Dato`, `Metrica`, `Paginador`, las clases de
+tabla), la navegación (`Solapas`, `SelectorDeVista`, `MenuDeAcciones` con
+`ItemDeMenu`), los avisos (`AvisoFlotante`, el toast de un evento; `Flash` es
+su alias; el mensaje es un string o `{ titulo, detalle }`; cuándo va una
+`Alerta` y cuándo el toast, en `references/componentes.md`, «Avisos: estado o
+evento»), los modales (`Modal`, `ModalConfirmar` con `useConfirmacion`), los
+archivos (`SelectorDeArchivo`, `useSubidaDeArchivo`,
 `BarraDeProgreso`) y `Icono`, `ApplicationLogo`, `PanelAutenticacion`,
 `ErrorBoundary`, `institucional` y el tema (`ThemeProvider`, `useTheme`,
 `ThemeToggle`). Si lo que vas a armar es uno de éstos, se importa: copiarlo es

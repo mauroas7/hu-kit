@@ -158,7 +158,9 @@ que da 5,1:1 sobre `primary` y 7,8:1 sobre `surface-dark`; un indicador de foco
 pide 3:1.
 
 El borde de `contornoSobrePrimario` (`white/40`) da 3,2:1 sobre `primary`, y el
-borde de un control pide 3:1.
+borde de un control pide 3:1. La variante trae además un relleno `white/10` y
+`white/20` al pasar el puntero; el borde sigue dando 3,2:1 contra el `primary`
+que lo rodea.
 
 ### Cortes de renglón
 

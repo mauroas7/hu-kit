@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { usePage } from '@inertiajs/react';
 import Icono from './Icono.jsx';
 
@@ -31,6 +32,22 @@ const URGENTES = ['error', 'aviso'];
 // El servidor manda un string o `{ titulo, detalle }`; por dentro es siempre lo segundo.
 const normalizar = (valor) => (typeof valor === 'string' ? { titulo: valor } : valor);
 const leer = ({ titulo, detalle }) => [titulo, detalle].filter(Boolean).join('. ');
+
+// Las dos regiones del lector de pantalla se crean una vez y quedan en <body>: las
+// páginas remontan el marco en cada visita, y una región que nace ya escrita puede callarse.
+let regiones = null;
+function regionesDeAnuncio() {
+    regiones ??= ['status', 'alert'].map((role) => {
+        const region = document.createElement('div');
+        region.setAttribute('role', role);
+        region.className = 'sr-only';
+        document.body.append(region);
+
+        return region;
+    });
+
+    return regiones;
+}
 
 function Toast({ tipo, mensaje, onCerrar }) {
     const { icono, chip, pista, relleno } = ESTILOS[tipo];
@@ -131,6 +148,9 @@ export default function AvisoFlotante({ className = 'inset-x-3 bottom-6 lg:inset
     const [visita, setVisita] = useState(0);
     const [cerrados, setCerrados] = useState([]);
     const [anterior, setAnterior] = useState(flash);
+    const [anuncios, setAnuncios] = useState(null);
+
+    useEffect(() => setAnuncios(regionesDeAnuncio()), []);
 
     // Cada visita trae su `flash`: el mismo mensaje dos veces seguidas vuelve a aparecer.
     // Se ajusta al renderizar y no en un efecto, para que la primera vez no se monte dos.
@@ -143,22 +163,24 @@ export default function AvisoFlotante({ className = 'inset-x-3 bottom-6 lg:inset
     const visibles = TIPOS.filter((tipo) => flash?.[tipo] && ! cerrados.includes(tipo))
         .slice(0, MAXIMO)
         .map((tipo) => [tipo, normalizar(flash[tipo])]);
-    const texto = (urgentes) => visibles.filter(([tipo]) => URGENTES.includes(tipo) === urgentes).map(([, mensaje]) => leer(mensaje)).join(' ');
+    const llegados = TIPOS.filter((tipo) => flash?.[tipo]).map((tipo) => [tipo, normalizar(flash[tipo])]);
+    const texto = (urgentes) => llegados.filter(([tipo]) => URGENTES.includes(tipo) === urgentes).map(([, mensaje]) => leer(mensaje)).join(' ');
 
-    // Un lector de pantalla anuncia lo que cambia en una región que ya estaba; una que
-    // aparece ya escrita puede callarla. Por eso el anuncio va en dos regiones fijas
-    // y las tarjetas, que llegan con el mensaje, no llevan `role`.
+    // Se anuncia todo lo que llegó, no lo que sigue visible: cerrar un toast no repite el resto.
+    // La `key` hace que el mismo mensaje, al llegar otra vez, se vuelva a leer.
+    // El toast cuelga de <body>: la animación de un ancestro lo encerraría (ver `tailwind.js`).
     return (
         <>
-            <div role="status" className="sr-only">{texto(false)}</div>
-            <div role="alert" className="sr-only">{texto(true)}</div>
+            {anuncios && createPortal(<span key={visita}>{texto(false)}</span>, anuncios[0])}
+            {anuncios && createPortal(<span key={visita}>{texto(true)}</span>, anuncios[1])}
 
-            {visibles.length > 0 && (
+            {anuncios && visibles.length > 0 && createPortal(
                 <div className={`fixed z-toast flex flex-col items-center gap-2 lg:items-end ${className}`}>
                     {visibles.map(([tipo, mensaje]) => (
                         <Toast key={`${visita}-${tipo}`} tipo={tipo} mensaje={mensaje} onCerrar={(cual) => setCerrados((c) => [...c, cual])} />
                     ))}
-                </div>
+                </div>,
+                document.body,
             )}
         </>
     );

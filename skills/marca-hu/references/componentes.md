@@ -42,7 +42,7 @@ const VARIANTES = {
     fantasmaPeligro: 'border-transparent text-red-700 hover:bg-red-50',
     fantasmaExito: 'border-transparent text-emerald-700 hover:bg-emerald-50',
     suave: 'border-gray-200 bg-canvas text-primary hover:bg-gray-100', // la acción tenue del portal
-    contornoSobrePrimario: 'border-white/40 text-white hover:bg-white/10', // lo secundario sobre `primary`
+    contornoSobrePrimario: 'border-white/40 bg-white/10 text-white hover:bg-white/20', // lo secundario sobre `primary`
 };
 
 // El tamaño trae el relleno, el texto y el alto del ícono: por eso va con la
@@ -153,7 +153,32 @@ Lo que fija, para Blade o para revisar una pantalla:
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
   bg-primary`. Una ficha suma `volver` (flecha `arrow_back`, entre el menú y
   el título; un href o una función) y `estado` (un nodo junto al título).
-- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de `AvisoFlotante`).
+- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
+  `AvisoFlotante`).
+
+## Avisos: estado o evento
+
+- Un **estado** (algo que sigue siendo cierto) va en el flujo de la pantalla,
+  con `Alerta`: «Cirugía cancelada» en la ficha, el resultado de comprobar la
+  disponibilidad.
+- Un **evento** (algo que acaba de pasar) es el toast: lo que el controlador
+  deja en `flash` (`exito`, `error`, `aviso`, `info`). `MarcoApp` ya lo monta
+  (`Flash`, alias de `AvisoFlotante`); una página no lo monta.
+- El mensaje es un string (una línea) o `{ titulo, detalle }`. El detalle va
+  sólo cuando hay una consecuencia que contar.
+- Éxito e info se van solos a los 5 s (se frenan con el puntero, el foco o la
+  pestaña oculta); error y aviso quedan hasta cerrarlos. Por eso un mensaje con
+  una instrucción es un `aviso`, y su título dice el problema: título «Cirugía
+  cancelada, pero el mail no salió», detalle «El cirujano había pedido
+  cancelarla: avisale por otro medio. …».
+- Dentro del toast no hay acciones: sólo el botón de cerrar. Se ven tres a la
+  vez como mucho, el más urgente arriba.
+- El cartel de estado que responde a lo que se acaba de hacer (enviar un
+  cuestionario, comprobar la disponibilidad) lleva `tamano="portal"` y la vista
+  baja hasta él. Si junto a él aparece un error de lo mismo, el error va primero
+  y del mismo tamaño.
+- El toast cuelga de `<body>`: ninguna animación ni `overflow` de la pantalla
+  lo encierra.
 
 ## Solapas, selector de vista y menú de acciones
 

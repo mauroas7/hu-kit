@@ -10,7 +10,8 @@ const ESTILOS = {
 // `alert` interrumpe al lector de pantalla; un éxito o un dato esperan su turno.
 const URGENTES = ['error', 'aviso'];
 
-// `portal` es el tamaño del portal de pacientes: texto base y más aire.
+// `portal`: texto base y más aire, el del portal de pacientes y el del cartel de
+// estado que responde a lo que se acaba de hacer.
 const TAMANOS = {
     equipo: ['px-4 py-3 text-sm', 'text-lg'],
     portal: ['px-4 py-4 text-base sm:px-5', 'text-2xl'],

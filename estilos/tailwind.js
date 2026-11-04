@@ -38,8 +38,9 @@ export default {
                 toast: '200',
             },
 
-            // Termina en `transform: none` para no dejar un `transform` vivo que
-            // encierre a los `fixed` de adentro; `both` aplica el 0% durante un delay.
+            // Con `both` la animación sigue aplicada y su último cuadro se calcula como
+            // `matrix(1, 0, 0, 1, 0, 0)`, no `none`: encierra a los `fixed` de adentro,
+            // por eso el toast va por un portal. `both` aplica el 0% durante un delay.
             keyframes: {
                 'fade-in': {
                     '0%': { opacity: '0', transform: 'translateY(10px)' },

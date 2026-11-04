@@ -3,6 +3,24 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.14.1 — 2026-11-04
+
+- El toast (`AvisoFlotante`, también como `Flash`) se dibuja colgado de
+  `<body>`. Dentro de `MarcoApp` y de la tarjeta del ingreso la animación de
+  entrada lo encerraba: caía al final de la página o se cortaba. Ahora aparece
+  en la ventana en toda pantalla.
+- El lector de pantalla anuncia cada aviso al llegar, también después de
+  cambiar de página y cuando el mismo mensaje llega dos veces; cerrar uno ya no
+  vuelve a anunciar los otros.
+- `contornoSobrePrimario` trae el fondo `white/10` y un hover `white/20` que se
+  ve.
+- `Alerta` `tamano="portal"` amplía su descripción, y la skill `marca-hu` suma
+  la regla de los avisos: al subir, se vuelve a correr `instalar.ps1`.
+- Nada deja de andar: ningún nombre ni prop cambia.
+- Para quien sube desde antes de v1.12.0: los mensajes de `flash` dejan de ir
+  arriba del contenido y pasan al toast, abajo a la derecha; conviene revisar
+  las pantallas con una barra fija abajo.
+
 ## v1.14.0 — 2026-11-04
 
 - El subtítulo del encabezado de `MarcoApp` pasa de `text-xs` en

@@ -23,7 +23,7 @@ export default function Avisos() {
                         <strong className="font-semibold">evento</strong>, algo que acaba de pasar, va el toast.
                     </p>
                     <Alerta tipo="info" titulo="Tamaño equipo">El de las pantallas de gestión.</Alerta>
-                    <Alerta tipo="info" tamano="portal" titulo="Tamaño portal">El del portal de pacientes: texto base y más aire.</Alerta>
+                    <Alerta tipo="info" tamano="portal" titulo="Tamaño portal">Texto base y más aire, el del portal de pacientes y el del cartel de estado que responde a lo que se acaba de hacer.</Alerta>
                 </div>
             </Tarjeta>
         </div>
