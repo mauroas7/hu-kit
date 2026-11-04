@@ -72,22 +72,29 @@ function Nav({ secciones, onNavegar }) {
     );
 }
 
-/** «Volver» del encabezado: un enlace si `volver` es un href, un botón si es una función. */
+/**
+ * «Volver» del encabezado. `volver` es un href (enlace), una función (botón) o
+ * `{ href, onClick, etiqueta }`: href o onClick, y la etiqueta que lee el lector
+ * de pantalla (por defecto «Volver»).
+ */
 function BotonVolver({ volver }) {
+    const { href = null, onClick = null, etiqueta = null } =
+        typeof volver === 'string' ? { href: volver } : typeof volver === 'function' ? { onClick: volver } : volver;
     const props = {
-        'aria-label': 'Volver',
-        title: 'Volver',
+        'aria-label': etiqueta ?? 'Volver',
+        title: etiqueta ?? 'Volver',
+        // Alto de un renglón del h1 (24 px) y glifo sobre el borde del contenido.
         className:
-            '-mx-2 flex size-10 shrink-0 items-center justify-center rounded-xl text-primary transition-colors hover:bg-canvas dark:text-gray-100 dark:hover:bg-white/5',
+            '-my-1.5 -ml-1.5 flex size-9 shrink-0 items-center justify-center rounded-xl text-primary transition-colors hover:bg-canvas dark:text-gray-100 dark:hover:bg-white/5',
     };
     const icono = <Icono nombre="arrow_back" className="text-2xl" />;
 
-    return typeof volver === 'string' ? (
-        <Link href={volver} {...props}>
+    return href ? (
+        <Link href={href} {...props}>
             {icono}
         </Link>
     ) : (
-        <button type="button" onClick={volver} {...props}>
+        <button type="button" onClick={onClick} {...props}>
             {icono}
         </button>
     );
@@ -99,9 +106,10 @@ function BotonVolver({ volver }) {
  * resuelto: las `secciones` ya filtradas por rol, con su `href` y si están
  * `activa`; el `usuario` y los `enlaces` de su menú. Cada sistema lo envuelve
  * en su `AppLayout`, así sus páginas pasan sólo `titulo`, `subtitulo` y `ancho`.
- * Una ficha de detalle suma `volver` (un href, o una función si no navega) y
- * `estado` (un nodo junto al título): así no hace falta una franja con «Volver»
- * y el estado entre el encabezado y el contenido.
+ * Una ficha de detalle suma `volver` (un href, una función si no navega, o
+ * `{ href | onClick, etiqueta }` para nombrar el destino) y `estado` (un nodo
+ * junto al título): así no hace falta una franja con «Volver» y el estado entre
+ * el encabezado y el contenido.
  */
 export default function MarcoApp({
     titulo = 'Inicio',
@@ -194,20 +202,22 @@ export default function MarcoApp({
                             <Icono nombre="menu" className="text-2xl" />
                         </button>
 
-                        {volver && <BotonVolver volver={volver} />}
+                        <div className={volver ? 'flex min-w-0 flex-1 items-start gap-1' : 'contents'}>
+                            {volver && <BotonVolver volver={volver} />}
 
-                        <div className="min-w-0 flex-1">
-                            {estado ? (
-                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                                    {encabezadoDelTitulo}
-                                    {estado}
-                                </div>
-                            ) : (
-                                encabezadoDelTitulo
-                            )}
-                            {subtitulo && (
-                                <p className="line-clamp-2 text-sm text-brandText dark:text-brandText-dark">{subtitulo}</p>
-                            )}
+                            <div className="min-w-0 flex-1">
+                                {estado ? (
+                                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                        {encabezadoDelTitulo}
+                                        {estado}
+                                    </div>
+                                ) : (
+                                    encabezadoDelTitulo
+                                )}
+                                {subtitulo && (
+                                    <p className="line-clamp-2 text-sm text-brandText dark:text-brandText-dark">{subtitulo}</p>
+                                )}
+                            </div>
                         </div>
 
                         {usuario && (

@@ -25,7 +25,7 @@ export default function Navegacion() {
                 <p className="text-sm">Solapa elegida: {solapa}.</p>
             </Muestra>
 
-            <Muestra nombre="Solapas · alFinal" uso="Una ficha con acciones: alFinal pone a la derecha, sobre la misma raya, el menú «Acciones». La fila no se parte en renglones: se desliza en todos los anchos." columna>
+            <Muestra nombre="Solapas · alFinal" uso="Una ficha con acciones: alFinal pone a la derecha, en la misma barra, el menú «Acciones». La fila no se parte en renglones: se desliza en todos los anchos." columna>
                 <Solapas
                     etiqueta="Partes del pedido"
                     actual={solapa}

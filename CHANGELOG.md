@@ -3,6 +3,22 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.15.0 — 2026-11-04
+
+- `MarcoApp`: la flecha de «Volver» flotaba entre el título y el subtítulo y
+  quedaba separada del título. Ahora va pegada al título, a la altura de su
+  renglón, con el glifo sobre el borde izquierdo del contenido. `volver`
+  acepta además `{ href, onClick, etiqueta }`: la etiqueta es lo que leen el
+  lector de pantalla y el `title` (por defecto, «Volver»).
+- `Solapas`: «Acciones» pesaba más que la navegación y quedaba 4 px más arriba
+  que el texto de las solapas. Ahora las solapas son una barra con el marco de
+  las tarjetas, con `alFinal` centrado en ella; las inactivas pasan de
+  `brandText-muted` a `brandText` (contraste 7:1) y ya no bajan de renglón desde
+  `sm`: siempre se deslizan de costado.
+- Nada deja de andar: las props de hoy siguen valiendo.
+- Quien usa `Solapas` ve la barra distinta (marco, alto y color); conviene
+  revisar el espacio que deja alrededor.
+
 ## v1.14.1 — 2026-11-04
 
 - El toast (`AvisoFlotante`, también como `Flash`) se dibuja colgado de
