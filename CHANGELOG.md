@@ -3,6 +3,16 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.16.0 — 2026-11-06
+
+- `institucional` suma `horarioCallCenter` («De lunes a viernes, de 8 a 20
+  hs»): el horario del Call Center, que atiende el WhatsApp de turnos y el
+  teléfono.
+- `institucional.telefono` se escribe «261 564 4000», agrupado como el
+  WhatsApp («261 205 3408»): al lado, uno de los dos se veía mal escrito.
+- Nada deja de andar: el número es el mismo. Un enlace `tel:` armado con el
+  teléfono tiene que quitar los espacios en lugar del guion.
+
 ## v1.15.0 — 2026-11-04
 
 - `MarcoApp`: la flecha de «Volver» flotaba entre el título y el subtítulo y
