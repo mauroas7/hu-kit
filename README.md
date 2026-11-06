@@ -86,7 +86,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `ThemeProvider`, `useTheme`, `ThemeToggle` | El modo claro/oscuro, sin persistir; el sistema monta el provider en `app.jsx`. Vuelve a claro cuando cambia el usuario, que lee de cada página con `usuarioDe` (por defecto, `auth.usuario.id`) |
 | `ErrorBoundary` | La pantalla de error en vez de una página en blanco; envuelve la app en `app.jsx`. `onError(error, info)` le avisa al sistema, para registrarlo en su backend |
 | `aFecha`, `fechaCompleta`, `fechaIso` | Las fechas que usa `SelectorFecha`: leer una fecha sin correrse de día, mostrarla y volver a `YYYY-MM-DD` |
-| `institucional` | Los datos de contacto del hospital: dirección, teléfono, correo y WhatsApp de turnos. Si cambia uno, se publica una versión |
+| `institucional` | Los datos de contacto del hospital: dirección, teléfono, correo, WhatsApp de turnos y horario del Call Center. Si cambia uno, se publica una versión |
 
 Y fuera de los componentes, `hu-kit/tokens` exporta los `colores` del preset para
 lo que no lee clases, como la barra de progreso de Inertia

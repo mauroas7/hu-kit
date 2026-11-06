@@ -7,10 +7,12 @@ export const institucional = {
     nombre: 'Hospital Universitario',
     direccion: 'Paso de los Andes 3051, Mendoza, Argentina',
     codigoPostal: 'M5502BLI',
-    telefono: '261-5644000',
+    telefono: '261 564 4000',
     correo: 'info@hospital.uncu.edu.ar',
     whatsappTurnos: {
         numero: '261 205 3408',
         url: 'https://wa.me/5492612053408',
     },
+    // El del Call Center, que atiende el WhatsApp y el teléfono.
+    horarioCallCenter: 'De lunes a viernes, de 8 a 20 hs',
 };
