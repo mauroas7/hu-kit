@@ -168,6 +168,10 @@ Compila el catálogo, lo levanta, saca las capturas con Edge sin ventana e
 imprime la guía. Otro navegador basado en Chromium sirve igual, con su ruta en la
 variable `NAVEGADOR`.
 
+**La plantilla** (`docs/plantilla-hu.pdf`) es para equipos que no instalan hu-kit:
+capturas de las pantallas de ejemplo y los colores de `estilos/tokens.js`, en pocas
+hojas.
+
 ## Instalar o actualizar las skills
 
 ```powershell
