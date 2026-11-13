@@ -11,7 +11,9 @@
 @import '@fontsource/montserrat/900.css';
 
 /* Material Symbols Outlined, auto-hospedada: el CDN de Google recibe la IP del
-   paciente y, si la red del hospital lo bloquea, los íconos caen al nombre en texto. */
+   paciente y, si la red del hospital lo bloquea, los íconos caen al nombre en texto.
+   La fuente sólo varía en `FILL`. El rango de `font-weight` no es un eje: sin él, el
+   navegador le inventa negrita a un ícono con `font-black`. */
 @font-face {
     font-family: 'Material Symbols Outlined';
     font-style: normal;
@@ -57,13 +59,13 @@
         white-space: nowrap;
         word-wrap: normal;
         direction: ltr;
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-variation-settings: 'FILL' 0;
         -webkit-font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
     }
 
     .material-symbols-outlined.relleno {
-        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-variation-settings: 'FILL' 1;
     }
 
     /* Títulos cortos en mayúscula, como pide el manual para jerarquizar. */

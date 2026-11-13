@@ -13,7 +13,7 @@ export { default as ErrorBoundary } from './ErrorBoundary.jsx';
 export { default as Estado } from './Estado.jsx';
 export { default as EstadoVacio } from './EstadoVacio.jsx';
 export { aFecha, fechaCompleta, fechaIso } from './fechas.js';
-export { default as Flash } from './Flash.jsx';
+export { default as Flash } from './AvisoFlotante.jsx';
 export { default as Icono } from './Icono.jsx';
 export { default as Input } from './Input.jsx';
 export { institucional } from './institucional.js';

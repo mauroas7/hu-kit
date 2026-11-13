@@ -105,7 +105,7 @@ export default function MenuDeUsuario({ usuario, enlaces = [], salir = null }) {
                         <button
                             type="button"
                             onClick={() => router.post(salir)}
-                            className="mt-1 flex w-full items-center gap-3 px-5 py-3 text-sm font-black uppercase tracking-wider text-red-600 transition-colors hover:bg-red-50 data-[focus]:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 dark:data-[focus]:bg-red-950/30"
+                            className="mt-1 flex w-full items-center gap-3 px-5 py-3 text-sm font-black uppercase tracking-wider text-red-700 transition-colors hover:bg-red-50 data-[focus]:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 dark:data-[focus]:bg-red-950/30"
                         >
                             <Icono nombre="logout" className="text-xl" /> Cerrar sesión
                         </button>

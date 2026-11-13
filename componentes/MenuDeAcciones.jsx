@@ -48,7 +48,7 @@ export default function MenuDeAcciones({ etiqueta = 'Más acciones', icono = 'mo
 /** Una acción de `MenuDeAcciones`: `peligro` la pinta de rojo y `separado` la aparta con una raya. */
 export function ItemDeMenu({ onClick = null, href = null, icono = null, peligro = false, separado = false, children }) {
     const tono = peligro
-        ? 'text-red-600 hover:bg-red-50 data-[focus]:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 dark:data-[focus]:bg-red-950/30'
+        ? 'text-red-700 hover:bg-red-50 data-[focus]:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 dark:data-[focus]:bg-red-950/30'
         : 'text-primary hover:bg-canvas data-[focus]:bg-canvas dark:text-gray-100 dark:hover:bg-white/5 dark:data-[focus]:bg-white/5';
     const clases = `flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm font-semibold ${tono}`;
     const contenido = (

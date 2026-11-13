@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import ApplicationLogo from './ApplicationLogo.jsx';
-import Flash from './Flash.jsx';
+import AvisoFlotante from './AvisoFlotante.jsx';
 import Icono from './Icono.jsx';
 import MenuDeUsuario from './MenuDeUsuario.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
@@ -102,7 +102,7 @@ function BotonVolver({ volver }) {
 
 /**
  * El marco de todas las pantallas con sesión: barra lateral, encabezado y área
- * de contenido, y trae el toast (`Flash`). Lo propio del sistema llega
+ * de contenido, y trae el toast (`AvisoFlotante`). Lo propio del sistema llega
  * resuelto: las `secciones` ya filtradas por rol, con su `href` y si están
  * `activa`; el `usuario` y los `enlaces` de su menú. Cada sistema lo envuelve
  * en su `AppLayout`, así sus páginas pasan sólo `titulo`, `subtitulo` y `ancho`.
@@ -236,7 +236,7 @@ export default function MarcoApp({
                 {/* Entra con fade al cambiar de página; una visita a la misma (un filtro) no lo repite. */}
                 <main className="flex-1 animate-fade-in px-4 py-6 sm:px-6">
                     <div className={ANCHOS[ancho] ?? ANCHOS.completo}>
-                        <Flash />
+                        <AvisoFlotante />
                         {children}
                     </div>
                 </main>

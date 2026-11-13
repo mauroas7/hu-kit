@@ -6,6 +6,11 @@ import { router } from '@inertiajs/react';
  * `null` ya significa cerrado.
  *
  *   confirmar({ titulo, detalle, accion: (r) => r.patch(route(…)) });
+ *
+ * `accion` tiene que iniciar una visita de Inertia (con el `router` que
+ * recibe) o devolver una promesa: el diálogo se cierra cuando termina la
+ * visita o la promesa. Con una acción que no hace ninguna de las dos queda en
+ * «Confirmando…».
  */
 export default function useConfirmacion() {
     const [pedido, setPedido] = useState(null);

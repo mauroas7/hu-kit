@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component {
                     <h1 className="text-xl font-black uppercase tracking-tight text-primary dark:text-gray-100">
                         Ocurrió un problema inesperado
                     </h1>
-                    <p className="mt-2 text-sm font-semibold text-gray-500 dark:text-gray-400">
+                    <p className="mt-2 text-sm font-semibold text-brandText dark:text-brandText-dark">
                         Recargá la página para volver a intentarlo.
                     </p>
                 </div>

@@ -3,6 +3,26 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.16.1 — 2026-11-13
+
+- `MarcoApp`: en celular, el encabezado tapaba el logo y el botón «Cerrar
+  menú» del menú abierto, y el toque sobre el botón no lo cerraba. Ahora el
+  menú y su fondo oscuro van por encima del encabezado.
+- «Cerrar sesión» (`MenuDeUsuario`) y la acción de peligro de
+  `MenuDeAcciones` pasan de `red-600` a `red-700`: sobre el `red-50` del foco
+  daban 4,41:1 y ahora dan 5,91:1.
+- `ErrorBoundary`: el párrafo pasa de `gray-500` (4,49:1 sobre `canvas`) a
+  `brandText`.
+- `react-dom` entra en `peerDependencies`: `AvisoFlotante` lo importa para el
+  portal.
+- La fuente de íconos sólo tiene el eje `FILL`: el CSS deja de pedir
+  `wght`, `GRAD` y `opsz`, que la fuente no trae. Los íconos se
+  dibujan igual.
+- `Flash` sigue exportado, ahora como alias directo de `AvisoFlotante`.
+- `useConfirmacion` documenta su contrato: `accion` inicia una visita de
+  Inertia o devuelve una promesa.
+- Nada deja de andar: ningún sistema cambia código para adoptarla.
+
 ## v1.16.0 — 2026-11-06
 
 - `institucional` suma `horarioCallCenter` («De lunes a viernes, de 8 a 20
