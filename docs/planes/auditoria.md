@@ -70,7 +70,7 @@ Cada una tiene una respuesta por defecto, así que ninguna frena su unidad.
 
 ## U1 — El menú del celular queda por encima del encabezado
 
-**Estado:** pendiente
+**Estado:** hecha
 
 **Qué pasa hoy:** la barra lateral y el encabezado comparten `z-dropdown` y el
 encabezado va después en el DOM. Con el menú abierto, el encabezado tapa el
