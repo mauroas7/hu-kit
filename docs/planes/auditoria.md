@@ -159,7 +159,7 @@ de `~/.claude/skills/` es igual al repo.
 
 ## U4 — La documentación del paquete dice lo que el código hace
 
-**Estado:** pendiente
+**Estado:** hecha
 
 **Qué cambia:**
 - **Fuente de íconos:** `estilos/README.md:19` deja de decir «la fuente variable

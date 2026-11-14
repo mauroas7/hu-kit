@@ -16,7 +16,7 @@ lugar.
 | `tokens.js` | Los colores de la marca, con su porqué. El preset los toma de acá, y un sistema los importa con `hu-kit/tokens` para lo que no lee clases, como la barra de progreso de Inertia |
 | `tailwind.js` | Preset de Tailwind 3: colores (de `tokens.js`), Montserrat, capas (`z-dropdown`, `z-modal`, `z-flotante`, `z-toast`), `animate-fade-in`, `scale-98`, los degradés `bg-glow-white` y `bg-glow-secondary` del panel de ingreso, los espaciados `etiqueta` y `control` de `Campo`, el plugin `@tailwindcss/forms`, `darkMode: 'class'` y `hover` sólo con puntero |
 | `estilos.css` | Montserrat 400/600/900, Material Symbols Outlined, el anillo de foco, `.titulo-corto` y el apagado de movimiento con `prefers-reduced-motion` |
-| `fuentes/` | Material Symbols Outlined, la fuente variable completa, de Google; su licencia (Apache 2.0) en `fuentes/LICENSE` |
+| `fuentes/` | Material Symbols Outlined, de Google, con el único eje `FILL`; su licencia (Apache 2.0) en `fuentes/LICENSE` |
 
 Lo que es propio de un sistema (los espaciados de sus componentes, sus plugins,
 su `content`) se queda en el config del sistema, no acá. Los espaciados y el
@@ -74,12 +74,13 @@ Cada sistema fija un tag, y un cambio de marca le llega cuando sube el tag en
 su `package.json`, no solo. Así un cambio acá nunca rompe a un sistema sin que
 alguien lo pruebe.
 
-- Un cambio que no altera lo que se ve (un comentario, una capa nueva) sube el
-  último número: `v1.0.1`.
-- Un token o una clase nuevos suben el del medio: `v1.1.0`.
-- Cambiar o sacar un valor que ya existe —un color, un peso, una familia de
-  íconos— sube el primero: `v2.0.0`. Cada sistema lo adopta revisando sus
-  pantallas.
+- Un arreglo que no le pide nada al sistema (un comentario, un contraste
+  corregido) sube el último número: `v1.0.1`.
+- Algo nuevo (una pieza, un prop, un token) o un cambio que se ve (un color, un
+  peso) y que el sistema adopta sólo revisando sus pantallas, sube el del
+  medio: `v1.1.0`.
+- Lo que obliga al sistema a cambiar código (un export, un prop o un token que
+  se saca o cambia de nombre) sube el primero: `v2.0.0`.
 
 Qué trae cada versión: [`CHANGELOG.md`](../CHANGELOG.md).
 
@@ -97,10 +98,12 @@ Antes del commit del sistema, la dependencia vuelve a apuntar al tag.
 
 1. `version` en `package.json` pasa al número nuevo.
 2. La versión se anota arriba de todo en `CHANGELOG.md`.
-3. Commit, y tag anotado con el mismo número: `git tag -a vX.Y.Z -m vX.Y.Z`.
-4. `git push origin main vX.Y.Z`.
-5. Si cambiaron las skills, se vuelve a correr `instalar.ps1`.
-6. En cada sistema: `npm install hu-kit@github:mauroas7/hu-kit#vX.Y.Z`, build,
+3. Si cambió una pieza que sale en la guía, `npm run guia` regenera
+   `docs/guia-hu-kit.pdf`.
+4. Commit, y tag anotado con el mismo número: `git tag -a vX.Y.Z -m vX.Y.Z`.
+5. `git push origin main vX.Y.Z`.
+6. Si cambiaron las skills, se vuelve a correr `instalar.ps1`.
+7. En cada sistema: `npm install hu-kit@github:mauroas7/hu-kit#vX.Y.Z`, build,
    tests y commit. Cambiar el tag a mano y correr `npm install` no alcanza: con
    una dependencia de git, npm deja en el lock el commit que ya tenía.
 
