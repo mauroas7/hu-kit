@@ -1,10 +1,9 @@
 # Comentarios
 
-Es la convención más original que produjo portal-hospital, y la que su propio
-código viola sistemáticamente — precisamente porque la regla y el test que la
-verifica nunca se subieron al repo. No repitas ese error: la regla (en
+Es la convención más original que produjo portal-hospital. La regla (en
 `docs/comentarios.md`) y su test se versionan desde el primer commit de un
-sistema nuevo.
+sistema nuevo: una regla que sólo vive en la cabeza de quien la escribió no la
+cumple nadie más.
 
 ## La idea de fondo
 

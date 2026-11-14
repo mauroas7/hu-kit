@@ -46,12 +46,12 @@ reintentos (por ejemplo, un envío de correo con un consentimiento), decilo en
 el código con un comentario, porque el default del resto del proyecto es no
 reintentar.
 
-## Cobertura real, no la documentada
+## Todo `catch` que degrada, loguea
 
-La regla "degradar y loguear" vale poco si sólo está escrita: en
-portal-hospital, varios services devuelven `null`/`[]` **sin loguear nada**,
-así que cuando una sección aparece vacía no hay forma de saber si el sistema
-externo falló o si de verdad no hay datos. Cuando agregues un `catch`,
+La regla "degradar y loguear" vale poco si sólo se cumple a medias: un service
+que devuelve `null`/`[]` **sin loguear nada** deja una sección vacía de la que
+no hay forma de saber si el sistema externo falló o si de verdad no hay datos.
+Cuando agregues un `catch`,
 preguntate siempre si además hace falta un `Log::` — un `catch` que sólo hace
 `continue` sin loguear es indistinguible de un bug silencioso.
 

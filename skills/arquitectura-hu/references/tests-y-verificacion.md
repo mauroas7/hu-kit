@@ -3,12 +3,10 @@
 ## La idea que atraviesa todo esto
 
 Una convención sin un test que la verifique se cumple por disciplina, y la
-disciplina se rompe en la primera entrega apurada. Portal-hospital es la
-prueba en vivo: sus reglas de capas, de comentarios y de manejo de errores
-están bien escritas y sistemáticamente violadas, porque el test que las
-verificaría nunca se subió al repo — vivía sólo en la máquina de quien
-programa. **Para un sistema nuevo, esto se invierte: si es una convención,
-tiene un test, y el test se versiona.**
+disciplina se rompe en la primera entrega apurada. Las reglas de capas, de
+comentarios y de manejo de errores valen lo que vale el test que las verifica,
+y ese test tiene que estar en el repo, no en la máquina de quien programa.
+**Si es una convención, tiene un test, y el test se versiona.**
 
 ## Pest, no PHPUnit por clases
 

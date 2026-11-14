@@ -16,10 +16,7 @@ Controller → Service → (HTTP externo | DB externa)
   controller.
 - Verificalo con un test de arquitectura, no con disciplina (detalle completo
   en `tests-y-verificacion.md`). Sin ese test, la regla se cumple mientras
-  alguien se acuerde de ella y se rompe en el primer apuro — es exactamente lo
-  que le pasó a portal-hospital con una integración nueva que metió una
-  consulta a base externa directo en un service sin `try/catch`, violando tres
-  reglas del propio proyecto en el mismo commit.
+  alguien se acuerde de ella y se rompe en el primer apuro.
 
 ## Cómo responde un controller
 
@@ -41,8 +38,8 @@ eso, casi siempre es porque le quedó lógica que debería estar en el service.
 **Por rol**, cuando la pregunta es "¿puede este tipo de usuario entrar acá?":
 
 - Un enum respaldado por slug (`App\Enums\Rol`, no un `string` suelto
-  comparado contra literales en 16 archivos distintos — eso es exactamente lo
-  que le pasó a portal-hospital) con un middleware parametrizado
+  comparado contra literales repetidos en cada archivo que lo necesita) con un
+  middleware parametrizado
   (`rol:cirujano,anestesista`), no uno hardcodeado a un solo rol
   (`is_admin`).
 - `abort(403)`, nunca un redirect silencioso que oculta que hubo un rechazo.

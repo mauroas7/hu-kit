@@ -39,13 +39,13 @@ sistema**: así lo heredan todos. En el config del sistema va sólo lo propio
 (`bg-[#...]`, `text-[#...]`) tanto en JSX como en Blade. Ver
 `references/colores.md` para la paleta y las reglas de contraste.
 
-quirofanohu ya usa el paquete; portal-hospital todavía tiene su
+quirofanohu y sistemabienes ya usan el paquete; portal-hospital todavía tiene su
 `tailwind.config.js` propio con los valores de antes.
 
 ## Los componentes se importan, no se copian
 
 El mismo paquete trae los componentes de React (`hu-kit/componentes`): el marco
-de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `Flash`, más
+de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `AvisoFlotante`, más
 `rutaActiva`), los de formulario (`Boton`, `Campo`, `Input`, `PasswordInput`,
 `Select`, `Textarea`, `Checkbox`, `SelectorFecha`, `Buscador`), los de
 contenido (`Tarjeta`, `Estado`, `EstadoVacio`, `Cargando`, `Alerta` (un estado

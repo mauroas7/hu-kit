@@ -36,9 +36,9 @@ private function client(): PendingRequest
 ```
 
 Todo método público pasa por esa fábrica — nunca arma el cliente HTTP inline
-en cada método. Es la forma que terminó adoptando portal-hospital después de
-tener 11 llamadas casi idénticas repetidas en 6 archivos, la mitad sin
-`timeout()`, y ninguna con manejo de fallo consistente.
+en cada método. Con el cliente armado en cada llamada, cada una decide sola su
+`timeout()` y su manejo de fallo, y terminan distintas; la fábrica lo decide una
+vez. Es la forma que adoptó portal-hospital.
 
 **Timeout siempre.** Una API sin `timeout()` que se cuelga, cuelga la
 pantalla completa. No hay excusa para omitirlo desde el primer service.

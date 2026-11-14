@@ -82,7 +82,7 @@ adentro (`hu-kit/componentes/Tarjeta.jsx`, sin los pares `dark:`) —
 cabecera opcional con ícono y acciones, cuerpo con padding uniforme:
 
 ```
-<section class="rounded-2xl border border-brandText-soft/70 bg-surface shadow-sm">
+<section class="rounded-2xl border border-brandText-soft/70 bg-white shadow-sm">
   <header class="flex items-center justify-between gap-4 border-b border-brandText-soft/70 px-5 py-4">
     <h2 class="flex items-center gap-2 text-sm font-semibold text-primary">
       <!-- ícono relleno, texto primary -->
@@ -133,8 +133,9 @@ cada sistema que le pasa lo suyo ya resuelto: las `secciones` del menú
 filtradas por rol, con su `href` (`route()`) y si están `activa`
 (`rutaActiva`), el `usuario`, los `enlaces` de su menú y la ruta de `salir`.
 Las páginas usan sólo ese `AppLayout`, con `titulo`, `subtitulo` y `ancho`
-(`completo`, `lectura` o `formulario`). Un ejemplo completo está en el README de
-`hu-kit` y en la guía.
+(`completo`, `lectura` o `formulario`). Un ejemplo completo está en la guía de
+`hu-kit` («El puente: el AppLayout de cada sistema», en `catalogo/guia.html`) y
+en `sistemabienes/resources/js/Components/UI/AppLayout.jsx`.
 
 Lo que fija, para Blade o para revisar una pantalla:
 
@@ -153,8 +154,8 @@ Lo que fija, para Blade o para revisar una pantalla:
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
   bg-primary`. Una ficha suma `volver` (flecha `arrow_back` pegada al título,
   alineada con su renglón; un href, una función o `{ href | onClick, etiqueta }`) y `estado` (un nodo junto al título).
-- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
-  `AvisoFlotante`).
+- El contenido entra con `animate-fade-in` y monta el toast `AvisoFlotante`
+  (`Flash` es su alias).
 
 ## Avisos: estado o evento
 
@@ -163,7 +164,7 @@ Lo que fija, para Blade o para revisar una pantalla:
   disponibilidad.
 - Un **evento** (algo que acaba de pasar) es el toast: lo que el controlador
   deja en `flash` (`exito`, `error`, `aviso`, `info`). `MarcoApp` ya lo monta
-  (`Flash`, alias de `AvisoFlotante`); una página no lo monta.
+  (`AvisoFlotante`, que `Flash` también nombra); una página no lo monta.
 - El mensaje es un string (una línea) o `{ titulo, detalle }`. El detalle va
   sólo cuando hay una consecuencia que contar.
 - Éxito e info se van solos a los 5 s (se frenan con el puntero, el foco o la

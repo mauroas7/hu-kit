@@ -73,9 +73,9 @@ Regla de uso: **la sección/ítem de navegación en el que estás parado usa
 `FILL 1` (relleno); el resto, `FILL 0` (trazo).** No es decorativo — es la
 única señal visual de "dónde estoy" en el sidebar/nav.
 
-**Autohospedá la fuente de íconos completa, igual que la tipografía.** El
-paquete trae la fuente variable entera (`hu-kit/estilos/fuentes/`, con los ejes
-`opsz`, `wght`, `FILL`, `GRAD`) y Vite la empaqueta con el build;
+**Autohospedá la fuente de íconos, igual que la tipografía.** El paquete trae
+la fuente (`hu-kit/estilos/fuentes/`) con un solo eje, `FILL`, y Vite la
+empaqueta con el build;
 portal-hospital la tiene copiada en su `resources/fonts/`. El motivo es el
 mismo que para Montserrat: el CDN de Google filtra la IP
 del paciente en cada carga, y si la red del hospital lo bloquea, los íconos

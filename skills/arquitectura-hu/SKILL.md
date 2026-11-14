@@ -1,6 +1,6 @@
 ---
 name: arquitectura-hu
-description: Aplica las convenciones de backend de los sistemas del Hospital Universitario (capas Controller→Service→I/O, cómo se escribe un service, manejo de errores y logging, modelos y migraciones, validación, nombres, comentarios, tests) a cualquier sistema del hospital — portal-hospital, quirofanohu/StartMed, o uno nuevo. Usar SIEMPRE que se escriba o revise un controller, un service, un modelo, una migración, una ruta, una regla de validación, manejo de errores de una integración externa, o un test en un proyecto de este hospital — incluso si el pedido no menciona "arquitectura" o "convenciones" explícitamente (ej. "agregá el endpoint para cancelar una cirugía", "creá el modelo de Material", "por qué falla este test", "cómo integro la API del hospital"). No aplica a proyectos que no sean del Hospital Universitario, ni a decisiones puramente de frontend (ver la skill `marca-hu` para eso).
+description: Aplica las convenciones de backend de los sistemas del Hospital Universitario (capas Controller→Service→I/O, cómo se escribe un service, manejo de errores y logging, modelos y migraciones, validación, nombres, comentarios, tests) a cualquier sistema del hospital — portal-hospital, quirofanohu/StartMed, sistemabienes, o uno nuevo. Usar SIEMPRE que se escriba o revise un controller, un service, un modelo, una migración, una ruta, una regla de validación, manejo de errores de una integración externa, o un test en un proyecto de este hospital — incluso si el pedido no menciona "arquitectura" o "convenciones" explícitamente (ej. "agregá el endpoint para cancelar una cirugía", "creá el modelo de Material", "por qué falla este test", "cómo integro la API del hospital"). No aplica a proyectos que no sean del Hospital Universitario, ni a decisiones puramente de frontend (ver la skill `marca-hu` para eso).
 ---
 
 # Arquitectura de backend — Hospital Universitario
@@ -26,10 +26,9 @@ consulta datos por su cuenta (`Http::`, `DB::table()`, `DB::connection()`);
 service nunca recibe un `Request`. Esto no es una
 convención de estilo: **se verifica con un test de arquitectura** (ver
 `references/tests-y-verificacion.md`) que falla si se viola. Una convención
-sin test que la verifique se erosiona sola — es la lección más repetida en el
-análisis de portal-hospital: la mayoría de sus reglas están bien escritas y
-mal cumplidas, precisamente porque el test y el documento que las definen
-nunca se subieron al repo.
+sin test que la verifique se erosiona sola: se cumple mientras alguien se
+acuerda de ella, y el documento y el test que la definen tienen que estar en
+el repo, no en la máquina de quien programa.
 
 **La primera decisión en cualquier sistema nuevo: esto se versiona.** Las
 reglas como documentación en `docs/` y los tests de arquitectura, dentro del

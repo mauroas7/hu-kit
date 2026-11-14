@@ -127,7 +127,7 @@ un commit propio.
 
 ## U3 — Las skills, al día
 
-**Estado:** pendiente
+**Estado:** hecha
 
 **Qué cambia en `marca-hu`:**
 - `references/tipografia-e-iconos.md:77-78`: la fuente trae sólo `FILL`.
