@@ -1,0 +1,5 @@
+@import 'hu-kit/estilos.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

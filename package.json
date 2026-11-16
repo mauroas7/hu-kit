@@ -5,7 +5,12 @@
     "license": "UNLICENSED",
     "private": true,
     "type": "module",
+    "bin": {
+        "hu-kit": "bin/hu-kit.js"
+    },
     "files": [
+        "bin/",
+        "instalador/",
         "estilos/",
         "componentes/"
     ],

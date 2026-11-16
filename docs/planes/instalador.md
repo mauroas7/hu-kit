@@ -57,7 +57,7 @@ en `C:\laragon\www\farmacia-hu`, con los comandos listos para Cmder.
 
 ## U1 — El comando y las pantallas que ya probó la demo
 
-**Estado:** pendiente
+**Estado:** hecha
 
 **Qué cambia:**
 - `bin/hu-kit.js`: `#!/usr/bin/env node`, subcomando `instalar` (otro, o
