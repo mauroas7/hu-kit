@@ -14,6 +14,7 @@ import Detalle from './ejemplos/Detalle.jsx';
 import Formulario from './ejemplos/Formulario.jsx';
 import Ingreso from './ejemplos/Ingreso.jsx';
 import Listado from './ejemplos/Listado.jsx';
+import Paciente from './ejemplos/Paciente.jsx';
 import Tablero from './ejemplos/Tablero.jsx';
 
 /** Las piezas, agrupadas como en el menú del catálogo. */
@@ -76,6 +77,7 @@ export default function Catalogo() {
     useTemaDeLaUrl();
 
     if (seccion === 'ingreso') return <Ingreso />;
+    if (seccion === 'paciente') return <Paciente />;
 
     const ejemplo = EJEMPLOS.find((item) => item.clave === seccion);
     const actual = ejemplo ?? PIEZAS.find((item) => item.clave === seccion) ?? PIEZAS[0];
@@ -94,6 +96,7 @@ export default function Catalogo() {
                   titulo: indice === 0 ? 'Pantallas de ejemplo' : undefined,
               })),
               { etiqueta: 'Ingreso', icono: 'login', href: href('ingreso') },
+              { etiqueta: 'Paciente', icono: 'person', href: href('paciente') },
           ];
 
     return (

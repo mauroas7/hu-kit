@@ -51,9 +51,11 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | Componente | Qué es |
 |---|---|
 | `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*). Una ficha suma `volver` (un href, una función u `{ href \| onClick, etiqueta }`) y `estado` en el encabezado |
+| `MarcoPortal` | El marco del paciente: el mismo armado que `MarcoApp` (panel azul a todo el alto, unión recta) con lo propio del paciente en el panel. Recibe `navegacion` (un nodo; sin él no hay panel), `accion` (`{ etiqueta, icono, href \| onClick }`, el botón dorado), `encabezado` (un nodo a la izquierda de la cabecera), `pie`, `barraInferior`, `usuario`, `enlaces`, `salir`, `inicio` y `conTema` (muestra el interruptor de modo oscuro). En el celular, el menú es un desplegable azul bajo la cabecera |
+| `SeccionesDelMenu` | Las secciones de un menú sobre azul, para armar la `navegacion` de `MarcoPortal` (o la de un marco propio). Un ítem lleva `href` o `onClick`, y `tamano="portal"` lo hace de 48 px |
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
-| `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario |
+| `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario. Va siempre en claro: con `useSoloClaro` ignora el modo oscuro |
 | `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños, `portal` e `ingreso` incluidos; `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
 | `Campo`, `claseControl`, `descritoPor` | La etiqueta, la ayuda y el error de un campo, la clase del control y su `aria-describedby`, para un control propio adentro de `Campo`. Variantes `normal` e `ingreso` |
 | `Input`, `PasswordInput`, `Textarea` | El campo de texto, el de contraseña con el ojito y el de varias líneas |
@@ -83,7 +85,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `BarraDeProgreso` | Cuánto lleva algo que tarda, de 0 a 100 |
 | `Icono` | Material Symbols Outlined; `relleno` para la sección activa |
 | `ApplicationLogo` | El isologotipo, con el archivo que corresponde a cada fondo |
-| `ThemeProvider`, `useTheme`, `ThemeToggle` | El modo claro/oscuro, sin persistir; el sistema monta el provider en `app.jsx`. Vuelve a claro cuando cambia el usuario, que lee de cada página con `usuarioDe` (por defecto, `auth.usuario.id`) |
+| `ThemeProvider`, `useTheme`, `ThemeToggle`, `useSoloClaro` | El modo claro/oscuro, sin persistir; el sistema monta el provider en `app.jsx`. Vuelve a claro cuando cambia el usuario, que lee de cada página con `usuarioDe` (por defecto, `auth.usuario.id`). Es sólo de las pantallas con sesión: `useSoloClaro()` lo apaga mientras una pantalla (el ingreso, el registro) está montada |
 | `ErrorBoundary` | La pantalla de error en vez de una página en blanco; envuelve la app en `app.jsx`. `onError(error, info)` le avisa al sistema, para registrarlo en su backend |
 | `aFecha`, `fechaCompleta`, `fechaIso` | Las fechas que usa `SelectorFecha`: leer una fecha sin correrse de día, mostrarla y volver a `YYYY-MM-DD` |
 | `institucional` | Los datos de contacto del hospital: dirección, teléfono, correo, WhatsApp de turnos y horario del Call Center. Si cambia uno, se publica una versión |

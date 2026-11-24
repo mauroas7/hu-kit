@@ -45,8 +45,8 @@ quirofanohu y sistemabienes ya usan el paquete; portal-hospital todavía tiene s
 ## Los componentes se importan, no se copian
 
 El mismo paquete trae los componentes de React (`hu-kit/componentes`): el marco
-de la app (`MarcoApp`, con `MenuDeUsuario` y el toast `AvisoFlotante`, más
-`rutaActiva`), los de formulario (`Boton`, `Campo`, `Input`, `PasswordInput`,
+de la app (`MarcoApp`, y `MarcoPortal` para el paciente, con
+`SeccionesDelMenu`, `MenuDeUsuario` y el toast `Flash`, más `rutaActiva`), los de formulario (`Boton`, `Campo`, `Input`, `PasswordInput`,
 `Select`, `Textarea`, `Checkbox`, `SelectorFecha`, `Buscador`), los de
 contenido (`Tarjeta`, `Estado`, `EstadoVacio`, `Cargando`, `Alerta` (un estado
 en el flujo; `tamano="portal"` en el portal y en el cartel que responde a lo
@@ -59,7 +59,7 @@ evento»), los modales (`Modal`, `ModalConfirmar` con `useConfirmacion`), los
 archivos (`SelectorDeArchivo`, `useSubidaDeArchivo`,
 `BarraDeProgreso`) y `Icono`, `ApplicationLogo`, `PanelAutenticacion`,
 `ErrorBoundary`, `institucional` y el tema (`ThemeProvider`, `useTheme`,
-`ThemeToggle`). Si lo que vas a armar es uno de éstos, se importa: copiarlo es
+`ThemeToggle`, `useSoloClaro`). Si lo que vas a armar es uno de éstos, se importa: copiarlo es
 lo que hace que dos sistemas terminen distintos. Cómo se ven, en el catálogo de
 `hu-kit` (`npm run catalogo`); qué pide el sistema (la línea de `content` de
 Tailwind, el `AppLayout` sobre `MarcoApp`), en su `README.md`; las clases de
@@ -96,7 +96,8 @@ archivo salieron, para copiar la forma, no solo la idea.
 - [ ] Íconos Material Symbols **Outlined**, con el eje `FILL` en 1 sólo para
       la sección activa.
 - [ ] Si el proyecto tiene modo oscuro: pares fijos (`canvas`/`canvas-dark`,
-      `surface`/`surface-dark`, …), sin persistirlo en `localStorage`.
+      `surface`/`surface-dark`, …), sin persistirlo en `localStorage`, sólo en
+      pantallas con sesión (el ingreso va siempre en claro).
 - [ ] Copy en español rioplatense con voseo, consistente con el resto del
       sistema.
 - [ ] Una acción destructiva confirma con un modal (`@headlessui/react` en

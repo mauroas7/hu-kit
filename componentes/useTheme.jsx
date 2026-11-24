@@ -1,12 +1,14 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { router } from '@inertiajs/react';
 
 /**
  * El modo claro/oscuro. No se persiste: las máquinas del hospital son
  * compartidas y el modo del usuario anterior no puede sobrevivir al cambio de
  * sesión. Es un contexto porque el toggle puede estar montado más de una vez.
+ * El modo oscuro es sólo de las pantallas con sesión: el ingreso lo ignora
+ * con `useSoloClaro`.
  */
-const ThemeContext = createContext({ theme: 'light', alternar: () => {} });
+const ThemeContext = createContext({ theme: 'light', alternar: () => {}, forzarClaro: () => () => {} });
 
 const usuarioDeAuth = (pagina) => pagina?.props?.auth?.usuario?.id ?? null;
 
@@ -17,6 +19,7 @@ const usuarioDeAuth = (pagina) => pagina?.props?.auth?.usuario?.id ?? null;
  */
 export function ThemeProvider({ usuarioInicial = null, usuarioDe = usuarioDeAuth, children }) {
     const [theme, setTheme] = useState('light');
+    const [forzados, setForzados] = useState(0);
     const usuario = useRef(usuarioInicial);
 
     useEffect(
@@ -33,20 +36,34 @@ export function ThemeProvider({ usuarioInicial = null, usuarioDe = usuarioDeAuth
         [usuarioDe],
     );
 
-    useEffect(() => {
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-    }, [theme]);
+    // Layout effect: con un `useEffect` habría un cuadro en oscuro antes de pasar a claro.
+    useLayoutEffect(() => {
+        document.documentElement.classList.toggle('dark', theme === 'dark' && forzados === 0);
+    }, [theme, forzados]);
 
     const alternar = useCallback(
         () => setTheme((actual) => (actual === 'dark' ? 'light' : 'dark')),
         [],
     );
 
-    const valor = useMemo(() => ({ theme, alternar }), [theme, alternar]);
+    const forzarClaro = useCallback(() => {
+        setForzados((n) => n + 1);
+
+        return () => setForzados((n) => n - 1);
+    }, []);
+
+    const valor = useMemo(() => ({ theme, alternar, forzarClaro }), [theme, alternar, forzarClaro]);
 
     return <ThemeContext.Provider value={valor}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
     return useContext(ThemeContext);
+}
+
+/** Mientras la pantalla que lo llama está montada, el tema es claro aunque el estado diga oscuro. */
+export function useSoloClaro() {
+    const { forzarClaro } = useTheme();
+
+    useLayoutEffect(() => forzarClaro(), [forzarClaro]);
 }

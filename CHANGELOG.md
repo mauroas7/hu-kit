@@ -3,25 +3,35 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
-## v1.16.1 — 2026-11-13
+## v1.17.0 — 2026-11-24
 
-- `MarcoApp`: en celular, el encabezado tapaba el logo y el botón «Cerrar
-  menú» del menú abierto, y el toque sobre el botón no lo cerraba. Ahora el
-  menú y su fondo oscuro van por encima del encabezado.
-- «Cerrar sesión» (`MenuDeUsuario`) y la acción de peligro de
-  `MenuDeAcciones` pasan de `red-600` a `red-700`: sobre el `red-50` del foco
-  daban 4,41:1 y ahora dan 5,91:1.
-- `ErrorBoundary`: el párrafo pasa de `gray-500` (4,49:1 sobre `canvas`) a
-  `brandText`.
-- `react-dom` entra en `peerDependencies`: `AvisoFlotante` lo importa para el
-  portal.
-- La fuente de íconos sólo tiene el eje `FILL`: el CSS deja de pedir
-  `wght`, `GRAD` y `opsz`, que la fuente no trae. Los íconos se
-  dibujan igual.
-- `Flash` sigue exportado, ahora como alias directo de `AvisoFlotante`.
-- `useConfirmacion` documenta su contrato: `accion` inicia una visita de
-  Inertia o devuelve una promesa.
-- Nada deja de andar: ningún sistema cambia código para adoptarla.
+- `MarcoPortal`, el marco del paciente: el mismo armado de borde a borde que
+  `MarcoApp` (panel `bg-primary` a todo el alto, unión recta, sin tarjeta ni
+  marco azul alrededor). Lo que lo distingue es lo que lleva el panel: la
+  `accion` destacada (dorada, con texto `primary`), la `navegacion` (un nodo) y
+  ítems de 48 px. Además: `encabezado`, `pie` (franja clara dentro de la
+  columna del contenido), `barraInferior` (fija en el celular) y `conTema`.
+  Sin `navegacion` no hay panel ni botón de menú.
+- `SeccionesDelMenu`: el menú de secciones de `MarcoApp`, ahora suelto. Un ítem
+  puede llevar `onClick` en lugar de `href`, y `tamano="portal"` lo hace de 48
+  px. Sirve para armar la `navegacion` de `MarcoPortal`.
+- `useSoloClaro()`: mientras una pantalla está montada, el tema es claro aunque
+  el estado diga oscuro. `PanelAutenticacion` lo usa y pierde sus `dark:`: el
+  ingreso va siempre en claro, también con una sesión abierta (una pantalla de
+  confirmar contraseña, por ejemplo). El modo oscuro queda para los dashboards
+  del paciente y del personal.
+- `MarcoApp` y `MarcoPortal`: un primer enlace «Saltar al contenido» que sólo se
+  ve con el teclado; al abrir el menú del celular el foco entra al primer ítem,
+  Escape lo cierra y el foco vuelve al botón que lo abrió; mientras está
+  abierto el contenido no responde (`inert`).
+- `MarcoApp`: los ítems del menú y los botones de abrir y cerrar miden 44 px
+  como mínimo (antes, 40 y 24).
+- `Solapas`: la raya de la solapa activa pasa a `secondary-dark` en claro
+  (el dorado daba 2,4:1 sobre blanco; ahora cumple 3:1). En oscuro sigue
+  dorada.
+- Nada deja de andar: ninguna prop cambia de nombre ni de valor.
+- Quien sube lo ve distinto: los ítems del menú de `MarcoApp` crecen unos 4 px,
+  la raya de las solapas es más oscura y el ingreso ya no se pone oscuro.
 
 ## v1.16.0 — 2026-11-06
 

@@ -143,7 +143,7 @@ Lo que fija, para Blade o para revisar una pantalla:
   y escondida en el celular detrás del botón de menú, con el fondo
   `bg-primary-dark/50` detrás. Arriba, el logo blanco; abajo, el nombre del
   sistema y su bajada en `text-white/70`.
-- Cada sección: `rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
+- Cada sección: `min-h-11 rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
   `hover:bg-white/5`; la activa, `bg-white/10 font-semibold text-white`, con el
   ícono relleno y una raya dorada `h-5 w-1 bg-secondary` a la derecha. Un
   `titulo` abre un grupo con una línea y un rótulo `text-xs uppercase
@@ -154,8 +154,42 @@ Lo que fija, para Blade o para revisar una pantalla:
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
   bg-primary`. Una ficha suma `volver` (flecha `arrow_back` pegada al título,
   alineada con su renglón; un href, una función o `{ href | onClick, etiqueta }`) y `estado` (un nodo junto al título).
-- El contenido entra con `animate-fade-in` y monta el toast `AvisoFlotante`
-  (`Flash` es su alias).
+- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
+  `AvisoFlotante`).
+- Accesibilidad: el primer enlace es «Saltar al contenido» (`main#contenido`,
+  visible sólo con foco). Con el menú del celular abierto, el foco entra al
+  primer ítem, Escape lo cierra y el foco vuelve al botón que lo abrió; el
+  `main` queda `inert`. Los botones de abrir y cerrar miden 44 px.
+
+## Marco del paciente
+
+En React es `MarcoPortal` de `hu-kit/componentes`, para el portal de pacientes y
+cualquier pantalla con sesión de un paciente. **El panel es `bg-primary` como en
+el marco del personal**: lo que distingue al paciente no es el armado sino lo
+que lleva el panel.
+
+- Panel `w-72 bg-primary` a todo el alto, unión recta con el contenido (sin
+  tarjeta, sombra ni marco azul alrededor); el contenido va dentro de un bloque
+  `sticky top-0 max-h-screen overflow-y-auto p-5 xl:p-6`. Arriba, el logo blanco
+  (`w-44`); sin nombre de sistema abajo.
+- La `accion` destacada (la que el paciente más hace: «Pedir turno») es un
+  botón dorado de ancho completo, `bg-secondary text-primary` (5,1:1), de 48 px.
+- La `navegacion` son `SeccionesDelMenu tamano="portal"`: ítems de `min-h-12
+  text-base`, los estados del marco del personal. Un ítem puede ser un botón
+  (`onClick`) si sólo cambia lo que se muestra.
+- Sobre el panel, el texto llega a 4,5:1: dorado sobre la fila activa
+  (`white/10`) no alcanza, ahí el texto va en blanco. Todo lo que el sistema
+  ponga sobre el azul (pasos, estados) usa `white` y `white/80`, no `gray`.
+- Cabecera blanca, no fija (al bajar se va y el panel queda), con la `encabezado`
+  del sistema a la izquierda (volver, logo, ruta) y la cuenta a la derecha; el
+  botón del menú (`size-11`) y el logo de la cabecera sólo en el celular.
+- En el celular el panel pasa a un desplegable azul bajo la cabecera; elegir un
+  ítem lo cierra. La `barraInferior` (la acción principal, siempre a mano) queda
+  fija abajo y deja `pb-28` al contenido.
+- El `pie` es una franja clara (`bg-white`, `dark:bg-surface-dark`) dentro de la
+  columna del contenido, nunca `primary`: con el panel azul al costado, un pie
+  azul dibujaría una «L».
+- Modo oscuro con `conTema`: sólo en el dashboard con sesión. Ver `modo-oscuro.md`.
 
 ## Avisos: estado o evento
 
@@ -184,7 +218,8 @@ Lo que fija, para Blade o para revisar una pantalla:
 ## Solapas, selector de vista y menú de acciones
 
 - **`Solapas`**: una barra con el marco de las tarjetas con las partes de la
-  pantalla; la activa lleva `border-b-2 border-secondary`, texto `primary` e
+  pantalla; la activa lleva `border-b-2 border-secondary-dark` (`border-secondary`
+  en oscuro: el dorado sobre blanco da 2,4:1), texto `primary` e
   ícono relleno, y las otras `brandText`. Con `href`, cada solapa reemplaza a
   la anterior en el historial: «Volver» sale de la pantalla, no recorre las
   solapas. Van siempre en un renglón que se desliza de costado, con la activa
