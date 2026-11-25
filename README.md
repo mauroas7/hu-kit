@@ -172,7 +172,8 @@ variable `NAVEGADOR`.
 
 **La plantilla** (`docs/plantilla-hu.pdf`) es para equipos que no instalan hu-kit:
 capturas de las pantallas de ejemplo y los colores de `estilos/tokens.js`, en pocas
-hojas. No es `hu-plantilla`, el sistema vacío de «Qué falta».
+hojas. Se regenera con `npm run plantilla` (la guía, con `npm run guia`). No es
+`hu-plantilla`, el sistema vacío de «Qué falta».
 
 ## Instalar o actualizar las skills
 

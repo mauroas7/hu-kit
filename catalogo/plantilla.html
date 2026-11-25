@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Plantilla de interfaz del Hospital Universitario</title>
+        <script type="module" src="./plantilla.js"></script>
+        <style>
+            @page {
+                size: A4;
+                margin: 14mm 14mm 16mm;
+            }
+
+            html {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .hoja + .hoja {
+                break-before: page;
+            }
+
+            figure,
+            tr {
+                break-inside: avoid;
+            }
+        </style>
+    </head>
+    <body class="bg-white font-sans text-[10.5pt] leading-relaxed text-brandText">
+        <main>
+            <!-- 1. Ingreso -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <div>
+                            <h1 class="text-4xl font-black text-primary">Plantilla de interfaz</h1>
+                            <p class="text-lg font-semibold">Hospital Universitario · cómo se ve un sistema del hospital</p>
+                        </div>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">1 · Ingreso</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <p>Para quien arma un sistema del hospital con otra tecnología: así se tiene que ver. Las pantallas son de «Pedidos HU», un sistema de ejemplo.</p>
+                <figure class="space-y-2">
+                    <img src="capturas/ingreso.png" alt="Pantalla de ingreso" class="w-full rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Ingreso.</strong> Panel azul a la izquierda, formulario a la derecha. Va siempre en claro: el modo oscuro es sólo de las pantallas con sesión.</figcaption>
+                </figure>
+            </section>
+
+            <!-- 2. Registro -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Registro</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">2 · Registro</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <p>La verificación del documento es lógica de cada sistema: acá sólo se muestra cómo se ve.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <figure class="space-y-2">
+                        <img src="capturas/registro-1.png" alt="Registro, paso 1" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">Paso 1.</strong> Documento, con un resultado.</figcaption>
+                    </figure>
+                    <figure class="space-y-2">
+                        <img src="capturas/registro-2.png" alt="Registro, paso 2" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">Paso 2.</strong> Confirmar el correo.</figcaption>
+                    </figure>
+                    <figure class="space-y-2">
+                        <img src="capturas/registro-3.png" alt="Registro, paso 3" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">Paso 3.</strong> «Revisá tu correo».</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 3. Dashboard del personal -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Pantallas con sesión</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">3 · Dashboard del personal</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <figure class="space-y-2">
+                    <img src="capturas/listado.png" alt="Listado de pedidos" class="w-full rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Listado.</strong> Menú lateral azul, encabezado blanco, contenido en tarjetas.</figcaption>
+                </figure>
+                <div class="grid grid-cols-[1fr_auto] items-start gap-4">
+                    <figure class="space-y-2">
+                        <img src="capturas/listado-oscuro.png" alt="Listado en oscuro" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">En oscuro.</strong></figcaption>
+                    </figure>
+                    <figure class="w-48 space-y-2">
+                        <img src="capturas/listado-celular.png" alt="Listado en un celular" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">En celular.</strong> El menú se esconde.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 4. Dashboard del paciente -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Pantallas con sesión</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">4 · Dashboard del paciente</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <figure class="space-y-2">
+                    <img src="capturas/paciente.png" alt="Portal del paciente" class="w-full rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Portal del paciente.</strong> Mismo panel azul de borde a borde; lo distinguen los ítems grandes y la acción destacada, «Pedir turno».</figcaption>
+                </figure>
+                <div class="grid grid-cols-[1fr_auto] items-start gap-4">
+                    <figure class="space-y-2">
+                        <img src="capturas/paciente-oscuro.png" alt="Portal del paciente en oscuro" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">En oscuro.</strong></figcaption>
+                    </figure>
+                    <figure class="w-48 space-y-2">
+                        <img src="capturas/paciente-celular.png" alt="Portal del paciente en un celular" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">En celular.</strong> El menú se esconde y «Pedir turno» queda fija abajo.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- 5. Tablero, detalle y formulario -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Pantallas con sesión</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">5 · Tablero, detalle y formulario</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <div class="grid grid-cols-2 gap-4">
+                    <figure class="space-y-2">
+                        <img src="capturas/tablero.png" alt="Tablero" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">Tablero.</strong></figcaption>
+                    </figure>
+                    <figure class="space-y-2">
+                        <img src="capturas/detalle.png" alt="Detalle" class="w-full rounded-xl border border-brandText-soft" />
+                        <figcaption class="text-sm"><strong class="font-semibold text-primary">Detalle.</strong></figcaption>
+                    </figure>
+                </div>
+                <figure class="space-y-2">
+                    <img src="capturas/formulario.png" alt="Formulario" class="w-full rounded-xl border border-brandText-soft" />
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">Formulario.</strong></figcaption>
+                </figure>
+            </section>
+
+            <!-- 6. Marca -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Colores y tipografía</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">6 · Marca</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="w-16"></th>
+                            <th class="py-2 pr-3 font-semibold">Color</th>
+                            <th class="py-2 pr-3 font-semibold">Valor</th>
+                            <th class="py-2 font-semibold">Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody id="colores" class="divide-y divide-brandText-soft"></tbody>
+                </table>
+
+                <h2 class="pt-2 text-sm font-semibold uppercase tracking-widest text-secondary-dark">Montserrat · pesos 400, 600 y 900</h2>
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Elemento</th>
+                            <th class="py-2 pr-3 font-semibold">Ingreso</th>
+                            <th class="py-2 font-semibold">Con sesión</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft">
+                        <tr><td class="py-1.5 pr-3 font-semibold text-primary">Título de pantalla</td><td class="py-1.5 pr-3">30 px · 900</td><td class="py-1.5">16 px · 900, mayúsculas</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-semibold text-primary">Subtítulo</td><td class="py-1.5 pr-3">14 px · 600</td><td class="py-1.5">14 px · 400</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-semibold text-primary">Etiqueta de campo</td><td class="py-1.5 pr-3">11 px · 900, mayúsculas</td><td class="py-1.5">14 px · 600</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-semibold text-primary">Texto de campo</td><td class="py-1.5 pr-3">14 px · 600</td><td class="py-1.5">14 px · 400</td></tr>
+                        <tr><td class="py-1.5 pr-3 font-semibold text-primary">Botón</td><td class="py-1.5 pr-3">14 px · 900, mayúsculas</td><td class="py-1.5">14 px · 600</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 7. Piezas -->
+            <section class="hoja space-y-4">
+                <header>
+                    <div class="flex items-end justify-between gap-6">
+                        <h1 class="text-3xl font-black text-primary">Piezas y medidas</h1>
+                        <p class="pb-1 text-sm font-semibold uppercase tracking-widest text-secondary-dark">7 · Piezas</p>
+                    </div>
+                    <div class="mt-3 h-0.5 bg-primary"></div>
+                </header>
+                <img src="capturas/piezas.png" alt="Botones, campos y alertas" class="mx-auto max-h-[120mm] w-auto rounded-xl border border-brandText-soft" />
+
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-primary text-left text-xs uppercase tracking-wide text-primary">
+                            <th class="py-2 pr-3 font-semibold">Pieza</th>
+                            <th class="py-2 font-semibold">Medida</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brandText-soft align-top">
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Tarjeta del ingreso</td><td class="py-1">1000 px de ancho máximo · 600 px de alto mínimo · radio de 24 px</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Campo</td><td class="py-1">Radio de 12 px · relleno de 16 × 14 px (14 × 10 px en un formulario común) · borde de 1 px</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Botón «Ingresar»</td><td class="py-1">52 px de alto · redondo del todo · a todo el ancho</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Botón normal</td><td class="py-1">42 px de alto · redondo del todo para confirmar o enviar; esquinas de 12 px para navegar o elegir</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Alertas</td><td class="py-1">Cuatro tipos: éxito (verde), error (rojo), aviso (dorado) e información (azul) · radio de 12 px, borde de 1 px, ícono a la izquierda</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Foco por teclado</td><td class="py-1">Anillo de 2 px, azul (<span data-token="primary.light"></span>), a 2 px del control · dorado (<span data-token="secondary.DEFAULT"></span>) sobre fondo oscuro o azul</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">Modo oscuro</td><td class="py-1">Sólo en las pantallas con sesión (dashboards del personal y del paciente): el fondo pasa de <span data-token="canvas.DEFAULT"></span> a <span data-token="canvas.dark"></span> y la tarjeta de <span data-token="surface.DEFAULT"></span> a <span data-token="surface.dark"></span>, más profunda que el fondo. El ingreso, el registro, los correos y los PDF van siempre en claro.</td></tr>
+                        <tr><td class="py-1 pr-3 font-semibold text-primary">En celular</td><td class="py-1">Bajo 768 px el panel azul se oculta y el logo (128 px de ancho) pasa arriba del formulario</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </body>
+</html>

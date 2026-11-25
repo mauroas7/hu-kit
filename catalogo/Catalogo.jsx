@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
-import { Estado, MarcoApp, useTheme } from '../componentes/index.js';
+import { Alerta, Boton, Estado, Input, MarcoApp, Tarjeta, useTheme } from '../componentes/index.js';
 import { href } from './datos.js';
 import Archivos from './secciones/Archivos.jsx';
 import Avisos from './secciones/Avisos.jsx';
-import Botones from './secciones/Botones.jsx';
+import Botones, { VARIANTES } from './secciones/Botones.jsx';
 import Campos from './secciones/Campos.jsx';
 import Contenido from './secciones/Contenido.jsx';
 import Inicio from './secciones/Inicio.jsx';
@@ -15,6 +15,7 @@ import Formulario from './ejemplos/Formulario.jsx';
 import Ingreso from './ejemplos/Ingreso.jsx';
 import Listado from './ejemplos/Listado.jsx';
 import Paciente from './ejemplos/Paciente.jsx';
+import Registro from './ejemplos/Registro.jsx';
 import Tablero from './ejemplos/Tablero.jsx';
 
 /** Las piezas, agrupadas como en el menú del catálogo. */
@@ -72,11 +73,61 @@ function useTemaDeLaUrl() {
     }, []);
 }
 
+/** Botones, campos y alertas sin el marco, para la hoja de piezas de la plantilla PDF. Sin entrada en el menú. */
+function Piezas() {
+    return (
+        <div className="space-y-4 bg-surface p-4">
+            <Tarjeta>
+                <p className="mb-4 text-sm text-brandText">Redondo del todo: envía un formulario o cierra una acción. Es la forma por defecto.</p>
+                <div className="flex flex-wrap items-start gap-3">
+                    {VARIANTES.map((variante) => (
+                        <Boton key={variante} tipo="button" variante={variante}>
+                            {variante}
+                        </Boton>
+                    ))}
+                </div>
+            </Tarjeta>
+
+            <Tarjeta>
+                <p className="mb-4 text-sm text-brandText">Esquinas de 12 px: navega, elige o alterna entre varias opciones, como las acciones de una fila.</p>
+                <div className="flex flex-wrap items-start gap-3">
+                    {VARIANTES.map((variante) => (
+                        <Boton key={variante} tipo="button" variante={variante} forma="grupo">
+                            {variante}
+                        </Boton>
+                    ))}
+                </div>
+            </Tarjeta>
+
+            <Tarjeta>
+                <div className="grid gap-4 md:grid-cols-3">
+                    <Input nombre="nombre" etiqueta="Nombre del insumo" valor="" onChange={() => {}} placeholder="Ej.: guantes de látex" requerido />
+                    <Input nombre="codigo" etiqueta="Código" valor="" onChange={() => {}} ayuda="El que figura en la caja." />
+                    <Input nombre="cantidad" etiqueta="Cantidad" valor="0" onChange={() => {}} error="La cantidad tiene que ser mayor que cero." />
+                </div>
+            </Tarjeta>
+
+            <Tarjeta>
+                <div className="space-y-3">
+                    <Alerta tipo="exito">Se guardó el pedido.</Alerta>
+                    <Alerta tipo="error" titulo="No se pudo consultar el stock">
+                        Probá de nuevo en unos minutos.
+                    </Alerta>
+                    <Alerta tipo="aviso">El pedido supera el consumo habitual del área.</Alerta>
+                    <Alerta tipo="info">Los pedidos se aprueban de lunes a viernes.</Alerta>
+                </div>
+            </Tarjeta>
+        </div>
+    );
+}
+
 export default function Catalogo() {
     const { auth, seccion } = usePage().props;
     useTemaDeLaUrl();
 
     if (seccion === 'ingreso') return <Ingreso />;
+    if (seccion === 'registro') return <Registro />;
+    if (seccion === 'piezas') return <Piezas />;
     if (seccion === 'paciente') return <Paciente />;
 
     const ejemplo = EJEMPLOS.find((item) => item.clave === seccion);
@@ -96,6 +147,7 @@ export default function Catalogo() {
                   titulo: indice === 0 ? 'Pantallas de ejemplo' : undefined,
               })),
               { etiqueta: 'Ingreso', icono: 'login', href: href('ingreso') },
+              { etiqueta: 'Registro', icono: 'person_add', href: href('registro') },
               { etiqueta: 'Paciente', icono: 'person', href: href('paciente') },
           ];
 

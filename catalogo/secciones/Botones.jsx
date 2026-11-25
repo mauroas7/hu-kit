@@ -2,7 +2,7 @@ import { Boton } from '../../componentes/index.js';
 import { href } from '../datos.js';
 import Muestra from '../Muestra.jsx';
 
-const VARIANTES = ['primario', 'secundario', 'exito', 'peligro', 'contorno', 'contornoPeligro', 'contornoExito', 'suave', 'fantasma', 'fantasmaPeligro', 'fantasmaExito'];
+export const VARIANTES = ['primario', 'secundario', 'exito', 'peligro', 'contorno', 'contornoPeligro', 'contornoExito', 'suave', 'fantasma', 'fantasmaPeligro', 'fantasmaExito'];
 
 export default function Botones() {
     return (

@@ -23,7 +23,8 @@
     "scripts": {
         "catalogo": "vite --config catalogo/vite.config.js",
         "catalogo:build": "vite build --config catalogo/vite.config.js",
-        "guia": "node catalogo/guia/generar.mjs"
+        "guia": "node catalogo/guia/generar.mjs",
+        "plantilla": "node catalogo/guia/generar.mjs plantilla"
     },
     "dependencies": {
         "@fontsource/montserrat": "^5.3.0",
