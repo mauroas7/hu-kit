@@ -89,9 +89,9 @@ export default function MarcoApp({
 
             {/* Fondo oscuro detrás del menú en móvil. Va en la capa de la barra y antes que
                 ella: atenúa el encabezado y la barra le queda encima. */}
-            {menuAbierto && (
+            {abierto && (
                 <div
-                    onClick={cerrarMenu}
+                    onClick={cerrar}
                     className="fixed inset-0 z-modal bg-primary-dark/50 lg:hidden"
                     aria-hidden="true"
                 />
@@ -102,7 +102,7 @@ export default function MarcoApp({
             <aside
                 ref={menuRef}
                 id="menu-lateral"
-                className={`fixed inset-y-0 left-0 z-dropdown flex w-64 flex-col bg-primary transition-[transform,visibility] lg:visible lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${
+                className={`fixed inset-y-0 left-0 z-modal flex w-64 flex-col bg-primary transition-[transform,visibility] lg:visible lg:sticky lg:top-0 lg:z-dropdown lg:h-screen lg:translate-x-0 ${
                     abierto ? 'visible translate-x-0' : 'invisible -translate-x-full'
                 }`}
             >
@@ -130,15 +130,6 @@ export default function MarcoApp({
                     </div>
                 )}
             </aside>
-
-            {/* Fondo oscuro detrás del menú en móvil. */}
-            {abierto && (
-                <div
-                    onClick={cerrar}
-                    className="fixed inset-0 z-30 bg-primary-dark/50 lg:hidden"
-                    aria-hidden="true"
-                />
-            )}
 
             <div className="flex min-w-0 flex-1 flex-col">
                 <header className="sticky top-0 z-dropdown border-b border-brandText-soft/70 bg-white dark:border-gray-800 dark:bg-surface-dark">
