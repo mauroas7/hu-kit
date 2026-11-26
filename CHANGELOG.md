@@ -3,6 +3,20 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.18.0 — 2026-11-26
+
+- `MarcoPortal`: el panel se rediseña en tres zonas en una columna
+  fija a todo el alto (logo, `accion`, `navegacion`) donde sólo la navegación se
+  desplaza. El logo baja a `w-36` y su línea queda a la par de la de la cabecera;
+  el fondo es un degradado de `primary` con un brillo; la `accion` pasa a
+  `rounded-2xl` con sombra y foco propio. En oscuro el panel es `surface-dark`
+  con borde, no `primary`.
+- `MarcoPortal`, prop nueva `pieDelPanel`: una zona fija abajo del panel (y al
+  final del menú del celular) para lo que tiene que verse siempre.
+- Qué hacer al adoptarla: pasar «Contacto y ayuda» a `pieDelPanel` y rearmar las
+  filas de la `navegacion` con la anatomía nueva
+  (`skills/marca-hu/references/componentes.md`, «Marco del paciente»).
+
 ## v1.17.0 — 2026-11-24
 
 - `MarcoPortal`, el marco del paciente: el mismo armado de borde a borde que

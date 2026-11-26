@@ -82,6 +82,11 @@ desaparecer o cambia un contraste que ya estaba resuelto). Antes de agregar
 `dark:` a algo, preguntate si el elemento está parado sobre un fondo que
 realmente cambia entre modos, o sobre uno de marca que es fijo.
 
+La excepción es el panel de `MarcoPortal`: en oscuro deja de ser `primary` y
+pasa a `surface-dark` con `border-white/10`, más hondo que el canvas, igual que
+la cabecera. Sus overlays `white/…` siguen sin `dark:`: el fondo cambia, no su
+lectura. El panel del personal (`MarcoApp`) no cambia.
+
 ## Contenido que se queda en modo claro a propósito
 
 Un bloque de contenido largo con su propia paleta de avisos internos (por

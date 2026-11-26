@@ -8,7 +8,7 @@ import ThemeToggle from './ThemeToggle.jsx';
 import useMenuLateral from './useMenuLateral.js';
 
 const CLASES_ACCION =
-    'mb-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 text-base font-semibold text-primary transition-colors hover:bg-secondary-light';
+    'flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 text-base font-semibold text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(0,0,0,0.6)] transition-colors duration-200 motion-reduce:transition-none hover:bg-secondary-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary dark:focus-visible:ring-offset-surface-dark';
 
 /** El botón dorado de ancho completo del panel: `Link` si lleva `href`, botón si no. */
 function Accion({ etiqueta, icono = 'add', href = null, onClick = null }) {
@@ -31,15 +31,16 @@ function Accion({ etiqueta, icono = 'add', href = null, onClick = null }) {
 }
 
 /**
- * El marco del paciente. Se arma igual que `MarcoApp` —panel azul a todo el
- * alto, unido de forma recta al contenido, sin tarjeta ni sombra—: lo que
- * cambia es lo que lleva el panel. Acá no hay lista de secciones del personal
- * sino lo que el sistema le pase: una `accion` principal (`{ etiqueta, icono,
- * href | onClick }`) y la `navegacion`, un nodo; `SeccionesDelMenu
- * tamano="portal"` sirve para armarla. `encabezado` es el nodo del sistema
- * (volver, logo, ruta); `pie` es una franja clara, `barraInferior` queda fija
- * abajo en el celular y `conTema` muestra el interruptor de claro/oscuro. Sin
- * `navegacion` no hay panel ni botón de menú.
+ * El marco del paciente. Se arma igual que `MarcoApp` —panel a todo el alto,
+ * unido de forma recta al contenido, sin tarjeta ni sombra—: lo que cambia es
+ * lo que lleva el panel, en tres zonas (logo, `accion` y `navegacion`; sólo
+ * la navegación se desplaza) y, fijo abajo, `pieDelPanel`, un nodo para lo que
+ * tiene que verse siempre («Contacto y ayuda»). `accion` es `{ etiqueta, icono,
+ * href | onClick }`; `navegacion`, un nodo. En oscuro el panel pasa a
+ * `surface-dark` con borde, no queda `primary`. `encabezado` es el nodo del
+ * sistema (volver, logo, ruta); `pie` es una franja clara, `barraInferior`
+ * queda fija abajo en el celular y `conTema` muestra el interruptor de
+ * claro/oscuro. Sin `navegacion` no hay panel ni botón de menú.
  */
 export default function MarcoPortal({
     titulo = 'Inicio',
@@ -50,6 +51,7 @@ export default function MarcoPortal({
     encabezado = null,
     navegacion = null,
     accion = null,
+    pieDelPanel = null,
     barraInferior = null,
     pie = null,
     conTema = false,
@@ -67,19 +69,32 @@ export default function MarcoPortal({
             <Head title={titulo} />
 
             {navegacion && (
-                <aside className="hidden w-72 shrink-0 bg-primary lg:block">
-                    <div className="sticky top-0 max-h-screen overflow-y-auto p-5 xl:p-6">
-                        {/* Un `a` común: el inicio es otro sistema. Fuera del teclado, porque el encabezado ya trae la vuelta. */}
-                        {inicio ? (
-                            <a href={inicio} tabIndex={-1} aria-hidden="true" className="mb-4 block h-auto w-44 shrink-0 px-2">
-                                {logo}
-                            </a>
-                        ) : (
-                            <div className="mb-4 block h-auto w-44 shrink-0 px-2">{logo}</div>
+                <aside className="hidden w-72 shrink-0 bg-primary-dark lg:block dark:border-r dark:border-white/10 dark:bg-surface-dark">
+                    <div className="sticky top-0 flex h-screen flex-col overflow-hidden bg-gradient-to-b from-primary via-primary to-primary-dark dark:bg-none">
+                        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-glow-white" />
+
+                        <div className="relative flex shrink-0 items-center border-b border-white/10 px-6 py-3">
+                            <div className="flex min-h-11 items-center">
+                                {/* Un `a` común: el inicio es otro sistema. Fuera del teclado, porque el encabezado ya trae la vuelta. */}
+                                {inicio ? (
+                                    <a href={inicio} tabIndex={-1} aria-hidden="true" className="block h-auto w-36 shrink-0">
+                                        {logo}
+                                    </a>
+                                ) : (
+                                    <div className="block h-auto w-36 shrink-0">{logo}</div>
+                                )}
+                            </div>
+                        </div>
+
+                        {accion && (
+                            <div className="relative shrink-0 px-4 pt-5">
+                                <Accion {...accion} />
+                            </div>
                         )}
 
-                        {accion && <Accion {...accion} />}
-                        {navegacion}
+                        <div className="relative min-h-0 flex-1 overflow-y-auto px-3 pb-4 pt-5">{navegacion}</div>
+
+                        {pieDelPanel && <div className="relative shrink-0 border-t border-white/10 px-3 py-3">{pieDelPanel}</div>}
                     </div>
                 </aside>
             )}
@@ -119,10 +134,15 @@ export default function MarcoPortal({
                         id="menu-portal"
                         ref={menuRef}
                         onClick={(e) => e.target.closest('a[href], button') && cerrar()}
-                        className="border-b border-white/10 bg-primary p-3 lg:hidden"
+                        className="border-b border-white/10 bg-gradient-to-b from-primary to-primary-dark px-3 pb-3 pt-4 dark:bg-none dark:bg-surface-dark lg:hidden"
                     >
-                        {accion && <Accion {...accion} />}
+                        {accion && (
+                            <div className="mb-3">
+                                <Accion {...accion} />
+                            </div>
+                        )}
                         {navegacion}
+                        {pieDelPanel && <div className="mt-3 border-t border-white/10 pt-3">{pieDelPanel}</div>}
                     </div>
                 )}
 

@@ -164,19 +164,26 @@ Lo que fija, para Blade o para revisar una pantalla:
 ## Marco del paciente
 
 En React es `MarcoPortal` de `hu-kit/componentes`, para el portal de pacientes y
-cualquier pantalla con sesión de un paciente. **El panel es `bg-primary` como en
+cualquier pantalla con sesión de un paciente. **En claro, el panel es `primary` como en
 el marco del personal**: lo que distingue al paciente no es el armado sino lo
 que lleva el panel.
 
-- Panel `w-72 bg-primary` a todo el alto, unión recta con el contenido (sin
-  tarjeta, sombra ni marco azul alrededor); el contenido va dentro de un bloque
-  `sticky top-0 max-h-screen overflow-y-auto p-5 xl:p-6`. Arriba, el logo blanco
-  (`w-44`); sin nombre de sistema abajo.
+- Panel `w-72` a todo el alto, unión recta con el contenido (sin tarjeta, sombra
+  ni marco azul alrededor), en un degradado de `primary` a `primary-dark` con un
+  brillo decorativo (`bg-glow-white`). La columna interior es `sticky top-0 flex
+  h-screen flex-col` y tiene tres zonas: el logo blanco (`w-36`, con la misma
+  caja que la cabecera —`py-3`, botones de 44 px y borde de 1 px— para que su
+  línea quede a la par de la de la cabecera), la `accion` y la `navegacion`; sólo
+  la navegación se desplaza (`overflow-y-auto`). `pieDelPanel` (un nodo) es una
+  zona fija abajo, con `border-t border-white/10`: para «Contacto y ayuda», que
+  tiene que verse siempre aunque la lista sea larga.
 - La `accion` destacada (la que el paciente más hace: «Pedir turno») es un
-  botón dorado de ancho completo, `bg-secondary text-primary` (5,1:1), de 48 px.
-- La `navegacion` son `SeccionesDelMenu tamano="portal"`: ítems de `min-h-12
-  text-base`, los estados del marco del personal. Un ítem puede ser un botón
-  (`onClick`) si sólo cambia lo que se muestra.
+  botón dorado de ancho completo, `rounded-2xl bg-secondary text-primary`
+  (5,1:1), de 48 px, con un brillo interno y una sombra.
+- La `navegacion` la arma el sistema con la anatomía de abajo (*Anatomía de
+  una fila de la navegación*). `SeccionesDelMenu tamano="portal"` todavía tiene
+  los estados del marco del personal (la raya dorada), no esa anatomía. Un ítem
+  puede ser un botón (`onClick`) si sólo cambia lo que se muestra.
 - Sobre el panel, el texto llega a 4,5:1: dorado sobre la fila activa
   (`white/10`) no alcanza, ahí el texto va en blanco. Todo lo que el sistema
   ponga sobre el azul (pasos, estados) usa `white` y `white/80`, no `gray`.
@@ -189,7 +196,36 @@ que lleva el panel.
 - El `pie` es una franja clara (`bg-white`, `dark:bg-surface-dark`) dentro de la
   columna del contenido, nunca `primary`: con el panel azul al costado, un pie
   azul dibujaría una «L».
-- Modo oscuro con `conTema`: sólo en el dashboard con sesión. Ver `modo-oscuro.md`.
+- Modo oscuro con `conTema`: sólo en el dashboard con sesión. En oscuro el panel
+  pasa a `surface-dark` con `border-white/10`, más hondo que el canvas, igual que
+  la cabecera. Ver `modo-oscuro.md`.
+
+### Anatomía de una fila de la navegación
+
+Para quien arma la `navegacion` (quirofanohu y portal-hospital la copian
+igual). Las clases exactas:
+
+- Fila: `group relative flex min-h-12 w-full items-center gap-3 rounded-2xl px-2
+  py-2 text-left text-base leading-snug transition-colors duration-200
+  motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2
+  focus-visible:ring-inset focus-visible:ring-secondary`, más el estado.
+- Inactiva: `text-white/80 hover:bg-white/5 hover:text-white`.
+- Activa (tarjeta elevada), con `aria-current`: `bg-gradient-to-b from-white/15
+  to-white/5 font-semibold text-white ring-1 ring-inset ring-white/10
+  shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_12px_28px_-14px_rgba(0,0,0,0.7)]`.
+- Círculo del ícono: `flex size-9 shrink-0 items-center justify-center
+  rounded-full transition-colors duration-200 motion-reduce:transition-none`.
+  Activo: `bg-white text-primary shadow-[0_2px_8px_-2px_rgba(0,0,0,0.5)]` con el
+  ícono relleno. Inactivo: `bg-white/5 text-white/85 ring-1 ring-inset
+  ring-white/15 group-hover:bg-white/10 group-hover:text-white
+  group-hover:ring-white/30`. El ícono es `text-xl`.
+- Rótulo de grupo: `px-2 pb-2 pt-6 text-xs font-semibold uppercase
+  tracking-[0.15em] text-white/60` (`pt-1` si es el primero).
+- El texto de la fila no se corta (`min-w-0`, sin `truncate`): pasa a un segundo
+  renglón.
+- El círculo activo es blanco y no dorado porque el dorado sobre el panel queda
+  para la acción principal y para «te toca» (el disco del paso pendiente en
+  quirofanohu).
 
 ## Avisos: estado o evento
 
