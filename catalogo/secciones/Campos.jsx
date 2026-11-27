@@ -44,10 +44,8 @@ export default function Campos() {
                 </div>
             </Muestra>
 
-            <Muestra nombre="Buscador" uso="Con la lupa y la cruz para borrar. onChange recibe el texto." columna>
-                <div className="max-w-sm">
-                    <Buscador nombre="buscar" etiqueta="Buscar pedidos" valor={busqueda} onChange={setBusqueda} placeholder="Insumo o área…" />
-                </div>
+            <Muestra nombre="Buscador" uso="Con la lupa y la cruz para borrar. onChange recibe el texto; ancho es el del conjunto." columna>
+                <Buscador nombre="buscar" etiqueta="Buscar pedidos" valor={busqueda} onChange={setBusqueda} placeholder="Insumo o área…" ancho="w-full lg:w-80" />
             </Muestra>
 
             <Muestra nombre="PasswordInput dentro de Campo" uso="La contraseña con el ojito. Va dentro de Campo, con claseControl y descritoPor." columna>

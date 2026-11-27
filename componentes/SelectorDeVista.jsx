@@ -8,16 +8,16 @@ import { Link } from '@inertiajs/react';
 export default function SelectorDeVista({ opciones, actual, etiqueta, className = '' }) {
     return (
         <div
-            className={`inline-flex shrink-0 rounded-xl border border-brandText-soft bg-white p-1 dark:border-gray-700 dark:bg-surface-dark ${className}`}
+            className={`inline-flex w-full shrink-0 rounded-xl border border-gray-200 bg-white p-1 dark:border-gray-700 dark:bg-surface-dark sm:w-auto ${className}`}
             role="group"
             aria-label={etiqueta}
         >
             {opciones.map(({ clave, etiqueta: texto, href = null, onClick = null }) => {
                 const activa = actual === clave;
-                const clases = `rounded-lg px-4 py-1.5 text-sm font-semibold transition duration-200 active:scale-95 ${
+                const clases = `flex min-h-11 flex-1 items-center justify-center whitespace-nowrap rounded-lg px-3 text-xs font-semibold transition-colors sm:flex-none sm:px-4 sm:text-sm ${
                     activa
-                        ? 'bg-primary text-white'
-                        : 'text-brandText-muted hover:text-primary dark:text-brandText-mutedDark dark:hover:text-gray-100'
+                        ? 'bg-primary text-white dark:bg-white dark:text-primary'
+                        : 'text-brandText hover:bg-canvas dark:text-brandText-dark dark:hover:bg-white/5'
                 }`;
 
                 return href ? (

@@ -1,28 +1,91 @@
+import { Fragment, useState } from 'react';
 import {
     Alerta,
     Boton,
+    CabeceraSeccion,
     Cargando,
     Dato,
     Estado,
     EstadoVacio,
+    FechaChip,
     Metrica,
     Paginador,
     Rotulo,
+    SelectorDeVista,
+    SeparadorDeMes,
     Tarjeta,
     cuerpoTabla,
     encabezadoTabla,
+    fechaCompleta,
     renglonTabla,
 } from '../../componentes/index.js';
-import { PAGINADOR, PEDIDOS, TONO_ESTADO } from '../datos.js';
+import { PAGINADOR, PEDIDOS, TONO_ESTADO, TURNOS_POR_MES } from '../datos.js';
 import Muestra from '../Muestra.jsx';
 
 export default function Contenido() {
+    const [vista, setVista] = useState('proximos');
+
     return (
         <div className="space-y-6">
-            <Muestra nombre="Tarjeta" uso="El contenedor de todo contenido: título con ícono, un contador pegado y acciones a la derecha." columna>
-                <Tarjeta titulo="Pedidos pendientes" icono="pending_actions" contador={3} acciones={<Boton tipo="button" variante="contorno" forma="grupo" tamano="compacto">Ver todos</Boton>}>
+            <Muestra nombre="Tarjeta" uso="El contenedor de todo contenido: título en rótulo, un contador pegado y acciones a la derecha." columna>
+                <Tarjeta titulo="Pedidos pendientes" contador={3} acciones={<Boton tipo="button" variante="contorno" forma="grupo" tamano="compacto">Ver todos</Boton>}>
                     <p className="text-sm">El cuerpo de la tarjeta.</p>
                 </Tarjeta>
+            </Muestra>
+
+            <Muestra nombre="CabeceraSeccion" uso="El título de una pantalla, con su filete y su subtítulo. Lo que va a la derecha baja debajo del título en el celular." columna>
+                <CabeceraSeccion titulo="Mis turnos" subtitulo="Tus turnos y tu historial de visitas.">
+                    <SelectorDeVista
+                        etiqueta="Qué turnos ver"
+                        actual={vista}
+                        opciones={[
+                            { clave: 'proximos', etiqueta: 'Próximos', onClick: () => setVista('proximos') },
+                            { clave: 'historial', etiqueta: 'Historial', onClick: () => setVista('historial') },
+                        ]}
+                    />
+                </CabeceraSeccion>
+            </Muestra>
+
+            <Muestra nombre="Listado agrupado por mes" uso="Una Tarjeta sin relleno, encabezadoTabla en grilla, un SeparadorDeMes por mes y una fila por turno con FechaChip. Debajo de lg cada fila se apila." columna>
+                <Tarjeta titulo="Próximos turnos" relleno={false} acciones={<Boton tipo="button" variante="contorno" forma="grupo" tamano="compacto">Ver todos</Boton>}>
+                    <div className={`${encabezadoTabla} hidden items-center gap-x-4 font-semibold lg:grid lg:grid-cols-[3rem_5.5rem_1fr_9rem]`}>
+                        <span>Fecha</span>
+                        <span>Hora</span>
+                        <span>Especialidad</span>
+                        <span className="sr-only">Acciones</span>
+                    </div>
+                    <ul>
+                        {TURNOS_POR_MES.map(({ mes, turnos }) => (
+                            <Fragment key={mes}>
+                                <SeparadorDeMes como="li">{mes}</SeparadorDeMes>
+                                {turnos.map((turno) => (
+                                    <li
+                                        key={turno.id}
+                                        className="grid items-center gap-x-4 gap-y-3 border-b border-gray-100 px-5 py-3 last:border-b-0 dark:border-gray-800 lg:grid-cols-[3rem_5.5rem_1fr_9rem]"
+                                    >
+                                        <FechaChip fecha={turno.fecha} />
+                                        <p className="text-sm font-semibold tabular-nums text-primary dark:text-gray-100">
+                                            <span className="sr-only">{fechaCompleta(turno.fecha)}, </span>
+                                            {turno.hora} h
+                                        </p>
+                                        <div className="min-w-0">
+                                            <p className="text-sm font-semibold text-primary dark:text-gray-100">{turno.especialidad}</p>
+                                            <p className="text-sm text-brandText dark:text-brandText-dark">{turno.profesional}</p>
+                                        </div>
+                                        <Boton tipo="button" variante="suave" forma="grupo" tamano="tactil">
+                                            Ver detalle
+                                        </Boton>
+                                    </li>
+                                ))}
+                            </Fragment>
+                        ))}
+                    </ul>
+                </Tarjeta>
+            </Muestra>
+
+            <Muestra nombre="FechaChip" uso="El mini calendario de una fila. Va junto a la fecha en texto; pasado lo apaga.">
+                <FechaChip fecha="2026-12-03" />
+                <FechaChip fecha="2026-10-14" pasado />
             </Muestra>
 
             <Muestra nombre="Estado" uso="La píldora de estado, por tono. El color dice qué tan bien está, no qué es.">
@@ -45,6 +108,16 @@ export default function Contenido() {
                 <Muestra nombre="EstadoVacio" uso="Cuando no hay nada: qué pasa y quién lo va a mover." columna>
                     <EstadoVacio icono="inventory_2" titulo="Sin pedidos para revisar">Cuando un área cargue uno, aparece acá.</EstadoVacio>
                     <EstadoVacio icono="task_alt" titulo="Todo entregado" listo>No queda nada pendiente esta semana.</EstadoVacio>
+                    <Tarjeta relleno={false}>
+                        <EstadoVacio
+                            icono="event_available"
+                            titulo="No tenés turnos próximos"
+                            enTarjeta
+                            accion={<Boton tipo="button" variante="contorno" forma="grupo" tamano="tactil">Pedir un turno</Boton>}
+                        >
+                            Cuando pidas uno, lo vas a ver acá con sus indicaciones.
+                        </EstadoVacio>
+                    </Tarjeta>
                 </Muestra>
 
                 <Muestra nombre="Cargando" uso="Mientras llega algo. Sola va en renglón; enTarjeta ocupa el lugar de una lista." columna>
