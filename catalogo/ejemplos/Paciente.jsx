@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alerta, Boton, Dato, Estado, MarcoPortal, SeccionesDelMenu, Tarjeta, institucional } from '../../componentes/index.js';
+import { Alerta, Boton, Dato, Estado, MarcoPortal, Rotulo, SeccionesDelMenu, Tarjeta, institucional } from '../../componentes/index.js';
 import { USUARIO, href } from '../datos.js';
 
 const PACIENTE = { ...USUARIO, nombre: 'Lucía Fernández', email: 'lfernandez@correo.com' };
@@ -65,6 +65,18 @@ export default function Paciente() {
                 >
                     Nuevo turno
                 </Boton>
+            }
+            lateral={
+                actual === 'inicio' && (
+                    <aside className="hidden w-80 shrink-0 border-l border-gray-100 bg-white px-5 pb-5 pt-8 dark:border-gray-800 dark:bg-surface-dark xl:block">
+                        <Rotulo como="h2" className="mb-4 px-1">
+                            Novedades
+                        </Rotulo>
+                        <p className="px-1 text-sm text-brandText dark:text-brandText-dark">
+                            La columna `lateral`: a todo el alto del contenido, desde 1280 px.
+                        </p>
+                    </aside>
+                )
             }
             pie={pie}
             conTema
