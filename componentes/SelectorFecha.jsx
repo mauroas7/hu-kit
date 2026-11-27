@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { DayPicker } from 'react-day-picker';
-import { es } from 'react-day-picker/locale';
+import { propsDelCalendario } from './Calendario.jsx';
 import Campo, { claseControl, descritoPor } from './Campo.jsx';
 import Icono from './Icono.jsx';
 import { aFecha, fechaCompleta, fechaIso } from './fechas.js';
@@ -12,34 +12,14 @@ import { aFecha, fechaCompleta, fechaIso } from './fechas.js';
  * `limpiable` deja borrarla (va '') y `conAnio` salta de año, para nacimientos.
  */
 
-const FLECHA = 'flex size-9 items-center justify-center rounded-xl text-primary hover:bg-primary-faint disabled:opacity-30 dark:text-gray-100 dark:hover:bg-primary/30';
-
+// Los desplegables de mes y año de `conAnio`; lo demás es del calendario.
 const CLASES = {
-    root: 'text-sm text-brandText dark:text-gray-100',
-    months: 'relative',
-    month_caption: 'flex h-9 items-center justify-center',
-    caption_label: 'flex items-center gap-0.5 font-black capitalize text-primary dark:text-gray-100',
+    ...propsDelCalendario.classNames,
+    root: 'w-[21rem] text-sm text-brandText dark:text-gray-100',
     dropdowns: 'flex items-center gap-3',
     dropdown_root: 'relative inline-flex items-center rounded-lg px-1 hover:bg-primary-faint dark:hover:bg-primary/30',
     dropdown: 'absolute inset-0 z-10 w-full cursor-pointer opacity-0',
-    nav: 'absolute inset-x-0 top-0 flex justify-between',
-    button_previous: FLECHA,
-    button_next: FLECHA,
-    month_grid: 'mt-2 border-collapse',
-    weekday: 'size-9 text-xs font-semibold uppercase text-brandText-muted dark:text-brandText-mutedDark',
-    day: 'p-0.5 text-center',
-    day_button: 'size-9 rounded-xl hover:bg-primary-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary dark:hover:bg-primary/30',
-    today: 'font-black text-secondary-dark dark:text-secondary',
-    selected: '[&>button]:bg-primary [&>button]:text-white [&>button]:hover:bg-primary-light dark:[&>button]:bg-primary-light',
-    outside: 'text-brandText-soft dark:text-gray-600',
-    disabled: 'text-brandText-soft dark:text-gray-600 [&>button]:cursor-not-allowed [&>button]:hover:bg-transparent',
 };
-
-const CHEVRONES = { left: 'chevron_left', right: 'chevron_right', up: 'expand_less', down: 'expand_more' };
-
-function Flecha({ orientation = 'down' }) {
-    return <Icono nombre={CHEVRONES[orientation]} className={orientation === 'down' ? 'text-lg' : 'text-2xl'} />;
-}
 
 export default function SelectorFecha({
     nombre,
@@ -85,8 +65,8 @@ export default function SelectorFecha({
                     {({ close }) => (
                         <>
                             <DayPicker
+                                {...propsDelCalendario}
                                 mode="single"
-                                locale={es}
                                 selected={elegida ?? undefined}
                                 defaultMonth={elegida ?? (conAnio ? maximo : null) ?? undefined}
                                 disabled={fueraDeRango.length ? fueraDeRango : undefined}
@@ -99,7 +79,6 @@ export default function SelectorFecha({
                                     close();
                                 }}
                                 classNames={CLASES}
-                                components={{ Chevron: Flecha }}
                             />
 
                             {limpiable && elegida && (

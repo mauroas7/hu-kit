@@ -7,7 +7,7 @@ const CORREO = 'j***@hospital.uncu.edu.ar';
 const IniciaSesion = () => (
     <p className="mt-8 text-center text-xs font-semibold text-brandText">
         ¿Ya tenés cuenta?{' '}
-        <Link href={href('ingreso')} className="text-secondary-dark hover:underline">
+        <Link href={href('ingreso')} className="inline-flex min-h-11 items-center font-semibold text-secondary-dark hover:underline">
             Iniciá sesión
         </Link>
     </p>
@@ -54,7 +54,7 @@ function Confirmar() {
                 Enviar correo
             </Boton>
 
-            <Link href={href('registro')} className="flex items-center justify-center gap-2 text-xs font-semibold text-brandText hover:underline">
+            <Link href={href('registro')} className="flex min-h-11 items-center justify-center gap-2 text-xs font-semibold text-secondary-dark hover:underline">
                 <Icono nombre="arrow_back" className="text-base" />
                 Volver a verificar el documento
             </Link>

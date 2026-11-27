@@ -6,6 +6,7 @@ export { default as BarraDeProgreso } from './BarraDeProgreso.jsx';
 export { default as Boton, claseBoton } from './Boton.jsx';
 export { default as Buscador } from './Buscador.jsx';
 export { default as CabeceraSeccion } from './CabeceraSeccion.jsx';
+export { default as Calendario } from './Calendario.jsx';
 export { default as Campo, claseControl, descritoPor } from './Campo.jsx';
 export { default as Cargando } from './Cargando.jsx';
 export { default as Checkbox, claseCasilla } from './Checkbox.jsx';

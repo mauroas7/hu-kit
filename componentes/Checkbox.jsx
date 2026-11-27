@@ -52,6 +52,6 @@ export function claseCasilla(hayError, forma = 'rounded', tono = 'text-primary f
     return [
         `size-4 shrink-0 ${forma} border bg-white ${tono}`,
         'dark:bg-canvas-dark dark:checked:bg-current dark:focus:ring-offset-surface-dark',
-        hayError ? 'border-red-600' : 'border-brandText-soft dark:border-gray-700 dark:checked:border-transparent',
+        hayError ? 'border-red-700 dark:border-red-400' : 'border-brandText-soft dark:border-gray-700 dark:checked:border-transparent',
     ].join(' ');
 }
