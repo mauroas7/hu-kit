@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import ApplicationLogo from './ApplicationLogo.jsx';
+import { useSoloClaro } from './useTheme.jsx';
 
 /**
  * La pantalla de autenticación de todos los sistemas, copiada del login del
@@ -8,12 +9,14 @@ import ApplicationLogo from './ApplicationLogo.jsx';
  * `skills/marca-hu/references/componentes.md`.
  */
 export default function PanelAutenticacion({ tituloPestana, nombre, bajada, rotulo, titulo, subtitulo = null, children }) {
+    useSoloClaro();
+
     return (
-        <div className="flex min-h-screen items-center justify-center bg-canvas p-4 font-sans antialiased dark:bg-canvas-dark lg:p-8">
+        <div className="flex min-h-screen items-center justify-center bg-canvas p-4 font-sans antialiased lg:p-8">
             <Head title={tituloPestana} />
 
-            <div className="flex min-h-[600px] w-full max-w-[1000px] animate-fade-in flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-surface-dark md:flex-row">
-                <div className="relative hidden flex-col justify-between overflow-hidden bg-primary p-12 dark:bg-primary-dark md:flex md:w-2/5">
+            <div className="flex min-h-[600px] w-full max-w-[1000px] animate-fade-in flex-col overflow-hidden rounded-3xl bg-white shadow-2xl md:flex-row">
+                <div className="relative hidden flex-col justify-between overflow-hidden bg-primary p-12 md:flex md:w-2/5">
                     <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-glow-white"></div>
                     <div className="absolute -right-10 top-20 h-40 w-40 rounded-full bg-glow-secondary"></div>
 
@@ -41,9 +44,9 @@ export default function PanelAutenticacion({ tituloPestana, nombre, bajada, rotu
                         </div>
 
                         <div className="mb-10">
-                            <h1 className="mb-2 text-3xl font-black tracking-tight text-primary dark:text-gray-100">{titulo}</h1>
+                            <h1 className="mb-2 text-3xl font-black tracking-tight text-primary">{titulo}</h1>
                             {subtitulo && (
-                                <p className="text-sm font-semibold text-brandText dark:text-brandText-dark">{subtitulo}</p>
+                                <p className="text-sm font-semibold text-brandText">{subtitulo}</p>
                             )}
                         </div>
 

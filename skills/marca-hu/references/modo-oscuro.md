@@ -5,6 +5,26 @@ portal-hospital tomó y quirofanohu también sigue. Si tu sistema nuevo suma
 modo oscuro, seguí este patrón; si no lo necesita, no hace falta implementarlo
 sólo por consistencia.
 
+## Dónde va y dónde no
+
+**El modo oscuro es sólo de las pantallas con sesión:** los dashboards del
+paciente (`MarcoPortal` con `conTema`) y del personal (`MarcoApp`). Ingreso,
+registro, recuperar contraseña, correos y PDF van siempre en claro, también si
+el sistema del usuario pide oscuro y también con una sesión abierta (por
+ejemplo, confirmar la contraseña).
+
+- No hay `prefers-color-scheme`: el modo oscuro se elige a mano con el
+  interruptor, nunca «se activa solo».
+- Una pantalla que tiene que quedar en claro llama a `useSoloClaro()` de
+  `hu-kit/componentes`: mientras está montada, la clase `dark` sale del
+  `<html>`. `PanelAutenticacion` ya lo hace. Sacar los `dark:` de la pantalla
+  no alcanza: sus campos y botones traen los suyos y quedarían oscuros dentro
+  de una tarjeta blanca.
+- El panel azul (`bg-primary`) es el mismo en los dos modos y en los dos marcos.
+  Contra el contenido oscuro da 1,4:1 —igual que en el marco del personal—: lo
+  separa la diferencia de matiz, no el contraste.
+- El tema no viaja de un sistema al otro: cada uno arranca en claro.
+
 ## La razón de por qué no se persiste
 
 **El tema no se guarda en `localStorage` ni sigue `prefers-color-scheme`.**
@@ -61,6 +81,11 @@ oscuro. Agregarle un `dark:` a ese elemento generalmente lo rompe (lo hace
 desaparecer o cambia un contraste que ya estaba resuelto). Antes de agregar
 `dark:` a algo, preguntate si el elemento está parado sobre un fondo que
 realmente cambia entre modos, o sobre uno de marca que es fijo.
+
+La excepción es el panel de `MarcoPortal`: en oscuro deja de ser `primary` y
+pasa a `surface-dark` con `border-white/10`, más hondo que el canvas, igual que
+la cabecera. Sus overlays `white/…` siguen sin `dark:`: el fondo cambia, no su
+lectura. El panel del personal (`MarcoApp`) no cambia.
 
 ## Contenido que se queda en modo claro a propósito
 

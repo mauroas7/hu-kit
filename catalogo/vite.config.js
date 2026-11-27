@@ -22,6 +22,7 @@ export default defineConfig({
             input: {
                 catalogo: fileURLToPath(new URL('index.html', import.meta.url)),
                 guia: fileURLToPath(new URL('guia.html', import.meta.url)),
+                plantilla: fileURLToPath(new URL('plantilla.html', import.meta.url)),
             },
         },
     },

@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="flex items-end justify-between text-sm text-white/70">
-                    <p>Versión 1.8.1 · octubre de 2026</p>
+                    <p id="version"></p>
                     <p class="font-semibold uppercase tracking-[0.2em]">Hospital Universitario</p>
                 </div>
             </section>
@@ -174,7 +174,7 @@ npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
 
                 <figure class="space-y-2">
                     <img src="capturas/listado-oscuro.png" alt="Listado en modo oscuro" class="mx-auto max-h-[90mm] w-auto rounded-xl border border-brandText-soft" />
-                    <figcaption class="text-sm"><strong class="font-semibold text-primary">El modo oscuro.</strong> Lo trae cada pieza: el sistema no escribe nada para tenerlo. No se guarda entre sesiones, porque las computadoras del hospital son compartidas.</figcaption>
+                    <figcaption class="text-sm"><strong class="font-semibold text-primary">El modo oscuro.</strong> Lo trae cada pieza: el sistema no escribe nada para tenerlo. Es sólo de las pantallas con sesión: el ingreso va siempre en claro. No se guarda entre sesiones, porque las computadoras del hospital son compartidas.</figcaption>
                 </figure>
             </section>
 
@@ -207,6 +207,8 @@ npm run catalogo     (y abrir en el navegador la dirección que muestra)</pre>
                     </thead>
                     <tbody class="divide-y divide-brandText-soft">
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MarcoApp</td><td class="py-1.5">El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y avisos. Cada sistema lo envuelve en su <code>AppLayout</code>. <code>volver</code> y <code>estado</code> para una ficha.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">MarcoPortal</td><td class="py-1.5">El marco del paciente: el mismo armado de borde a borde que <code>MarcoApp</code>, con una acción destacada, la navegación como nodo, el pie y la barra inferior en el celular.</td></tr>
+                        <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">SeccionesDelMenu</td><td class="py-1.5">El menú de secciones suelto, con <code>onClick</code> o <code>href</code> en cada una.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">PanelAutenticacion</td><td class="py-1.5">La pantalla de ingreso.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Boton</td><td class="py-1.5">Todos los botones. Redondo del todo para confirmar o enviar; esquinas de 12 px para navegar o elegir.</td></tr>
                         <tr><td class="py-1.5 pr-3 align-top font-semibold text-primary">Input · Select · Textarea · Checkbox</td><td class="py-1.5">Los campos de un formulario, con su etiqueta, su ayuda y su error.</td></tr>

@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import ApplicationLogo from './ApplicationLogo.jsx';
 import AvisoFlotante from './AvisoFlotante.jsx';
 import Icono from './Icono.jsx';
 import MenuDeUsuario from './MenuDeUsuario.jsx';
+import SaltarAlContenido from './SaltarAlContenido.jsx';
+import SeccionesDelMenu from './SeccionesDelMenu.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
+import useMenuLateral from './useMenuLateral.js';
 
 /*
  * `completo` es para las pantallas de datos —listados, agenda, tableros—, que
@@ -18,59 +20,6 @@ const ANCHOS = {
     lectura: 'max-w-6xl',
     formulario: 'max-w-3xl',
 };
-
-/** El menú lateral. Una sección sin `href` queda atenuada y no navega: todavía no tiene pantalla. */
-function Nav({ secciones, onNavegar }) {
-    return (
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Secciones">
-            {secciones.map((seccion, indice) => (
-                <div key={`${seccion.href ?? seccion.etiqueta}-${indice}`}>
-                    {seccion.titulo && (
-                        <>
-                            <hr className="my-3 border-white/10" aria-hidden="true" />
-                            <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-widest text-white/70">
-                                {seccion.titulo}
-                            </p>
-                        </>
-                    )}
-
-                    {seccion.href ? (
-                        <Link
-                            href={seccion.href}
-                            onClick={onNavegar}
-                            aria-current={seccion.activa ? 'page' : undefined}
-                            className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
-                                seccion.activa
-                                    ? 'bg-white/10 font-semibold text-white'
-                                    : 'text-white/70 hover:bg-white/5 hover:text-white'
-                            }`}
-                        >
-                            {/* Relleno para la sección activa, trazo para el resto (Manual de Marca). */}
-                            <Icono
-                                nombre={seccion.icono}
-                                relleno={seccion.activa}
-                                className="text-xl transition-transform duration-300 group-hover:translate-x-0.5"
-                            />
-                            <span>{seccion.etiqueta}</span>
-
-                            {seccion.activa && (
-                                <span className="ml-auto h-5 w-1 rounded-full bg-secondary" aria-hidden="true" />
-                            )}
-                        </Link>
-                    ) : (
-                        <span
-                            className="flex cursor-not-allowed items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-white/35"
-                            title="Todavía no implementado"
-                        >
-                            <Icono nombre={seccion.icono} className="text-xl" />
-                            <span>{seccion.etiqueta}</span>
-                        </span>
-                    )}
-                </div>
-            ))}
-        </nav>
-    );
-}
 
 /**
  * «Volver» del encabezado. `volver` es un href (enlace), una función (botón) o
@@ -125,9 +74,7 @@ export default function MarcoApp({
     salir = null,
     children,
 }) {
-    const [menuAbierto, setMenuAbierto] = useState(false);
-
-    const cerrarMenu = () => setMenuAbierto(false);
+    const { abierto, abrir, cerrar, menuRef, botonRef } = useMenuLateral();
 
     const encabezadoDelTitulo = (
         <h1 className={`titulo-corto line-clamp-2 break-words text-base text-primary dark:text-gray-100${estado ? ' min-w-0' : ''}`}>
@@ -135,24 +82,16 @@ export default function MarcoApp({
         </h1>
     );
 
-    useEffect(() => {
-        if (! menuAbierto) return undefined;
-
-        const alTeclear = (e) => e.key === 'Escape' && cerrarMenu();
-        document.addEventListener('keydown', alTeclear);
-
-        return () => document.removeEventListener('keydown', alTeclear);
-    }, [menuAbierto]);
-
     return (
         <div className="flex min-h-screen">
+            <SaltarAlContenido />
             <Head title={titulo} />
 
             {/* Fondo oscuro detrás del menú en móvil. Va en la capa de la barra y antes que
                 ella: atenúa el encabezado y la barra le queda encima. */}
-            {menuAbierto && (
+            {abierto && (
                 <div
-                    onClick={cerrarMenu}
+                    onClick={cerrar}
                     className="fixed inset-0 z-modal bg-primary-dark/50 lg:hidden"
                     aria-hidden="true"
                 />
@@ -161,26 +100,28 @@ export default function MarcoApp({
             {/* Barra lateral. En móvil se muestra/oculta con el botón del encabezado; cerrada,
                 `invisible` la saca del orden del teclado, no sólo de la pantalla. */}
             <aside
+                ref={menuRef}
+                id="menu-lateral"
                 className={`fixed inset-y-0 left-0 z-modal flex w-64 flex-col bg-primary transition-[transform,visibility] lg:visible lg:sticky lg:top-0 lg:z-dropdown lg:h-screen lg:translate-x-0 ${
-                    menuAbierto ? 'visible translate-x-0' : 'invisible -translate-x-full'
+                    abierto ? 'visible translate-x-0' : 'invisible -translate-x-full'
                 }`}
             >
                 <div className="flex items-center justify-between gap-3 border-b border-white/10 px-6 py-6">
-                    <Link href={inicio} className="block min-w-0 flex-1" onClick={cerrarMenu}>
+                    <Link href={inicio} className="block min-w-0 flex-1" onClick={cerrar}>
                         <ApplicationLogo variante="blanco" className="h-auto w-full" />
                     </Link>
 
                     <button
                         type="button"
-                        onClick={cerrarMenu}
-                        className="text-white/70 hover:text-white lg:hidden"
+                        onClick={cerrar}
+                        className="flex size-11 shrink-0 items-center justify-center rounded-xl text-white/70 hover:text-white lg:hidden"
                         aria-label="Cerrar menú"
                     >
                         <Icono nombre="close" className="text-2xl" />
                     </button>
                 </div>
 
-                <Nav secciones={secciones} onNavegar={cerrarMenu} />
+                <SeccionesDelMenu secciones={secciones} onNavegar={cerrar} className="flex-1 overflow-y-auto px-3 py-4" />
 
                 {sistema && (
                     <div className="border-t border-white/10 px-5 py-4">
@@ -195,10 +136,12 @@ export default function MarcoApp({
                     <div className="flex items-center gap-4 px-4 py-3.5 sm:px-6">
                         <button
                             type="button"
-                            onClick={() => setMenuAbierto(true)}
-                            className="text-primary dark:text-gray-100 lg:hidden"
+                            ref={botonRef}
+                            onClick={abrir}
+                            className="flex size-11 shrink-0 items-center justify-center rounded-xl text-primary dark:text-gray-100 lg:hidden"
                             aria-label="Abrir menú"
-                            aria-expanded={menuAbierto}
+                            aria-controls="menu-lateral"
+                            aria-expanded={abierto}
                         >
                             <Icono nombre="menu" className="text-2xl" />
                         </button>
@@ -234,7 +177,14 @@ export default function MarcoApp({
                 </header>
 
                 {/* Entra con fade al cambiar de página; una visita a la misma (un filtro) no lo repite. */}
-                <main className="flex-1 animate-fade-in px-4 py-6 sm:px-6">
+                {/* Con el menú abierto en el celular el resto no responde. En React 18 `inert` pasa como
+                    string; con React 19 es un booleano. */}
+                <main
+                    id="contenido"
+                    tabIndex={-1}
+                    inert={abierto ? '' : undefined}
+                    className="flex-1 animate-fade-in px-4 py-6 focus:outline-none sm:px-6"
+                >
                     <div className={ANCHOS[ancho] ?? ANCHOS.completo}>
                         <AvisoFlotante />
                         {children}

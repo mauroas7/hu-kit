@@ -29,7 +29,7 @@ export default function Solapas({ opciones, actual, etiqueta, alFinal = null, cl
         const activa = actual === clave;
         const clases = `flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 py-3.5 text-sm font-semibold transition-colors ${
             activa
-                ? 'border-secondary text-primary dark:text-gray-100'
+                ? 'border-secondary-dark text-primary dark:border-secondary dark:text-gray-100'
                 : 'border-transparent text-brandText hover:text-primary dark:text-brandText-dark dark:hover:text-gray-200'
         }`;
         const contenido = (

@@ -1,6 +1,6 @@
 {
     "name": "hu-kit",
-    "version": "1.16.1",
+    "version": "1.18.0",
     "description": "Sistema de diseño de los sistemas del Hospital Universitario: preset de Tailwind, estilos base, fuentes y componentes de React.",
     "license": "UNLICENSED",
     "private": true,
@@ -23,7 +23,8 @@
     "scripts": {
         "catalogo": "vite --config catalogo/vite.config.js",
         "catalogo:build": "vite build --config catalogo/vite.config.js",
-        "guia": "node catalogo/guia/generar.mjs"
+        "guia": "node catalogo/guia/generar.mjs",
+        "plantilla": "node catalogo/guia/generar.mjs plantilla"
     },
     "dependencies": {
         "@fontsource/montserrat": "^5.3.0",

@@ -143,7 +143,7 @@ Lo que fija, para Blade o para revisar una pantalla:
   y escondida en el celular detrás del botón de menú, con el fondo
   `bg-primary-dark/50` detrás. Arriba, el logo blanco; abajo, el nombre del
   sistema y su bajada en `text-white/70`.
-- Cada sección: `rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
+- Cada sección: `min-h-11 rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
   `hover:bg-white/5`; la activa, `bg-white/10 font-semibold text-white`, con el
   ícono relleno y una raya dorada `h-5 w-1 bg-secondary` a la derecha. Un
   `titulo` abre un grupo con una línea y un rótulo `text-xs uppercase
@@ -154,8 +154,78 @@ Lo que fija, para Blade o para revisar una pantalla:
   `text-secondary-dark` y la inicial en un cuadrado `size-11 rounded-xl
   bg-primary`. Una ficha suma `volver` (flecha `arrow_back` pegada al título,
   alineada con su renglón; un href, una función o `{ href | onClick, etiqueta }`) y `estado` (un nodo junto al título).
-- El contenido entra con `animate-fade-in` y monta el toast `AvisoFlotante`
-  (`Flash` es su alias).
+- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
+  `AvisoFlotante`).
+- Accesibilidad: el primer enlace es «Saltar al contenido» (`main#contenido`,
+  visible sólo con foco). Con el menú del celular abierto, el foco entra al
+  primer ítem, Escape lo cierra y el foco vuelve al botón que lo abrió; el
+  `main` queda `inert`. Los botones de abrir y cerrar miden 44 px.
+
+## Marco del paciente
+
+En React es `MarcoPortal` de `hu-kit/componentes`, para el portal de pacientes y
+cualquier pantalla con sesión de un paciente. **En claro, el panel es `primary` como en
+el marco del personal**: lo que distingue al paciente no es el armado sino lo
+que lleva el panel.
+
+- Panel `w-72` a todo el alto, unión recta con el contenido (sin tarjeta, sombra
+  ni marco azul alrededor), en un degradado de `primary` a `primary-dark` con un
+  brillo decorativo (`bg-glow-white`). La columna interior es `sticky top-0 flex
+  h-screen flex-col` y tiene tres zonas: el logo blanco (`w-36`, con la misma
+  caja que la cabecera —`py-3`, botones de 44 px y borde de 1 px— para que su
+  línea quede a la par de la de la cabecera), la `accion` y la `navegacion`; sólo
+  la navegación se desplaza (`overflow-y-auto`). `pieDelPanel` (un nodo) es una
+  zona fija abajo, con `border-t border-white/10`: para «Contacto y ayuda», que
+  tiene que verse siempre aunque la lista sea larga.
+- La `accion` destacada (la que el paciente más hace: «Pedir turno») es un
+  botón dorado de ancho completo, `rounded-2xl bg-secondary text-primary`
+  (5,1:1), de 48 px, con un brillo interno y una sombra.
+- La `navegacion` la arma el sistema con la anatomía de abajo (*Anatomía de
+  una fila de la navegación*). `SeccionesDelMenu tamano="portal"` todavía tiene
+  los estados del marco del personal (la raya dorada), no esa anatomía. Un ítem
+  puede ser un botón (`onClick`) si sólo cambia lo que se muestra.
+- Sobre el panel, el texto llega a 4,5:1: dorado sobre la fila activa
+  (`white/10`) no alcanza, ahí el texto va en blanco. Todo lo que el sistema
+  ponga sobre el azul (pasos, estados) usa `white` y `white/80`, no `gray`.
+- Cabecera blanca, no fija (al bajar se va y el panel queda), con la `encabezado`
+  del sistema a la izquierda (volver, logo, ruta) y la cuenta a la derecha; el
+  botón del menú (`size-11`) y el logo de la cabecera sólo en el celular.
+- En el celular el panel pasa a un desplegable azul bajo la cabecera; elegir un
+  ítem lo cierra. La `barraInferior` (la acción principal, siempre a mano) queda
+  fija abajo y deja `pb-28` al contenido.
+- El `pie` es una franja clara (`bg-white`, `dark:bg-surface-dark`) dentro de la
+  columna del contenido, nunca `primary`: con el panel azul al costado, un pie
+  azul dibujaría una «L».
+- Modo oscuro con `conTema`: sólo en el dashboard con sesión. En oscuro el panel
+  pasa a `surface-dark` con `border-white/10`, más hondo que el canvas, igual que
+  la cabecera. Ver `modo-oscuro.md`.
+
+### Anatomía de una fila de la navegación
+
+Para quien arma la `navegacion` (quirofanohu y portal-hospital la copian
+igual). Las clases exactas:
+
+- Fila: `group relative flex min-h-12 w-full items-center gap-3 rounded-2xl px-2
+  py-2 text-left text-base leading-snug transition-colors duration-200
+  motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2
+  focus-visible:ring-inset focus-visible:ring-secondary`, más el estado.
+- Inactiva: `text-white/80 hover:bg-white/5 hover:text-white`.
+- Activa (tarjeta elevada), con `aria-current`: `bg-gradient-to-b from-white/15
+  to-white/5 font-semibold text-white ring-1 ring-inset ring-white/10
+  shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_12px_28px_-14px_rgba(0,0,0,0.7)]`.
+- Círculo del ícono: `flex size-9 shrink-0 items-center justify-center
+  rounded-full transition-colors duration-200 motion-reduce:transition-none`.
+  Activo: `bg-white text-primary shadow-[0_2px_8px_-2px_rgba(0,0,0,0.5)]` con el
+  ícono relleno. Inactivo: `bg-white/5 text-white/85 ring-1 ring-inset
+  ring-white/15 group-hover:bg-white/10 group-hover:text-white
+  group-hover:ring-white/30`. El ícono es `text-xl`.
+- Rótulo de grupo: `px-2 pb-2 pt-6 text-xs font-semibold uppercase
+  tracking-[0.15em] text-white/60` (`pt-1` si es el primero).
+- El texto de la fila no se corta (`min-w-0`, sin `truncate`): pasa a un segundo
+  renglón.
+- El círculo activo es blanco y no dorado porque el dorado sobre el panel queda
+  para la acción principal y para «te toca» (el disco del paso pendiente en
+  quirofanohu).
 
 ## Avisos: estado o evento
 
@@ -184,7 +254,8 @@ Lo que fija, para Blade o para revisar una pantalla:
 ## Solapas, selector de vista y menú de acciones
 
 - **`Solapas`**: una barra con el marco de las tarjetas con las partes de la
-  pantalla; la activa lleva `border-b-2 border-secondary`, texto `primary` e
+  pantalla; la activa lleva `border-b-2 border-secondary-dark` (`border-secondary`
+  en oscuro: el dorado sobre blanco da 2,4:1), texto `primary` e
   ícono relleno, y las otras `brandText`. Con `href`, cada solapa reemplaza a
   la anterior en el historial: «Volver» sale de la pantalla, no recorre las
   solapas. Van siempre en un renglón que se desliza de costado, con la activa
