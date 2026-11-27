@@ -78,6 +78,31 @@ function escribirNombreEnEnv(nombre) {
     writeFileSync(ruta, /^APP_NAME=.*$/m.test(env) ? env.replace(/^APP_NAME=.*$/m, () => linea) : `${linea}\n${env}`);
 }
 
+// Lo que Breeze deja a la vista y hu-kit reemplaza. Los componentes se borran por nombre,
+// no la carpeta entera: así una segunda corrida no se lleva los que el sistema agregó.
+const SOBRAS_DE_BREEZE = [
+    'resources/js/Pages/Welcome.jsx',
+    'resources/js/Layouts/AuthenticatedLayout.jsx',
+    'resources/js/Layouts/GuestLayout.jsx',
+    ...[
+        'ApplicationLogo', 'Checkbox', 'DangerButton', 'Dropdown', 'InputError', 'InputLabel',
+        'Modal', 'NavLink', 'PrimaryButton', 'ResponsiveNavLink', 'SecondaryButton', 'TextInput',
+    ].map((nombre) => `resources/js/Components/${nombre}.jsx`),
+];
+
+function borrarSobrasDeBreeze() {
+    for (const ruta of SOBRAS_DE_BREEZE) rmSync(join(proyecto, ruta), { force: true });
+
+    const componentes = join(proyecto, 'resources/js/Components');
+    if (existsSync(componentes) && readdirSync(componentes).length === 0) rmSync(componentes, { recursive: true });
+
+    // Con `/` redirigiendo a /dashboard, el test de ejemplo de Laravel ya no recibe un 200.
+    const test = join(proyecto, 'tests/Feature/ExampleTest.php');
+    if (existsSync(test)) {
+        writeFileSync(test, readFileSync(test, 'utf8').replace('assertStatus(200)', "assertRedirect('/dashboard')"));
+    }
+}
+
 async function instalar(argumentos) {
     const faltantes = esBreezeReact();
     if (faltantes.length > 0) {
@@ -98,23 +123,26 @@ async function instalar(argumentos) {
         paso(`   ${relative(plantillas, origen).replaceAll('\\', '/')}`);
     }
 
-    paso('2. sistema.js y APP_NAME: el nombre y la bajada del sistema');
+    paso('2. Borrando lo de Breeze que ya no se usa');
+    borrarSobrasDeBreeze();
+
+    paso('3. sistema.js y APP_NAME: el nombre y la bajada del sistema');
     writeFileSync(join(proyecto, 'resources/js/sistema.js'), `export const SISTEMA = ${JSON.stringify({ nombre, bajada }, null, 4)};\n`);
     escribirNombreEnEnv(nombre);
 
     const paquete = JSON.parse(readFileSync(join(proyecto, 'package.json'), 'utf8'));
     if (!paquete.dependencies?.['react-day-picker'] && !paquete.devDependencies?.['react-day-picker']) {
-        paso('3. react-day-picker, que pide hu-kit');
+        paso('4. react-day-picker, que pide hu-kit');
         if (!correr('npm', ['install', 'react-day-picker'])) fallar('npm install react-day-picker falló: correrlo a mano para ver el error.');
     }
 
     // copyFile conserva la fecha del archivo: sin esto Laravel sigue con la vista compilada de Breeze.
-    paso('4. Limpiando las vistas compiladas');
+    paso('5. Limpiando las vistas compiladas');
     correr('php', ['artisan', 'view:clear']);
     // Con public/hot (lo deja npm run dev), Laravel le pide todo a Vite en vez de usar lo compilado.
     rmSync(join(proyecto, 'public/hot'), { force: true });
 
-    paso('5. Compilando...');
+    paso('6. Compilando...');
     if (!correr('npm', ['run', 'build'])) fallar('La compilación falló: correr npm run build para ver el error.');
 
     console.log('\n  Listo: recargar el navegador.\n');
