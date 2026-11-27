@@ -1,7 +1,7 @@
 /** Los componentes de React compartidos por los sistemas del hospital. */
 export { default as Alerta } from './Alerta.jsx';
 export { default as ApplicationLogo } from './ApplicationLogo.jsx';
-export { default as AvisoFlotante } from './AvisoFlotante.jsx';
+export { default as AvisoFlotante, useAviso } from './AvisoFlotante.jsx';
 export { default as BarraDeProgreso } from './BarraDeProgreso.jsx';
 export { default as Boton, claseBoton } from './Boton.jsx';
 export { default as Buscador } from './Buscador.jsx';
