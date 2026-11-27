@@ -33,7 +33,8 @@ su `.gitignore`, y cada quien instala las skills en su usuario.
 
 El paquete sí entra en cada proyecto, pero como dependencia en su
 `package.json` (`github:mauroas7/hu-kit#vX.Y.Z`), nunca como archivos copiados.
-Trae sólo `estilos/` y `componentes/`: las skills no llegan al proyecto.
+Trae sólo `estilos/` y `componentes/`, más `bin/` e `instalador/`, que usa
+`npx hu-kit instalar`: las skills no llegan al proyecto.
 
 Lo que sí se versiona en cada proyecto es **la regla**: como documentación en
 su `docs/` y, cuando se puede, como test. `portal-hospital` dejó sus reglas sólo
@@ -51,35 +52,40 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | Componente | Qué es |
 |---|---|
 | `MarcoApp` | El marco de toda pantalla con sesión: barra lateral, encabezado, menú de la cuenta y el toast (`Flash`). Recibe todo resuelto (`secciones` con `href` y `activa`, `usuario`, `enlaces`, `salir`): cada sistema lo envuelve en su `AppLayout` (ver *Lo que pide el sistema*). Una ficha suma `volver` (un href, una función u `{ href \| onClick, etiqueta }`) y `estado` en el encabezado |
-| `MarcoPortal` | El marco del paciente: el mismo armado que `MarcoApp` (panel azul a todo el alto, unión recta) con lo propio del paciente en el panel. Recibe `navegacion` (un nodo; sin él no hay panel), `accion` (`{ etiqueta, icono, href \| onClick }`, el botón dorado), `pieDelPanel` (un nodo fijo abajo del panel), `encabezado` (un nodo a la izquierda de la cabecera), `pie`, `barraInferior`, `usuario`, `enlaces`, `salir`, `inicio` y `conTema` (muestra el interruptor de modo oscuro). En el celular, el menú es un desplegable azul bajo la cabecera |
-| `SeccionesDelMenu` | Las secciones de un menú sobre azul, para armar la `navegacion` de `MarcoPortal` (o la de un marco propio). Un ítem lleva `href` o `onClick`, y `tamano="portal"` lo hace de 48 px |
-| `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: nombre, `detalle` (o `rol`), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
+| `MarcoPortal` | El marco del paciente: el mismo armado que `MarcoApp` (panel azul a todo el alto, unión recta) con lo propio del paciente en el panel. Recibe `navegacion` (un nodo; sin él no hay panel), `accion` (`{ etiqueta, icono, href \| onClick }`, el botón dorado), `pieDelPanel` (un nodo fijo abajo del panel), `migas` (`[{ etiqueta, href \| onClick }]`, la ruta de la cabecera), `encabezado` (un nodo que reemplaza a las migas), `pie`, `barraInferior`, `usuario`, `enlaces`, `salir`, `inicio` y `conTema` (el interruptor «Modo oscuro» al final de la navegación). En el celular, el menú es un desplegable azul animado bajo la cabecera, con el fondo quieto y la `barraInferior` oculta |
+| `SeccionesDelMenu` | Las secciones de un menú sobre azul, para armar la `navegacion` de `MarcoPortal` (o la de un marco propio). Un ítem lleva `href` o `onClick`; `titulo` abre un grupo con un rótulo; `externo` (el nombre del sistema al que sale) lo hace un enlace común con `open_in_new`. `tamano="portal"` es la fila del paciente: 48 px, el ícono en un círculo y la activa como tarjeta elevada |
+| `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: el botón muestra el nombre y el `rol` (si lo hay); el menú suma `detalle` (el DNI del paciente), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario. Va siempre en claro: con `useSoloClaro` ignora el modo oscuro |
-| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños, `portal` e `ingreso` incluidos; `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
+| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños: `tactil` (44 px), `icono` (44 × 44), `ingreso`; `portal` es obsoleto (va `tactil`). `cargando` con `textoCargando` gira el ícono sin atenuar ni cambiar de ancho; el foco es un anillo dorado. `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
 | `Campo`, `claseControl`, `descritoPor` | La etiqueta, la ayuda y el error de un campo, la clase del control y su `aria-describedby`, para un control propio adentro de `Campo`. Variantes `normal` e `ingreso` |
 | `Input`, `PasswordInput`, `Textarea` | El campo de texto, el de contraseña con el ojito y el de varias líneas |
 | `Select` | El desplegable; recibe pares `[valor, etiqueta]` en el orden en que se muestran. Un mapa `{ valor: etiqueta }` con claves numéricas, como el de un `pluck('nombre', 'id')`, se muestra ordenado por clave |
 | `Checkbox`, `claseCasilla` | La casilla, y su clase para una casilla o un radio sueltos |
-| `SelectorFecha` | El único calendario: habla `YYYY-MM-DD`, nunca un `type="date"` del navegador |
-| `Buscador` | El campo de búsqueda con lupa y botón para borrar. `onChange` recibe el texto, como `SelectorFecha` |
-| `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera, y el marco para lo que no es una tarjeta con cabecera |
+| `SelectorFecha` | El campo de fecha con su calendario desplegable, con las celdas de `Calendario`: habla `YYYY-MM-DD`, nunca un `type="date"` del navegador |
+| `Calendario` | El calendario siempre abierto (el día de un turnero, el mes de una agenda): semana desde el lunes, celdas de 44 px, `disponible(fecha)`, `sinPasado` y `contenidoDelDia(fecha)` para dibujar algo en cada día. Sin marco: lo pone quien lo usa |
+| `Buscador` | El campo de búsqueda con lupa y botón para borrar, de 44 px. `onChange` recibe el texto, como `SelectorFecha`; `ancho` es el del conjunto (`'w-full lg:w-80'`) |
+| `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera de 61 px (el título en un `Rotulo`, `contador` y `acciones`), y el marco para lo que no es una tarjeta con cabecera. `icono` es obsoleto: no se muestra |
+| `CabeceraSeccion` | El título de una pantalla, con el filete dorado y `subtitulo`; `children` a la derecha (un selector, un buscador, un botón) |
+| `FechaChip` | El mini calendario de una fila (mes y día, 48 px); `pasado` lo apaga. Decorativo: la fila lleva la fecha en texto |
+| `SeparadorDeMes` | El renglón que abre cada mes en un listado agrupado; `como="li"` dentro de una lista |
 | `Estado` | La píldora de estado, por tono (`exito`, `error`, `aviso`, `info`, `neutro`) |
-| `EstadoVacio` | Lo que se muestra cuando una lista o un paso no tienen nada |
+| `EstadoVacio` | Lo que se muestra cuando una lista o un paso no tienen nada; `ilustracion` (la ruta de un SVG) en lugar del ícono, y `accion`, el botón que lo llena |
 | `Cargando` | Lo que se muestra mientras llega algo; `enTarjeta` ocupa el lugar de una lista, también como `fallback` de un `<Deferred>` |
 | `Alerta` | Un **estado**: algo que sigue siendo cierto y queda en pantalla, en el flujo, por tipo. `tamano` `equipo` (por defecto) o `portal` (texto base y más aire, el del portal de pacientes y el del cartel de estado que responde a lo que se acaba de hacer). `error` y `aviso` interrumpen al lector de pantalla (`alert`); `exito` e `info`, no (`status`) |
 | `Flash` | Alias de `AvisoFlotante`: lo que `MarcoApp` y las pantallas de ingreso montan. `MarcoApp` ya lo trae |
 | `AvisoFlotante` | El toast, para un **evento** (algo que acaba de pasar): lo que el controlador dejó en `flash`, una tarjeta por tipo (máximo 3) con título y detalle. Cada mensaje es un string o `{ titulo, detalle }`. Éxito e info se van solos a los 5 s (se frenan con el puntero, el foco o la pestaña oculta); error y aviso quedan hasta cerrarlos |
+| `useAviso` | Un aviso disparado en el cliente, sin pasar por el servidor: `avisar(tipo, mensaje)` llega al `AvisoFlotante` montado |
 | `Rotulo` | El texto chico en mayúsculas que nombra lo que sigue; `tono="texto"` para el portal de pacientes |
 | `Dato` | Un dato de una ficha: el rótulo arriba y el valor, o `siFalta` atenuado |
 | `Metrica` | El número grande de un panel, con su etiqueta y su detalle |
 | `Paginador` | La paginación de un listado, a partir del paginador de Laravel |
 | `encabezadoTabla`, `cuerpoTabla`, `renglonTabla` | Las clases de una tabla de datos |
 | `Solapas` | Las partes de una pantalla larga. Con `href`, cada solapa reemplaza a la anterior en el historial; con `onClick`, cambia sin visitar. `alFinal` pone un menú a la derecha, en un solo renglón |
-| `SelectorDeVista` | Opciones pegadas para ver lo mismo de otra forma (Mes / Semana / Día), con las mismas `opciones` que `Solapas` |
+| `SelectorDeVista` | Opciones pegadas para ver lo mismo de otra forma (Mes / Semana / Día), con las mismas `opciones` que `Solapas`. Cada opción mide 44 px; en el celular, la caja va a lo ancho |
 | `MenuDeAcciones`, `ItemDeMenu` | Las acciones que no entran como botón, detrás de los tres puntos (con `texto`, «Acciones» desde 1366 px). El panel flota anclado: una tabla con scroll no lo recorta |
-| `Modal` | El diálogo para un formulario corto |
-| `ModalConfirmar`, `useConfirmacion` | La confirmación de una acción destructiva y su estado |
+| `Modal` | El diálogo para un formulario corto; `rotulo` sobre el título y `pie` para los botones |
+| `ModalConfirmar`, `useConfirmacion` | La confirmación de una acción destructiva y su estado. Suma `rotulo`, `children` (más que el `detalle`), `textoCancelar` y `textoProcesando` (el botón queda cargando); `confirmar()` los recibe todos |
 | `SelectorDeArchivo` | El botón para elegir un archivo; en el celular ofrece también sacar una foto |
 | `useSubidaDeArchivo` | Una subida por vez con Inertia, con su progreso y el error de la fila que la pidió |
 | `BarraDeProgreso` | Cuánto lleva algo que tarda, de 0 a 100 |

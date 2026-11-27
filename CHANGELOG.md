@@ -3,6 +3,68 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.19.0 — 2026-11-27
+
+- `Boton`: `cargando` y `textoCargando` (gira `progress_activity`, con
+  `aria-busy`, sin atenuar y sin cambiar de ancho); `tamano="icono"` pasa a 44
+  × 44; foco con anillo dorado (`ring-secondary`); transición sólo de color, en
+  150 ms; en oscuro, `primario` suma un borde `white/15`. `tamano="portal"`
+  queda obsoleto.
+- Preset: las animaciones del sistema, `animate-fade-in` (sólo opacidad, 150
+  ms), `fade-in-lento`, `fade-out`, `escala-in`, `paso-adelante`, `paso-atras`,
+  `aviso-in`, `menu-in` y `barra-tiempo`.
+- `MarcoPortal`: prop `migas` (la ruta de la cabecera, con enlace y 44 px);
+  `conTema` pasa a ser el interruptor «Modo oscuro» al final de la navegación y
+  del menú del celular; cabecera sólo con borde, de 73 px como la zona del logo;
+  el menú del celular entra animado, con el fondo quieto y la `barraInferior`
+  oculta.
+- `SeccionesDelMenu` `tamano="portal"`: la fila del panel (ícono en un círculo
+  de 36 px, activa como tarjeta elevada, rótulo de grupo con `titulo`). Ítem
+  nuevo `externo`, para una sección que sale a otro sistema.
+- `MenuDeUsuario`: el botón muestra nombre y `rol` (si lo hay) en tipo oración;
+  `detalle` va sólo dentro del menú; ítems de 44 px; «Cerrar sesión» en
+  `red-700`, sin mayúscula.
+- `AvisoFlotante`: sale con fundido; `useAviso()` dispara un aviso desde el
+  cliente.
+- Nuevos: `CabeceraSeccion`, `FechaChip`, `SeparadorDeMes` y `Calendario`.
+- `Tarjeta`: cabecera de 61 px con el título en un `Rotulo`; `icono` deja de
+  mostrarse. `SelectorDeVista`: opciones de 44 px, a lo ancho en el celular.
+  `Buscador`: texto en 600, botón de borrar de 44 px y prop `ancho`. `EstadoVacio`: props
+  `ilustracion` y `accion`. `encabezadoTabla` sobre `canvas`.
+- `Modal`: props `rotulo` y `pie`; título `font-black uppercase` en hasta dos
+  renglones; la X es un `Boton` de 44 px; al cerrar se desvanece.
+- `ModalConfirmar`: props `rotulo`, `children`, `textoCancelar` y
+  `textoProcesando`; pie en dos columnas, `contorno` y `peligro`, con la
+  destructiva `cargando`. `useConfirmacion` pasa los textos nuevos.
+- `SelectorFecha` toma las celdas de `Calendario`: 44 px y semana desde el
+  lunes.
+- `Campo` y `Checkbox`: el borde de error pasa a `red-700`.
+- `PanelAutenticacion`: el rótulo del panel pasa a `white/70`.
+- `npx hu-kit instalar`: conecta un Laravel recién creado con Breeze React al
+  sistema de diseño (su documentación llega en una versión siguiente).
+- Nada deja de andar: ninguna prop cambia de significado, sólo se suman. Lo
+  que sale va en v2.0.0: `tamano="portal"` de `Boton` y `icono` de `Tarjeta`.
+- Quien sube lo ve distinto: los botones (foco dorado, ícono de 44 px), las
+  tarjetas, el marco del paciente, el menú de usuario, los modales, el
+  calendario y el error de los campos en `red-700`. Al subir, se vuelve a
+  correr `instalar.ps1` (la skill `marca-hu` cambia).
+
+### Qué hacer al adoptarla
+
+Para portal-hospital y quirofanohu:
+
+- `tamano="portal"` → `tactil` en cada `Boton` (y en `SelectorDeArchivo`).
+- Sacar el `icono` de cada `Tarjeta`.
+- `migas` en lugar de una ruta propia en la cabecera de `MarcoPortal` (en
+  quirofanohu, el `Ruta` propio).
+- `conTema` es ahora el interruptor del panel: sacar el botón de tema que el
+  sistema haya puesto en la cabecera.
+- El DNI del paciente va como `detalle` del usuario, y el `rol` sólo cuando lo
+  hay.
+- Un aviso disparado en el cliente, con `useAviso()`.
+- `ModalConfirmar` con `rotulo` y `children` para el cuerpo, y
+  `textoProcesando` para lo que dice mientras corre la acción.
+
 ## v1.18.0 — 2026-11-26
 
 - `MarcoPortal`: el panel se rediseña en tres zonas en una columna

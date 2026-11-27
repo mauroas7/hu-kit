@@ -186,7 +186,7 @@ no lo soporta parte el texto como siempre.
 
 `PanelAutenticacion` copia tal cual el login del portal de pacientes, el modelo
 de todos los sistemas, y ahí no rigen las reglas de tamaño y contraste de arriba:
-el rótulo de abajo va a 10 px en `blue-100/50` (3,6:1), las etiquetas a 11 px,
+el rótulo de abajo va a 10 px en `white/70`, las etiquetas a 11 px,
 y el placeholder y el ojito de la contraseña en `gray-400`. Lo único que no se
 copia es el enlace en dorado, que va en `secondary-dark` y no en `secondary`
 (2,4:1 sobre blanco). Fuera de ese panel, las reglas valen sin excepción.
