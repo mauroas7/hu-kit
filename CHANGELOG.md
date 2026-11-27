@@ -3,6 +3,15 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.20.0 — 2026-11-27
+
+- `MarcoPortal`: prop `lateral`, una columna a la derecha del contenido, a todo
+  su alto y fuera del margen del `main`, para las novedades del inicio del
+  portal. Con `barraInferior`, el `pie` deja `pb-20` en el celular y su final ya
+  no queda debajo de la barra fija.
+
+Qué hacer al adoptarla: nada; `lateral` es opcional.
+
 ## v1.19.0 — 2026-11-27
 
 - `Boton`: `cargando` y `textoCargando` (gira `progress_activity`, con

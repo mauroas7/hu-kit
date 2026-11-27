@@ -265,7 +265,12 @@ que lleva el panel.
   (`animate-menu-in`), con la `accion` arriba; elegir un ítem lo cierra.
   Abierto, el fondo no se desplaza, el contenido queda `inert` y la
   `barraInferior` se oculta. Cerrado, la `barraInferior` (la acción principal,
-  siempre a mano) queda fija abajo y deja `pb-28` al contenido.
+  siempre a mano) queda fija abajo y deja `pb-28` al contenido y `pb-20` al
+  `pie`, para que su final no quede debajo de la barra.
+- **`lateral`**: una columna a la derecha del contenido, a todo su alto y fuera
+  del margen del `main` (las novedades del inicio del portal). La columna se
+  oculta y fija su ancho con sus propias clases (`hidden w-80 xl:flex`); con el
+  menú del celular abierto queda `inert`, como el contenido.
 - **`conTema`** suma el interruptor «Modo oscuro» al final de la navegación del
   panel (con `mt-auto`, dentro de lo que se desplaza) y del menú del celular:
   una fila como las del panel, `role="switch"` con `aria-checked`, y una

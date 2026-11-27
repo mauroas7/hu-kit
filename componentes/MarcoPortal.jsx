@@ -40,10 +40,11 @@ function Accion({ etiqueta, icono = 'add', href = null, onClick = null }) {
  * href | onClick }`; `navegacion`, un nodo. En oscuro el panel pasa a
  * `surface-dark` con borde, no queda `primary`. `migas` es la ruta de la
  * cabecera, `[{ etiqueta, href | onClick }]` (en el celular, el logo);
- * `encabezado`, un nodo que la reemplaza. `pie` es una franja clara,
- * `barraInferior` queda fija abajo en el celular y `conTema` suma el
- * interruptor «Modo oscuro» al final de la navegación. Sin `navegacion` no hay
- * panel ni botón de menú.
+ * `encabezado`, un nodo que la reemplaza. `lateral` es una columna a la derecha
+ * del contenido, a todo su alto y fuera de su margen (las novedades del inicio);
+ * se oculta sola con sus clases. `pie` es una franja clara, `barraInferior`
+ * queda fija abajo en el celular y `conTema` suma el interruptor «Modo oscuro»
+ * al final de la navegación. Sin `navegacion` no hay panel ni botón de menú.
  */
 export default function MarcoPortal({
     titulo = 'Inicio',
@@ -57,6 +58,7 @@ export default function MarcoPortal({
     accion = null,
     pieDelPanel = null,
     barraInferior = null,
+    lateral = null,
     pie = null,
     conTema = false,
     children,
@@ -179,17 +181,29 @@ export default function MarcoPortal({
                     )}
                 </header>
 
-                <main
-                    id="contenido"
-                    tabIndex={-1}
-                    inert={inerte}
-                    className={`w-full flex-1 p-4 focus:outline-none sm:p-5 lg:p-8 ${barraInferior ? 'pb-28 lg:pb-8' : ''}`}
-                >
-                    {children}
-                </main>
+                <div className="flex min-w-0 flex-1">
+                    <main
+                        id="contenido"
+                        tabIndex={-1}
+                        inert={inerte}
+                        className={`w-full min-w-0 flex-1 p-4 focus:outline-none sm:p-5 lg:p-8 ${barraInferior ? 'pb-28 lg:pb-8' : ''}`}
+                    >
+                        {children}
+                    </main>
 
+                    {lateral && (
+                        <div inert={inerte} className="flex shrink-0">
+                            {lateral}
+                        </div>
+                    )}
+                </div>
+
+                {/* Con `barraInferior`, el final del pie queda por encima de la barra fija del celular. */}
                 {pie && (
-                    <footer inert={inerte} className="border-t border-gray-100 bg-white dark:border-gray-800 dark:bg-surface-dark">
+                    <footer
+                        inert={inerte}
+                        className={`border-t border-gray-100 bg-white dark:border-gray-800 dark:bg-surface-dark ${barraInferior ? 'pb-20 lg:pb-0' : ''}`}
+                    >
                         {pie}
                     </footer>
                 )}
