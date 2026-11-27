@@ -49,11 +49,15 @@ function regionesDeAnuncio() {
     return regiones;
 }
 
+// Los `AvisoFlotante` montados, para que `useAviso` les llegue sin pasar por el servidor.
+const oyentes = new Set();
+
 function Toast({ tipo, mensaje, onCerrar }) {
     const { icono, chip, pista, relleno } = ESTILOS[tipo];
     const temporal = TEMPORALES.includes(tipo);
     const tarjeta = useRef(null);
     const [progreso, setProgreso] = useState(1);
+    const [saliendo, setSaliendo] = useState(false);
 
     // Un solo reloj que guarda cuánto resta, y corre sólo si no hay motivo de pausa:
     // el puntero o el foco sobre la tarjeta, o la pestaña oculta.
@@ -71,7 +75,7 @@ function Toast({ tipo, mensaje, onCerrar }) {
             antes = ahora;
             setProgreso(Math.max(resto, 0) / DURACION);
 
-            if (resto <= 0) return onCerrar(tipo);
+            if (resto <= 0) return setSaliendo(true);
             cuadro = requestAnimationFrame(paso);
         };
         const pausar = (motivo, activo) => {
@@ -108,8 +112,10 @@ function Toast({ tipo, mensaje, onCerrar }) {
     return (
         <div
             ref={tarjeta}
-            onKeyDown={(evento) => evento.key === 'Escape' && onCerrar(tipo)}
-            className="relative flex w-full max-w-md animate-fade-in items-start gap-3 overflow-hidden rounded-2xl border border-brandText-soft bg-surface py-3 pl-4 pr-1 shadow-2xl dark:border-gray-800 dark:bg-surface-dark"
+            onKeyDown={(evento) => evento.key === 'Escape' && setSaliendo(true)}
+            // Con «reducir movimiento» la salida dura 0,01 ms: `animationend` llega igual.
+            onAnimationEnd={(evento) => saliendo && evento.target === evento.currentTarget && onCerrar(tipo)}
+            className={`relative flex w-full max-w-md ${saliendo ? 'animate-fade-out' : 'animate-aviso-in'} items-start gap-3 overflow-hidden rounded-2xl border border-brandText-soft bg-surface py-3 pl-4 pr-1 shadow-2xl dark:border-gray-800 dark:bg-surface-dark`}
         >
             <span className={`flex size-9 shrink-0 items-center justify-center rounded-full ${chip}`}>
                 <Icono nombre={icono} className="text-xl" relleno />
@@ -122,7 +128,7 @@ function Toast({ tipo, mensaje, onCerrar }) {
 
             <button
                 type="button"
-                onClick={() => onCerrar(tipo)}
+                onClick={() => setSaliendo(true)}
                 aria-label="Cerrar el aviso"
                 className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg hover:bg-brandText/10 dark:hover:bg-white/10"
             >
@@ -140,30 +146,44 @@ function Toast({ tipo, mensaje, onCerrar }) {
 
 /**
  * Lo que dejó el servidor con `->with('exito', …)`, flotando abajo: una tarjeta
- * por tipo, con título y detalle opcional. `className` lo ubica, por ejemplo
- * sobre una barra inferior fija.
+ * por tipo, con título y detalle opcional. Desde el cliente, `useAviso()`
+ * devuelve `avisar(tipo, mensaje)`. `className` lo ubica, por ejemplo sobre
+ * una barra inferior fija.
  */
 export default function AvisoFlotante({ className = 'inset-x-3 bottom-6 lg:inset-x-auto lg:right-6' }) {
     const { flash } = usePage().props;
     const [visita, setVisita] = useState(0);
     const [cerrados, setCerrados] = useState([]);
     const [anterior, setAnterior] = useState(flash);
+    const [mensajes, setMensajes] = useState(flash);
     const [anuncios, setAnuncios] = useState(null);
 
     useEffect(() => setAnuncios(regionesDeAnuncio()), []);
+
+    useEffect(() => {
+        const oyente = (tipo, mensaje) => {
+            setMensajes({ [tipo]: mensaje });
+            setCerrados([]);
+            setVisita((n) => n + 1);
+        };
+        oyentes.add(oyente);
+
+        return () => oyentes.delete(oyente);
+    }, []);
 
     // Cada visita trae su `flash`: el mismo mensaje dos veces seguidas vuelve a aparecer.
     // Se ajusta al renderizar y no en un efecto, para que la primera vez no se monte dos.
     if (flash !== anterior) {
         setAnterior(flash);
+        setMensajes(flash);
         setCerrados([]);
         setVisita((n) => n + 1);
     }
 
-    const visibles = TIPOS.filter((tipo) => flash?.[tipo] && ! cerrados.includes(tipo))
+    const visibles = TIPOS.filter((tipo) => mensajes?.[tipo] && ! cerrados.includes(tipo))
         .slice(0, MAXIMO)
-        .map((tipo) => [tipo, normalizar(flash[tipo])]);
-    const llegados = TIPOS.filter((tipo) => flash?.[tipo]).map((tipo) => [tipo, normalizar(flash[tipo])]);
+        .map((tipo) => [tipo, normalizar(mensajes[tipo])]);
+    const llegados = TIPOS.filter((tipo) => mensajes?.[tipo]).map((tipo) => [tipo, normalizar(mensajes[tipo])]);
     const texto = (urgentes) => llegados.filter(([tipo]) => URGENTES.includes(tipo) === urgentes).map(([, mensaje]) => leer(mensaje)).join(' ');
 
     // Se anuncia todo lo que llegó, no lo que sigue visible: cerrar un toast no repite el resto.
@@ -184,4 +204,11 @@ export default function AvisoFlotante({ className = 'inset-x-3 bottom-6 lg:inset
             )}
         </>
     );
+}
+
+const avisar = (tipo, mensaje) => oyentes.forEach((oyente) => oyente(tipo, mensaje));
+
+/** Dispara un aviso desde el cliente: `avisar('exito', 'Listo')` o con `{ titulo, detalle }`. Siempre la misma función. */
+export function useAviso() {
+    return avisar;
 }

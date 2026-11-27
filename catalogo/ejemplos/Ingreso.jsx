@@ -27,7 +27,7 @@ export default function Ingreso() {
 
                 <div className="flex items-center justify-between gap-3">
                     <Checkbox nombre="recordar" etiqueta="Recordarme" valor={false} onChange={() => {}} />
-                    <Link href={href('inicio')} className="text-sm font-semibold text-secondary-dark hover:underline">
+                    <Link href={href('inicio')} className="text-sm inline-flex min-h-11 items-center font-semibold text-secondary-dark hover:underline">
                         Volver al catálogo
                     </Link>
                 </div>

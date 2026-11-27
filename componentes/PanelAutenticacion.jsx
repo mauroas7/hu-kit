@@ -32,7 +32,7 @@ export default function PanelAutenticacion({ tituloPestana, nombre, bajada, rotu
 
                     <div className="relative z-10">
                         <div className="mb-3 h-1 w-8 rounded-full bg-white"></div>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-100/50">{rotulo}</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">{rotulo}</p>
                     </div>
                 </div>
 

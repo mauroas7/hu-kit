@@ -50,3 +50,20 @@ export const PAGINADOR = {
     next_page_url: href('listado', { page: 3 }),
     links: [1, 2, 3, 4, 5].map((page) => ({ page, url: href('listado', { page }) })),
 };
+
+/** Turnos de un portal de pacientes, ya agrupados por mes como los manda el servidor. */
+export const TURNOS_POR_MES = [
+    {
+        mes: 'Diciembre 2026',
+        turnos: [
+            { id: 1, fecha: '2026-12-03', hora: '08:30', especialidad: 'Cardiología', profesional: 'Dra. Laura Pérez' },
+            { id: 2, fecha: '2026-12-17', hora: '11:00', especialidad: 'Clínica médica', profesional: 'Dr. Martín Sosa' },
+        ],
+    },
+    {
+        mes: 'Enero 2027',
+        turnos: [
+            { id: 3, fecha: '2027-01-12', hora: '09:15', especialidad: 'Traumatología', profesional: 'Dr. Pablo Ríos' },
+        ],
+    },
+];

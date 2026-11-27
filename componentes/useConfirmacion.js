@@ -1,20 +1,29 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { router } from '@inertiajs/react';
 
 /**
  * El estado del diálogo de confirmación. Un solo estado, no dos: la acción en
  * `null` ya significa cerrado.
  *
- *   confirmar({ titulo, detalle, accion: (r) => r.patch(route(…)) });
+ *   confirmar({ titulo, rotulo, detalle, textoAceptar, textoCancelar,
+ *       textoProcesando, accion: (r) => r.patch(route(…)) });
  *
  * `accion` tiene que iniciar una visita de Inertia (con el `router` que
  * recibe) o devolver una promesa: el diálogo se cierra cuando termina la
- * visita o la promesa. Con una acción que no hace ninguna de las dos queda en
- * «Confirmando…».
+ * visita o la promesa. Con una acción que no hace ninguna de las dos queda
+ * cargando.
  */
 export default function useConfirmacion() {
     const [pedido, setPedido] = useState(null);
     const [procesando, setProcesando] = useState(false);
+    const ultimoPedido = useRef(null);
+
+    // Cerrado, el diálogo se desvanece con los textos del último pedido, no vacío.
+    useEffect(() => {
+        if (pedido) ultimoPedido.current = pedido;
+    }, [pedido]);
+
+    const textos = pedido ?? ultimoPedido.current;
 
     const confirmar = useCallback((nuevoPedido) => setPedido(nuevoPedido), []);
 
@@ -54,9 +63,12 @@ export default function useConfirmacion() {
         confirmar,
         props: {
             abierto: pedido !== null,
-            titulo: pedido?.titulo,
-            detalle: pedido?.detalle,
-            textoAceptar: pedido?.textoAceptar,
+            titulo: textos?.titulo,
+            rotulo: textos?.rotulo,
+            detalle: textos?.detalle,
+            textoAceptar: textos?.textoAceptar,
+            textoCancelar: textos?.textoCancelar,
+            textoProcesando: textos?.textoProcesando,
             procesando,
             onConfirmar: aceptar,
             onCerrar: cerrar,

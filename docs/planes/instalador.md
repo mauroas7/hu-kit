@@ -41,7 +41,7 @@ en `C:\laragon\www\farmacia-hu`, con los comandos listos para Cmder.
 - **`<body>` de `app.blade.php`:** `min-h-full bg-canvas font-sans
   text-brandText antialiased dark:bg-canvas-dark dark:text-brandText-dark`. El
   README lo documenta (hoy no lo dice nadie).
-- **Es v1.17.0** (algo nuevo, nada deja de andar). El borde de los controles,
+- **El código sale en v1.19.0 y su documentación en v1.19.1** (algo nuevo, nada deja de andar). El borde de los controles,
   U7 de `docs/planes/auditoria.md`, pasa a v1.18.0; la viñeta de U6 sobre el
   comando de `guia.html:297` desaparece, porque U3 de este plan reescribe esa
   sección. Las dos cosas se anotan en `auditoria.md` en el commit de U3.
@@ -104,7 +104,7 @@ nombre muestra el toast; el modal de borrar la cuenta; «¿Olvidaste tu
 contraseña?» y su pantalla; `/` sin sesión cae en el ingreso; ninguna
 pantalla con el logo de Laravel; `php artisan test` verde.
 
-## U3 — Documentación, guía y v1.17.0
+## U3 — Documentación, guía y v1.19.1
 
 **Estado:** pendiente
 
@@ -118,21 +118,22 @@ pantalla con el logo de Laravel; `php artisan test` verde.
   (hu-plantilla y el camino largo) pasan a uno, con los comandos del instalador
   y `#vX.Y.Z`. Las otras menciones de `hu-plantilla` (`:90`, `:511`) pasan a
   «el instalador». PDF regenerado con `npm run guia`.
-- `CHANGELOG.md`: v1.17.0.
-- `package.json`: `version` 1.17.0.
+- `CHANGELOG.md`: v1.19.1. El CHANGELOG de v1.19.0 ya nombra el instalador;
+  v1.19.1 suma su sección del README y la guía.
+- `package.json`: `version` 1.19.1.
 - `docs/planes/auditoria.md`: U7 pasa a v1.18.0; U6 pierde la viñeta de `:297`.
 
 **Revisar:** en el PDF, la sección 4 entra en su página y los comandos son los
 de la simulación; ningún `hu-plantilla` queda en README ni guía.
 
-**Después del commit (Mauro):** tag `v1.17.0` y push (los comandos van en la
+**Después del commit (Mauro):** tag `v1.19.1` y push (los comandos van en la
 propuesta de commit).
 
 ## U4 — Simulación desde cero con «Farmacia HU»
 
 **Estado:** pendiente
 
-**Antes:** v1.17.0 publicada. Se borra `C:\laragon\www\farmacia-demo` (antes,
+**Antes:** v1.19.1 publicada. Se borra `C:\laragon\www\farmacia-demo` (antes,
 U1 ya copió sus plantillas a hu-kit).
 
 **Comandos, de a uno, en Cmder** (los pasa la sesión, los corre Mauro):
@@ -143,7 +144,7 @@ composer create-project "laravel/laravel:^12.0" farmacia-hu
 cd farmacia-hu
 composer require laravel/breeze --dev
 php artisan breeze:install react
-npm install hu-kit@github:mauroas7/hu-kit#v1.17.0
+npm install hu-kit@github:mauroas7/hu-kit#v1.19.1
 npx hu-kit instalar --nombre "Farmacia HU" --bajada "Pedidos y stock de farmacia."
 php artisan db:seed
 ```
@@ -159,7 +160,7 @@ oscuro con la luna, y que sobrevive a F5; perfil; `/` sin sesión.
 ## Verificación
 
 - U1 y U2, antes del tag, en `farmacia-demo`: `demo\volver`, después `npm pack`
-  en hu-kit e `npm install <ruta>\hu-kit-1.17.0.tgz` en `farmacia-demo` (prueba
+  en hu-kit e `npm install <ruta>\hu-kit-1.19.0.tgz` en `farmacia-demo` (prueba
   `bin` y `files` como los va a ver un sistema), y
   `npx hu-kit instalar --nombre "Farmacia HU" --bajada "…"`. Luego
   `php artisan test` y `revisor-visual` con el `Revisar:` de la unidad.

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Buscador, Campo, Checkbox, Input, PasswordInput, Select, SelectorFecha, Textarea, claseControl, descritoPor } from '../../componentes/index.js';
+import { Buscador, Calendario, Campo, Checkbox, Estado, Input, PasswordInput, Select, SelectorFecha, Textarea, claseControl, descritoPor, fechaIso } from '../../componentes/index.js';
 import Muestra from '../Muestra.jsx';
 
 export default function Campos() {
@@ -9,6 +9,8 @@ export default function Campos() {
     const [fecha, setFecha] = useState('2026-10-24');
     const [urgente, setUrgente] = useState(true);
     const [clave, setClave] = useState('');
+    const [diaTurno, setDiaTurno] = useState(proximoConTurnos);
+    const [diaAgenda, setDiaAgenda] = useState(() => fechaIso(new Date()));
 
     return (
         <div className="space-y-6">
@@ -44,10 +46,20 @@ export default function Campos() {
                 </div>
             </Muestra>
 
-            <Muestra nombre="Buscador" uso="Con la lupa y la cruz para borrar. onChange recibe el texto." columna>
-                <div className="max-w-sm">
-                    <Buscador nombre="buscar" etiqueta="Buscar pedidos" valor={busqueda} onChange={setBusqueda} placeholder="Insumo o área…" />
+            <Muestra nombre="Calendario" uso="El calendario siempre abierto, con la semana desde el lunes. Con disponible y sinPasado es el del turnero." columna>
+                <div className="max-w-sm rounded-2xl border border-gray-100 p-3 dark:border-gray-800">
+                    <Calendario valor={diaTurno} onElegir={setDiaTurno} disponible={hayTurnos} sinPasado etiqueta="Día del turno" />
                 </div>
+            </Muestra>
+
+            <Muestra nombre="Calendario con contenidoDelDia" uso="La agenda: cada día muestra lo que devuelve contenidoDelDia; en el celular, un punto." columna>
+                <div className="overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800">
+                    <Calendario valor={diaAgenda} onElegir={setDiaAgenda} contenidoDelDia={cuposDelDia} etiqueta="Agenda del mes" />
+                </div>
+            </Muestra>
+
+            <Muestra nombre="Buscador" uso="Con la lupa y la cruz para borrar. onChange recibe el texto; ancho es el del conjunto." columna>
+                <Buscador nombre="buscar" etiqueta="Buscar pedidos" valor={busqueda} onChange={setBusqueda} placeholder="Insumo o área…" ancho="w-full lg:w-80" />
             </Muestra>
 
             <Muestra nombre="PasswordInput dentro de Campo" uso="La contraseña con el ojito. Va dentro de Campo, con claseControl y descritoPor." columna>
@@ -58,5 +70,34 @@ export default function Campos() {
                 </div>
             </Muestra>
         </div>
+    );
+}
+
+// Datos inventados para las muestras del calendario: turnos de lunes a viernes, salvo algunos días.
+function hayTurnos(fecha) {
+    return fecha.getDay() !== 0 && fecha.getDay() !== 6 && fecha.getDate() % 5 !== 0;
+}
+
+function proximoConTurnos() {
+    const fecha = new Date();
+    while (! hayTurnos(fecha)) fecha.setDate(fecha.getDate() + 1);
+
+    return fechaIso(fecha);
+}
+
+// Un día completo no es un error para el médico: va neutro.
+function cuposDelDia(fecha) {
+    if (! hayTurnos(fecha)) return null;
+
+    const libres = fecha.getDate() % 7;
+    const [tono, punto] = libres === 0 ? ['neutro', 'bg-gray-500'] : libres <= 3 ? ['aviso', 'bg-secondary-dark'] : ['exito', 'bg-emerald-600'];
+
+    return (
+        <>
+            <span className="hidden sm:inline-flex">
+                <Estado tono={tono}>{libres === 0 ? 'Completo' : `${libres} ${libres === 1 ? 'libre' : 'libres'}`}</Estado>
+            </span>
+            <span className={`size-1.5 rounded-full sm:hidden ${punto}`} />
+        </>
     );
 }

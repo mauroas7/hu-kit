@@ -74,7 +74,7 @@ export function claseControl(hayError, variante = 'normal') {
             'block w-full rounded-xl border bg-gray-50 px-4 py-3.5 text-sm font-semibold text-primary',
             'placeholder:text-gray-400 transition duration-300 focus:border-secondary focus:bg-white focus:ring-4 focus:ring-secondary/10',
             'dark:bg-canvas-dark dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:bg-surface-dark dark:[color-scheme:dark]',
-            hayError ? 'border-red-600' : 'border-gray-200 dark:border-gray-700',
+            hayError ? 'border-red-700 dark:border-red-400' : 'border-gray-200 dark:border-gray-700',
         ].join(' ');
     }
 
@@ -82,6 +82,6 @@ export function claseControl(hayError, variante = 'normal') {
         'block w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-brandText',
         'placeholder:text-brandText-muted focus:border-primary focus:ring-0',
         'dark:bg-canvas-dark dark:text-gray-100 dark:placeholder:text-brandText-mutedDark dark:focus:border-secondary dark:[color-scheme:dark]',
-        hayError ? 'border-red-600' : 'border-brandText-soft dark:border-gray-700',
+        hayError ? 'border-red-700 dark:border-red-400' : 'border-brandText-soft dark:border-gray-700',
     ].join(' ');
 }

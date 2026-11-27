@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Alerta, ApplicationLogo, Boton, Dato, Estado, Icono, MarcoPortal, SeccionesDelMenu, Tarjeta, institucional } from '../../componentes/index.js';
+import { Alerta, Boton, Dato, Estado, MarcoPortal, SeccionesDelMenu, Tarjeta, institucional } from '../../componentes/index.js';
 import { USUARIO, href } from '../datos.js';
 
-const PACIENTE = { ...USUARIO, nombre: 'Lucía Fernández', email: 'lfernandez@correo.com', rolEtiqueta: 'Paciente' };
+const PACIENTE = { ...USUARIO, nombre: 'Lucía Fernández', email: 'lfernandez@correo.com' };
 
 const SECCIONES = [
     { clave: 'inicio', etiqueta: 'Inicio', icono: 'home' },
@@ -20,25 +20,21 @@ export default function Paciente() {
 
     const navegacion = (
         <SeccionesDelMenu
-            secciones={SECCIONES.map((item) => ({ ...item, activa: item.clave === actual, onClick: () => setActual(item.clave) }))}
+            secciones={[
+                ...SECCIONES.map((item, indice) => ({
+                    ...item,
+                    titulo: indice === 0 ? 'Tu atención' : undefined,
+                    activa: item.clave === actual,
+                    onClick: () => setActual(item.clave),
+                })),
+                { etiqueta: 'Cirugías', icono: 'healing', href: '#', externo: 'QuirofanoHU' },
+            ]}
             etiqueta="Secciones del portal"
             tamano="portal"
         />
     );
 
-    const encabezado = (
-        <div className="flex min-w-0 flex-1 items-center gap-4">
-            <ApplicationLogo className="h-auto w-32 shrink-0 lg:hidden" />
-
-            <nav aria-label="Dónde estás" className="hidden min-w-0 items-center gap-2 text-base text-brandText dark:text-brandText-dark lg:flex">
-                <span className="inline-flex min-h-11 items-center">Portal de Pacientes</span>
-                <Icono nombre="chevron_right" className="text-xl" />
-                <span className="inline-flex min-h-11 items-center font-semibold text-primary dark:text-gray-100" aria-current="page">
-                    {seccion.etiqueta}
-                </span>
-            </nav>
-        </div>
-    );
+    const migas = [{ etiqueta: 'Inicio', onClick: () => setActual('inicio') }, ...(actual === 'inicio' ? [] : [{ etiqueta: seccion.etiqueta }])];
 
     const pie = (
         <div className="space-y-1 px-4 py-4 text-sm text-brandText dark:text-brandText-dark sm:px-5 lg:px-8">
@@ -52,14 +48,22 @@ export default function Paciente() {
     return (
         <MarcoPortal
             titulo={seccion.etiqueta}
-            usuario={{ nombre: PACIENTE.nombre, email: PACIENTE.email, rol: PACIENTE.rolEtiqueta }}
+            usuario={{ nombre: PACIENTE.nombre, email: PACIENTE.email, detalle: 'DNI 30.123.456' }}
             enlaces={[{ etiqueta: 'Volver al catálogo', icono: 'arrow_back', href: href('inicio') }]}
-            encabezado={encabezado}
+            migas={migas}
             navegacion={navegacion}
-            accion={{ etiqueta: 'Pedir turno', icono: 'add', onClick: pedirTurno }}
+            accion={{ etiqueta: 'Nuevo turno', icono: 'calendar_add_on', onClick: pedirTurno }}
             barraInferior={
-                <Boton tipo="button" onClick={pedirTurno} icono="add" className="w-full shadow-lg">
-                    Pedir turno
+                <Boton
+                    tipo="button"
+                    variante="secundario"
+                    forma="grupo"
+                    tamano="tactil"
+                    onClick={pedirTurno}
+                    icono="calendar_add_on"
+                    className="w-full shadow-lg"
+                >
+                    Nuevo turno
                 </Boton>
             }
             pie={pie}
