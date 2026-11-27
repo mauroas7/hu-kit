@@ -38,17 +38,60 @@ export default {
                 toast: '200',
             },
 
-            // Con `both` la animación sigue aplicada y su último cuadro se calcula como
-            // `matrix(1, 0, 0, 1, 0, 0)`, no `none`: encierra a los `fixed` de adentro,
-            // por eso el toast va por un portal. `both` aplica el 0% durante un delay.
+            // Las animaciones del sistema: sólo opacidad y transform, nada de más de
+            // 200 ms (la barra del aviso marca su tiempo). Con `both` una animación
+            // con transform deja aplicado su último cuadro, `matrix(1, 0, 0, 1, 0, 0)`
+            // y no `none`: encierra a los `fixed` de adentro. Por eso `fade-in` es
+            // sólo opacidad y el aviso va por un portal.
             keyframes: {
                 'fade-in': {
-                    '0%': { opacity: '0', transform: 'translateY(10px)' },
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+                'fade-out': {
+                    '0%': { opacity: '1' },
+                    '100%': { opacity: '0' },
+                },
+                // El panel de un modal.
+                'escala-in': {
+                    '0%': { opacity: '0', transform: 'scale(0.95)' },
                     '100%': { opacity: '1', transform: 'none' },
+                },
+                // Un paso del turnero: avanzar entra desde la derecha; volver, desde la izquierda.
+                'paso-adelante': {
+                    '0%': { opacity: '0', transform: 'translateX(16px)' },
+                    '100%': { opacity: '1', transform: 'none' },
+                },
+                'paso-atras': {
+                    '0%': { opacity: '0', transform: 'translateX(-16px)' },
+                    '100%': { opacity: '1', transform: 'none' },
+                },
+                'aviso-in': {
+                    '0%': { opacity: '0', transform: 'translateY(8px)' },
+                    '100%': { opacity: '1', transform: 'none' },
+                },
+                // Los menús desplegables: el del celular y el de perfil.
+                'menu-in': {
+                    '0%': { opacity: '0', transform: 'translateY(-4px)' },
+                    '100%': { opacity: '1', transform: 'none' },
+                },
+                // La barra del tiempo del aviso. Es sólo la vista: el cierre lo cuenta JS,
+                // porque con «reducir movimiento» la animación dura 0,01 ms.
+                'barra-tiempo': {
+                    '0%': { transform: 'scaleX(1)' },
+                    '100%': { transform: 'scaleX(0)' },
                 },
             },
             animation: {
-                'fade-in': 'fade-in 0.3s ease-out both',
+                'fade-in': 'fade-in 150ms ease-out both',
+                'fade-in-lento': 'fade-in 200ms ease-out both',
+                'fade-out': 'fade-out 150ms ease-in both',
+                'escala-in': 'escala-in 200ms ease-out both',
+                'paso-adelante': 'paso-adelante 200ms ease-out both',
+                'paso-atras': 'paso-atras 200ms ease-out both',
+                'aviso-in': 'aviso-in 200ms ease-out both',
+                'menu-in': 'menu-in 150ms ease-out both',
+                'barra-tiempo': 'barra-tiempo 5s linear both',
             },
 
             // Los dos círculos difusos del panel azul de las pantallas de ingreso.
