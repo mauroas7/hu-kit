@@ -1,5 +1,17 @@
 import { useState } from 'react';
-import { Alerta, Boton, Dato, Estado, MarcoPortal, Rotulo, SeccionesDelMenu, Tarjeta, institucional } from '../../componentes/index.js';
+import { usePage } from '@inertiajs/react';
+import {
+    Alerta,
+    Boton,
+    Dato,
+    Estado,
+    MarcoPortal,
+    Rotulo,
+    SeccionesDelMenu,
+    SelectorDeVista,
+    Tarjeta,
+    institucional,
+} from '../../componentes/index.js';
 import { USUARIO, href } from '../datos.js';
 
 const PACIENTE = { ...USUARIO, nombre: 'Lucía Fernández', email: 'lfernandez@correo.com' };
@@ -11,8 +23,23 @@ const SECCIONES = [
     { clave: 'documentacion', etiqueta: 'Documentación', icono: 'folder_open' },
 ];
 
-/** El portal de un sistema inventado, «Portal de Pacientes», para ver `MarcoPortal` en claro y en oscuro. */
+const VARIANTES = [
+    { clave: 'panel', etiqueta: 'Con panel', href: href('paciente') },
+    { clave: 'volver', etiqueta: 'Con volver', href: href('paciente', { variante: 'volver' }) },
+    { clave: 'sin-panel', etiqueta: 'Sin panel', href: href('paciente', { variante: 'sin-panel' }) },
+];
+
+// Salen al catálogo con un `a` común, como el portal de un sistema sale a otro: la página se recarga.
+const MIGA_EXTERNA = { etiqueta: 'Catálogo', href: href('inicio'), externo: true };
+const VOLVER = { etiqueta: 'Volver al catálogo', href: href('inicio'), externo: true };
+
+/**
+ * El portal de un sistema inventado, «Portal de Pacientes», para ver `MarcoPortal` en claro y en oscuro.
+ * `variante` muestra el portal de otro sistema metido en éste: con `volver` y la miga externa, o sin panel.
+ */
 export default function Paciente() {
+    const variante = new URLSearchParams(usePage().url.split('?')[1]).get('variante') ?? 'panel';
+    const conPanel = variante !== 'sin-panel';
     const [actual, setActual] = useState('inicio');
     const seccion = SECCIONES.find((item) => item.clave === actual);
 
@@ -34,7 +61,8 @@ export default function Paciente() {
         />
     );
 
-    const migas = [{ etiqueta: 'Inicio', onClick: () => setActual('inicio') }, ...(actual === 'inicio' ? [] : [{ etiqueta: seccion.etiqueta }])];
+    const propias = [{ etiqueta: 'Inicio', onClick: () => setActual('inicio') }, ...(actual === 'inicio' ? [] : [{ etiqueta: seccion.etiqueta }])];
+    const migas = variante === 'panel' ? propias : [MIGA_EXTERNA, ...(conPanel ? propias : [{ etiqueta: 'Mis cirugías' }])];
 
     const pie = (
         <div className="space-y-1 px-4 py-4 text-sm text-brandText dark:text-brandText-dark sm:px-5 lg:px-8">
@@ -51,22 +79,27 @@ export default function Paciente() {
             usuario={{ nombre: PACIENTE.nombre, email: PACIENTE.email, detalle: 'DNI 30.123.456' }}
             enlaces={[{ etiqueta: 'Volver al catálogo', icono: 'arrow_back', href: href('inicio') }]}
             migas={migas}
-            navegacion={navegacion}
-            accion={{ etiqueta: 'Nuevo turno', icono: 'calendar_add_on', onClick: pedirTurno }}
+            volver={variante === 'volver' ? VOLVER : null}
+            inicio={conPanel ? null : href('inicio')}
+            navegacion={conPanel ? navegacion : null}
+            accion={conPanel ? { etiqueta: 'Nuevo turno', icono: 'calendar_add_on', onClick: pedirTurno } : null}
             barraInferior={
-                <Boton
-                    tipo="button"
-                    variante="secundario"
-                    forma="grupo"
-                    tamano="tactil"
-                    onClick={pedirTurno}
-                    icono="calendar_add_on"
-                    className="w-full shadow-lg"
-                >
-                    Nuevo turno
-                </Boton>
+                conPanel && (
+                    <Boton
+                        tipo="button"
+                        variante="secundario"
+                        forma="grupo"
+                        tamano="tactil"
+                        onClick={pedirTurno}
+                        icono="calendar_add_on"
+                        className="w-full shadow-lg"
+                    >
+                        Nuevo turno
+                    </Boton>
+                )
             }
             lateral={
+                conPanel &&
                 actual === 'inicio' && (
                     <aside className="hidden w-80 shrink-0 border-l border-gray-100 bg-white px-5 pb-5 pt-8 dark:border-gray-800 dark:bg-surface-dark xl:block">
                         <Rotulo como="h2" className="mb-4 px-1">
@@ -82,6 +115,8 @@ export default function Paciente() {
             conTema
         >
             <div className="mx-auto max-w-3xl space-y-6">
+                <SelectorDeVista opciones={VARIANTES} actual={variante} etiqueta="Variante del marco" />
+
                 <h1 className="titulo-corto text-2xl text-primary dark:text-gray-100">Hola, Lucía</h1>
 
                 <Alerta tipo="info" tamano="portal" titulo="Llevá tu DNI">
