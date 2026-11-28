@@ -196,7 +196,7 @@ está en un artifact privado del usuario: «Marco del personal».
 - Después del commit publica el usuario: tag `v2.2.0`, push y `instalar.ps1`,
   porque la skill cambió (`estilos/README.md`, «Publicar una versión»).
 - Revisar: la guía regenerada muestra el marco nuevo.
-- Estado: pendiente
+- Estado: hecha
 
 ### U4 — quirofanohu adopta v2.2.0, y se borra este plan
 

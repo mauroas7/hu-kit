@@ -156,9 +156,10 @@ Los tonos para texto sobre fondo claro no sirven sobre `canvas-dark` ni
 ### Foco
 
 El anillo `primary-light` se ve sobre fondos claros (9,7:1 sobre blanco), pero
-no sobre `primary` (1,3:1) ni en modo oscuro (1,8:1). Ahí pasa a `secondary`,
-que da 5,1:1 sobre `primary` y 7,8:1 sobre `surface-dark`; un indicador de foco
-pide 3:1.
+no sobre `primary` (1,3:1), sobre `primary-dark` (1,6:1) ni en modo oscuro
+(1,8:1). Ahí pasa a `secondary`, que da 5,1:1 sobre `primary`, 6,3:1 sobre
+`primary-dark` (el panel de los dos marcos) y 7,8:1 sobre `surface-dark`; un
+indicador de foco pide 3:1.
 
 El borde de `contornoSobrePrimario` (`white/40`) da 3,2:1 sobre `primary`, y el
 borde de un control pide 3:1. La variante trae además un relleno `white/10` y

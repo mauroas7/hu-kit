@@ -3,6 +3,34 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v2.2.0 — 2026-11-28
+
+- `MarcoApp` habla el idioma de `MarcoPortal`, con las mismas props:
+  - el panel es `primary-dark` liso, sin el degradado ni el brillo del
+    paciente: el equipo recibe una herramienta. En oscuro pasa a
+    `surface-dark` con borde;
+  - el `sistema` va bajo el logo, en dos niveles (el nombre en blanco y la
+    bajada más chica), y sale del pie del panel;
+  - «Modo oscuro» queda fijo al pie del panel y al final del menú del
+    celular. El `ThemeToggle` sale de la cabecera, pero se sigue exportando;
+  - el título baja al contenido, en una `CabeceraSeccion` con `subtitulo` y
+    `estado`. Con `volver`, el título va sin mayúscula, porque es un nombre;
+  - `volver` va a la izquierda de la cabecera, con su etiqueta en escritorio
+    («← Volver»), y sólo la flecha en el celular. Con él, el botón del menú
+    pasa a la derecha;
+  - `migas`, opcional: la ruta que una página pase a mano, sólo en escritorio;
+  - en el celular, el cajón lateral pasa a un desplegable que cuelga de la
+    cabecera, con el logo centrado arriba.
+- `CabeceraSeccion` suma `estado` (un nodo junto al título) y `mayuscula` (en
+  `false`, para una ficha). Una palabra larga sin espacios se corta.
+- `MarcoPortal`: con el menú del celular abierto, el contenido se oscurece y
+  tocarlo cierra el menú.
+- El foco dorado vale también sobre `bg-primary-dark`.
+
+Qué hacer al adoptarla: nada de código. Revisar las pantallas del personal: el
+título baja al contenido, el tema pasa al pie del panel y volver muestra su
+etiqueta.
+
 ## v2.1.0 — 2026-11-28
 
 - `MarcoPortal`, para el portal de un sistema que se entra desde otro (el de
