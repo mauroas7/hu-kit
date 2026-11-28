@@ -166,7 +166,7 @@ está en un artifact privado del usuario: «Marco del personal».
     se oscurece y tocarlo cierra el menú;
   - con teclado, el foco se ve dorado sobre el panel, y Escape cierra el menú y
     devuelve el foco al botón.
-- Estado: pendiente
+- Estado: hecha
 
 ### U3 — hu-kit: documentación y v2.2.0
 
