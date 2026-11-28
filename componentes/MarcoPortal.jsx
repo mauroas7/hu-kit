@@ -1,12 +1,12 @@
-import { Fragment, useEffect } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import ApplicationLogo from './ApplicationLogo.jsx';
 import AvisoFlotante from './AvisoFlotante.jsx';
 import Icono from './Icono.jsx';
+import InterruptorTema from './InterruptorTema.jsx';
 import MenuDeUsuario from './MenuDeUsuario.jsx';
+import Migas from './Migas.jsx';
 import SaltarAlContenido from './SaltarAlContenido.jsx';
 import useMenuLateral from './useMenuLateral.js';
-import { useTheme } from './useTheme.jsx';
 
 const CLASES_ACCION =
     'flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 text-base font-semibold text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_20px_-10px_rgba(0,0,0,0.6)] transition-colors duration-200 motion-reduce:transition-none hover:bg-secondary-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary dark:focus-visible:ring-offset-surface-dark';
@@ -88,18 +88,6 @@ export default function MarcoPortal({
         </button>
     );
 
-    // Con el menú abierto el fondo no se desplaza: el menú cuelga de la cabecera y lo de abajo correría.
-    useEffect(() => {
-        if (! abierto) return undefined;
-
-        const antes = document.documentElement.style.overflow;
-        document.documentElement.style.overflow = 'hidden';
-
-        return () => {
-            document.documentElement.style.overflow = antes;
-        };
-    }, [abierto]);
-
     return (
         <div className="flex min-h-screen bg-canvas dark:bg-canvas-dark">
             <SaltarAlContenido />
@@ -169,6 +157,11 @@ export default function MarcoPortal({
                         {usuario && <MenuDeUsuario usuario={usuario} enlaces={enlaces} salir={salir} conTema={conTema && ! navegacion} />}
                     </div>
 
+                    {/* El fondo cubre el contenido bajo la cabecera y cierra el menú al tocarlo; el menú va encima por venir después. */}
+                    {abierto && navegacion && (
+                        <div aria-hidden="true" onClick={cerrar} className="absolute inset-x-0 top-full z-dropdown h-[100dvh] bg-primary-dark/50 lg:hidden" />
+                    )}
+
                     {abierto && navegacion && (
                         // Una sección con `onClick` cambia lo que se muestra sin navegar: el menú se cierra al elegir.
                         <div
@@ -232,50 +225,6 @@ export default function MarcoPortal({
     );
 }
 
-/** La ruta de la cabecera: cada miga menos la última lleva de vuelta. */
-function Migas({ migas }) {
-    const clases = 'inline-flex min-h-11 items-center hover:underline';
-
-    return (
-        <nav aria-label="Ruta de navegación" className="hidden lg:flex">
-            <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-                {migas.map((miga, indice) =>
-                    indice === migas.length - 1 ? (
-                        <li key={miga.etiqueta}>
-                            <span aria-current="page" className="inline-flex min-h-11 items-center font-semibold text-primary dark:text-gray-100">
-                                {miga.etiqueta}
-                            </span>
-                        </li>
-                    ) : (
-                        <Fragment key={miga.etiqueta}>
-                            <li>
-                                {miga.href && miga.externo ? (
-                                    <a href={miga.href} className={clases}>
-                                        {miga.etiqueta}
-                                    </a>
-                                ) : miga.href ? (
-                                    <Link href={miga.href} className={clases}>
-                                        {miga.etiqueta}
-                                    </Link>
-                                ) : miga.onClick ? (
-                                    <button type="button" onClick={miga.onClick} className={clases}>
-                                        {miga.etiqueta}
-                                    </button>
-                                ) : (
-                                    <span className="inline-flex min-h-11 items-center">{miga.etiqueta}</span>
-                                )}
-                            </li>
-                            <li aria-hidden="true">
-                                <Icono nombre="chevron_right" className="text-base" />
-                            </li>
-                        </Fragment>
-                    ),
-                )}
-            </ol>
-        </nav>
-    );
-}
-
 /** La flecha del celular a la izquierda de la cabecera: `externo` sale a otro sistema con un `a` común. */
 function Volver({ href, etiqueta, externo = false }) {
     const props = {
@@ -300,32 +249,5 @@ function LogoSinPanel({ inicio }) {
         </a>
     ) : (
         <div className="w-36 shrink-0">{logo}</div>
-    );
-}
-
-function InterruptorTema() {
-    const { theme, alternar } = useTheme();
-    const oscuro = theme === 'dark';
-
-    return (
-        <button
-            type="button"
-            role="switch"
-            aria-checked={oscuro}
-            onClick={alternar}
-            className="group relative flex min-h-11 w-full items-center gap-3 rounded-2xl px-2 text-left text-base leading-snug text-white/80 transition-colors duration-200 hover:bg-white/5 hover:text-white motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-secondary"
-        >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-white/85 ring-1 ring-inset ring-white/15">
-                <Icono nombre="dark_mode" className="text-xl" />
-            </span>
-            <span className="min-w-0 flex-1 text-white/80">Modo oscuro</span>
-            <span aria-hidden="true" className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${oscuro ? 'bg-white' : 'bg-white/20'}`}>
-                <span
-                    className={`absolute left-0.5 top-0.5 size-5 rounded-full transition-transform duration-200 motion-reduce:transition-none ${
-                        oscuro ? 'translate-x-5 bg-primary' : 'bg-white'
-                    }`}
-                />
-            </span>
-        </button>
     );
 }

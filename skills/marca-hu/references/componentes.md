@@ -140,9 +140,16 @@ sin botones, así dos tarjetas vecinas quedan a la par. El título es un
 
 `CabeceraSeccion` es el título de una pantalla:
 
-- `titulo` en un `h1 text-2xl font-black uppercase tracking-tight text-primary`;
+- `titulo` en un `h1 text-2xl font-black uppercase tracking-tight text-primary`,
+  que corta una palabra larga sin espacios (`[overflow-wrap:anywhere]`) antes
+  de salirse;
+- `estado`, opcional, un nodo junto al título (un `Estado`), en un renglón que
+  se parte si no entra (`flex flex-wrap items-center gap-x-3 gap-y-1`);
+- `mayuscula={false}` saca la mayúscula: es para una ficha, cuyo título es un
+  nombre («Juan Pérez»), y el manual no quiere mayúscula en nombres;
 - debajo, un filete dorado de 3 × 40 px (`h-[3px] w-10 bg-secondary`), decorativo;
-- `subtitulo` opcional en `text-sm text-brandText`;
+- `subtitulo` opcional en `text-sm text-brandText`: un texto o un nodo con
+  íconos en línea;
 - `children` a la derecha en escritorio y debajo en el celular: un
   `SelectorDeVista`, un `Buscador` o un botón. `Buscador` toma su ancho de
   `ancho` (por ejemplo `'w-full lg:w-80'`), mide 44 px de alto y su botón de
@@ -202,33 +209,66 @@ en `sistemabienes/resources/js/Components/UI/AppLayout.jsx`.
 
 Lo que fija, para Blade o para revisar una pantalla:
 
-- Barra lateral `w-64 bg-primary`, fija en escritorio (`lg:sticky lg:h-screen`)
-  y escondida en el celular detrás del botón de menú, con el fondo
-  `bg-primary-dark/50` detrás. Arriba, el logo blanco; abajo, el nombre del
-  sistema y su bajada en `text-white/70`.
+- Se arma como el *Marco del paciente* (abajo), con un diferencial: el panel es
+  `primary-dark` liso, sin el degradado ni el brillo del portal. El paciente
+  recibe calidez; el equipo, una herramienta. Es la misma marca, con distinta
+  densidad y distinto adorno.
+- Panel `w-64`, fijo en escritorio (una columna `sticky top-0 flex h-screen
+  flex-col`), en cuatro zonas:
+  - el logo blanco `w-36`, enlace al `inicio`, en `border-b border-white/10 px-6
+    py-3` con `min-h-12`: 73 px, a la par de la cabecera;
+  - el `sistema` en dos niveles, `px-6 pb-1 pt-5`: el nombre en `text-sm
+    font-semibold text-white` y la bajada en `text-xs text-white/70`;
+  - las secciones (`px-3 py-4`), la única zona que se desplaza;
+  - fijo abajo, «Modo oscuro» (`shrink-0 border-t border-white/10 px-3 py-3`),
+    una fila como las secciones, `role="switch"` con `aria-checked`: con un
+    menú largo no se esconde.
 - Cada sección: `min-h-11 rounded-xl px-3 py-2.5 text-sm`, `text-white/70` y
   `hover:bg-white/5`; la activa, `bg-white/10 font-semibold text-white`, con el
   ícono relleno y una raya dorada `h-5 w-1 bg-secondary` a la derecha. Un
   `titulo` abre un grupo con una línea y un rótulo `text-xs uppercase
-  tracking-widest`. Una sección sin `href` va atenuada (`text-white/35`).
-- Encabezado `sticky top-0 z-dropdown`, blanco (`surface-dark` en oscuro), con
-  el título en `.titulo-corto text-base text-primary`, el `ThemeToggle` y el
-  menú de la cuenta (*Menú de usuario*, abajo). Una ficha suma `volver` (flecha
-  `arrow_back` pegada al título, alineada con su renglón; un href, una función
-  o `{ href | onClick, etiqueta }`) y `estado` (un nodo junto al título).
-- El contenido entra con `animate-fade-in` y monta el toast `Flash` (alias de
-  `AvisoFlotante`).
+  tracking-widest`. Una sección sin `href` va atenuada (`text-white/35`). El
+  ancho `w-64` y las filas de 44 px se quedan: el menú del personal es largo y
+  tiene grupos.
+- Cabecera `sticky top-0 z-dropdown`, blanca (`surface-dark` en oscuro), con
+  `border-b`, `px-4 py-3 sm:px-6` e interior `min-h-12`: 73 px. No lleva el
+  título ni el botón de tema.
+  - A la izquierda, en escritorio, **`volver`** (un href, una función o
+    `{ href | onClick, etiqueta }`): un botón de 44 px con la flecha y la
+    etiqueta (por defecto «Volver») en `text-sm font-semibold text-primary`.
+    En el celular, sólo la flecha; la etiqueta queda para el lector de
+    pantalla. Va en todos los anchos porque en el personal volver conserva los
+    filtros y el historial, y una miga no puede hacer eso.
+  - Sin `volver`, a la izquierda va el botón del menú del celular (`bg-canvas`,
+    `menu` o `close`); con `volver`, pasa a la derecha, antes de la cuenta.
+  - Al centro, en escritorio, las **`migas`**, sólo si la página las pasa
+    (`[{ etiqueta, href | onClick }]`, como en el portal). No hay migas
+    derivadas del menú: «← Cirugías ›» al lado de la flecha hacía creer que la
+    flecha llevaba a Cirugías. En el celular, el logo a color, centrado en la
+    cabecera aunque haya dos botones a la derecha.
+  - A la derecha, el menú de la cuenta (*Menú de usuario*, abajo).
+- El contenido (`p-4 sm:p-6`, el mismo margen que la cabecera, así la flecha y
+  el título quedan alineados) entra con `animate-fade-in`, monta el toast
+  `Flash` (alias de `AvisoFlotante`) y arranca con una `CabeceraSeccion` con el
+  `titulo`, el `subtitulo` y el `estado`. Las secciones van en mayúscula; una
+  ficha (la que lleva `volver`), sin mayúscula.
+- En el celular, el panel pasa a un desplegable que cuelga de la cabecera
+  (`animate-menu-in`, `bg-primary-dark`), con el sistema, las secciones y
+  «Modo oscuro». Debajo, un fondo `bg-primary-dark/50` oscurece el contenido y
+  cierra el menú al tocarlo. Elegir un ítem lo cierra.
 - Accesibilidad: el primer enlace es «Saltar al contenido» (`main#contenido`,
   visible sólo con foco). Con el menú del celular abierto, el foco entra al
   primer ítem, Escape lo cierra y el foco vuelve al botón que lo abrió; el
-  `main` queda `inert`. Los botones de abrir y cerrar miden 44 px.
+  `main` queda `inert` y el fondo no se desplaza. Los botones miden 44 px. El
+  foco es dorado sobre el panel.
 
 ## Marco del paciente
 
 En React es `MarcoPortal` de `hu-kit/componentes`, para el portal de pacientes y
-cualquier pantalla con sesión de un paciente. **En claro, el panel es `primary` como en
-el marco del personal**: lo que distingue al paciente no es el armado sino lo
-que lleva el panel.
+cualquier pantalla con sesión de un paciente. Se arma igual que el marco del
+personal; lo que distingue al paciente es el adorno y lo que lleva el panel: el
+degradado de `primary` acompaña, y el panel liso del personal es una
+herramienta.
 
 - Panel `w-72` a todo el alto, unión recta con el contenido (sin tarjeta, sombra
   ni marco azul alrededor), en un degradado de `primary` a `primary-dark` con un
@@ -267,7 +307,8 @@ que lleva el panel.
   fuera del teclado, como el del panel.
 - En el celular el panel pasa a un desplegable azul que cuelga de la cabecera
   (`animate-menu-in`), con la `accion` arriba; elegir un ítem lo cierra.
-  Abierto, el fondo no se desplaza, el contenido queda `inert` y la
+  Debajo, un fondo `bg-primary-dark/50` oscurece el contenido y cierra el menú
+  al tocarlo. Abierto, el fondo no se desplaza, el contenido queda `inert` y la
   `barraInferior` se oculta. Cerrado, la `barraInferior` (la acción principal,
   siempre a mano) queda fija abajo y deja `pb-28` al contenido y `pb-20` al
   `pie`, para que su final no quede debajo de la barra.
@@ -278,7 +319,8 @@ que lleva el panel.
 - **`conTema`** suma el interruptor «Modo oscuro» al final de la navegación del
   panel (con `mt-auto`, dentro de lo que se desplaza) y del menú del celular:
   una fila como las del panel, `role="switch"` con `aria-checked`, y una
-  perilla que se desliza en 200 ms. No hay botón de tema en la cabecera. Sin
+  perilla que se desliza en 200 ms. No hay botón de tema en la cabecera de
+  ninguno de los dos marcos. Sin
   panel, el interruptor va en el menú de la cuenta (abajo). Sólo en el
   dashboard con sesión. En oscuro el panel pasa a `surface-dark` con
   `border-white/10`, igual que la cabecera. Ver `modo-oscuro.md`.
@@ -392,9 +434,9 @@ arme una propia. Con `tamano="app"` (el de `MarcoApp`) no cambia.
   Lo que se hace seguido va como `Boton` al lado, no escondido acá. Con `texto`
   el botón dice «Acciones» con una flecha desde 1366 px (debajo, los tres
   puntos); `etiqueta` debe contener ese texto (WCAG 2.5.3).
-- **Pantallas de detalle (una ficha)**: volver y el estado van en el
-  encabezado; las acciones, en «Acciones» al final de las solapas; nada de una
-  franja entre el encabezado y las solapas. Lo que se hace siempre puede ir
+- **Pantallas de detalle (una ficha)**: volver va en la cabecera del marco, y
+  el estado, junto al título; las acciones, en «Acciones» al final de las
+  solapas; nada de una franja entre el título y las solapas. Lo que se hace siempre puede ir
   como botón; lo que se hace poco, en el menú.
 
 ## Lista vacía
