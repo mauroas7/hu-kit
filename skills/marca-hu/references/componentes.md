@@ -581,6 +581,9 @@ Para cualquier sistema:
   su `aspect-ratio`, para que no empujen al cargar.
 - Una sola copia de React, Inertia y Headless UI: las pone el sistema, y
   hu-kit las pide como `peerDependencies`.
+- Lo que el marco monta en todas las pantallas no usa `Menu`, `Popover`,
+  `Listbox` ni `Combobox` de Headless UI: traen floating-ui aunque no usen
+  `anchor`. Por eso `MenuDeUsuario` es un botón con `aria-expanded`.
 - Montserrat sólo en 400, 600 y 900, y un solo archivo de íconos, el de hu-kit.
 - Un esqueleto mide y pinta lo mismo que lo que reemplaza: si no, la pantalla
   salta al llegar los datos (CLS).

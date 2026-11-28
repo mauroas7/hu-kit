@@ -3,6 +3,17 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.22.0 — 2026-11-28
+
+- `MenuDeUsuario` deja `@headlessui/react`: es una divulgación (botón con
+  `aria-expanded` y una lista de enlaces, sin `role="menu"`). Mismas props y
+  mismo aspecto. Las flechas recorren los ítems, Escape cierra y devuelve el
+  foco al botón; elegir un ítem, el clic afuera y Tab hacia afuera lo cierran.
+  El `Menu` de Headless UI traía floating-ui al chunk de los marcos: en el
+  portal, ≈90 kB menos en la carga inicial.
+
+Qué hacer al adoptarla: nada de código; revisar el menú de usuario con teclado.
+
 ## v1.21.1 — 2026-11-28
 
 - `package.json` declara `"sideEffects": ["**/*.css"]`: sólo los `.css` hacen
