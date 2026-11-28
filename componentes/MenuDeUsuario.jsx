@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link, router } from '@inertiajs/react';
 import Icono from './Icono.jsx';
+import { useTheme } from './useTheme.jsx';
 
 const ITEM =
     'flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-sm font-semibold text-brandText transition-colors hover:bg-canvas focus:outline-none focus-visible:bg-canvas dark:text-brandText-dark dark:hover:bg-white/5 dark:focus-visible:bg-white/5';
@@ -44,10 +45,11 @@ function Enlace({ etiqueta, icono = null, href = null, externo = false, deshabil
 /**
  * Quién está adentro y la salida: nombre, `rol` e inicial abren los `enlaces` de
  * la cuenta y cerrar sesión (en celular, sólo la inicial; `detalle`, sólo adentro;
- * `salir` en null si se sale desde otro sistema). Es una divulgación, no un `menu`:
- * botón con `aria-expanded`, lista de enlaces, flechas para recorrerla y Escape.
+ * `salir` en null si se sale desde otro sistema). `conTema` suma el interruptor
+ * «Modo oscuro» antes de cerrar sesión. Es una divulgación, no un `menu`: botón
+ * con `aria-expanded`, lista de enlaces, flechas para recorrerla y Escape.
  */
-export default function MenuDeUsuario({ usuario, enlaces = [], salir = null }) {
+export default function MenuDeUsuario({ usuario, enlaces = [], salir = null, conTema = false }) {
     const inicial = usuario.nombre?.trim().charAt(0).toUpperCase() || '?';
     const [abierto, setAbierto] = useState(false);
     const idPanel = useId();
@@ -157,14 +159,16 @@ export default function MenuDeUsuario({ usuario, enlaces = [], salir = null }) {
                         )}
                     </div>
 
-                    {(enlaces.length > 0 || salir) && (
+                    {(enlaces.length > 0 || conTema || salir) && (
                         <ul className="p-1.5">
                             {enlaces.map((enlace) => (
                                 <Enlace key={enlace.etiqueta} {...enlace} alElegir={cerrar} />
                             ))}
 
+                            {conTema && <InterruptorTema />}
+
                             {salir && (
-                                <li className={enlaces.length > 0 ? 'mt-1.5 border-t border-gray-100 pt-1.5 dark:border-gray-800' : ''}>
+                                <li className={enlaces.length > 0 || conTema ? 'mt-1.5 border-t border-gray-100 pt-1.5 dark:border-gray-800' : ''}>
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -182,5 +186,30 @@ export default function MenuDeUsuario({ usuario, enlaces = [], salir = null }) {
                 </div>
             )}
         </div>
+    );
+}
+
+/** Elegir el tema no cierra el menú: se ve el cambio y se puede volver atrás. */
+function InterruptorTema() {
+    const { theme, alternar } = useTheme();
+    const oscuro = theme === 'dark';
+
+    return (
+        <li>
+            <button type="button" role="switch" aria-checked={oscuro} onClick={alternar} className={ITEM}>
+                <Icono nombre="dark_mode" className="text-[20px]" />
+                <span className="flex-1 text-left">Modo oscuro</span>
+                <span
+                    aria-hidden="true"
+                    className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${oscuro ? 'bg-primary dark:bg-primary-light' : 'bg-gray-500 dark:bg-white/30'}`}
+                >
+                    <span
+                        className={`absolute left-0.5 top-0.5 size-5 rounded-full bg-white transition-transform duration-200 motion-reduce:transition-none ${
+                            oscuro ? 'translate-x-5' : ''
+                        }`}
+                    />
+                </span>
+            </button>
+        </li>
     );
 }

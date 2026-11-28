@@ -3,6 +3,21 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v2.1.0 — 2026-11-28
+
+- `MarcoPortal`, para el portal de un sistema que se entra desde otro (el de
+  quirofanohu, desde portal-hospital):
+  - una miga con `externo: true` es un `<a>` común, sin visita de Inertia;
+  - `volver`, `{ href, etiqueta, externo }`: en el celular, una flecha de 44 px
+    a la izquierda de la cabecera; el botón del menú pasa a la derecha;
+  - sin `navegacion`, el logo de la cabecera se ve en todos los anchos (enlace
+    al `inicio`, si lo hay) y `conTema` pone «Modo oscuro» en el menú de la
+    cuenta.
+- `MenuDeUsuario` suma `conTema`: el interruptor «Modo oscuro» antes de cerrar
+  sesión.
+
+Qué hacer al adoptarla: nada; sin las props nuevas, todo se ve igual.
+
 ## v2.0.0 — 2026-11-28
 
 - Sale lo que v1.19.0 dejó obsoleto:

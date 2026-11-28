@@ -39,12 +39,17 @@ function Accion({ etiqueta, icono = 'add', href = null, onClick = null }) {
  * tiene que verse siempre («Contacto y ayuda»). `accion` es `{ etiqueta, icono,
  * href | onClick }`; `navegacion`, un nodo. En oscuro el panel pasa a
  * `surface-dark` con borde, no queda `primary`. `migas` es la ruta de la
- * cabecera, `[{ etiqueta, href | onClick }]` (en el celular, el logo);
- * `encabezado`, un nodo que la reemplaza. `lateral` es una columna a la derecha
+ * cabecera, `[{ etiqueta, href | onClick, externo }]` (en el celular, el logo;
+ * `externo`, a otro sistema, sin visita de Inertia); `encabezado`, un nodo que
+ * la reemplaza. `volver`, `{ href, etiqueta, externo }`, es la flecha del
+ * celular a la izquierda de la cabecera; con ella, el botón del menú pasa a la
+ * derecha. `lateral` es una columna a la derecha
  * del contenido, a todo su alto y fuera de su margen (las novedades del inicio);
  * se oculta sola con sus clases. `pie` es una franja clara, `barraInferior`
  * queda fija abajo en el celular y `conTema` suma el interruptor «Modo oscuro»
- * al final de la navegación. Sin `navegacion` no hay panel ni botón de menú.
+ * al final de la navegación. Sin `navegacion` no hay panel ni botón de menú:
+ * el logo de la cabecera se ve en todos los anchos y `conTema` pone «Modo
+ * oscuro» en el menú de la cuenta.
  */
 export default function MarcoPortal({
     titulo = 'Inicio',
@@ -54,6 +59,7 @@ export default function MarcoPortal({
     inicio = null,
     encabezado = null,
     migas = null,
+    volver = null,
     navegacion = null,
     accion = null,
     pieDelPanel = null,
@@ -68,6 +74,19 @@ export default function MarcoPortal({
     // Con el menú abierto en el celular el resto no responde. En React 18 `inert` pasa como string.
     const inerte = abierto ? '' : undefined;
     const logo = <ApplicationLogo variante="blanco" className="h-auto w-full" />;
+    const botonMenu = navegacion && (
+        <button
+            type="button"
+            ref={botonRef}
+            onClick={abierto ? cerrar : abrir}
+            className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-canvas text-primary hover:bg-gray-100 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10 lg:hidden"
+            aria-expanded={abierto}
+            aria-controls="menu-portal"
+            aria-label={abierto ? 'Cerrar el menú' : 'Abrir el menú'}
+        >
+            <Icono nombre={abierto ? 'close' : 'menu'} className="text-2xl" />
+        </button>
+    );
 
     // Con el menú abierto el fondo no se desplaza: el menú cuelga de la cabecera y lo de abajo correría.
     useEffect(() => {
@@ -128,25 +147,17 @@ export default function MarcoPortal({
                 <header className="relative border-b border-gray-100 bg-white px-4 py-3 dark:border-gray-800 dark:bg-surface-dark sm:px-5 lg:px-8">
                     {/* `min-h-12`: el alto del logo, así la cabecera mide lo mismo que la zona del logo del panel. */}
                     <div className="flex min-h-12 items-center justify-between gap-4">
-                        {navegacion && (
-                            <button
-                                type="button"
-                                ref={botonRef}
-                                onClick={abierto ? cerrar : abrir}
-                                className="flex size-11 items-center justify-center rounded-xl bg-canvas text-primary hover:bg-gray-100 dark:bg-white/5 dark:text-gray-100 dark:hover:bg-white/10 lg:hidden"
-                                aria-expanded={abierto}
-                                aria-controls="menu-portal"
-                                aria-label={abierto ? 'Cerrar el menú' : 'Abrir el menú'}
-                            >
-                                <Icono nombre={abierto ? 'close' : 'menu'} className="text-2xl" />
-                            </button>
-                        )}
+                        {volver ? <Volver {...volver} /> : botonMenu}
 
                         <div className="min-w-0 flex-1">
                             {encabezado ??
                                 (migas ? (
-                                    <div className="flex justify-center lg:justify-start">
-                                        <ApplicationLogo className="h-auto w-36 lg:hidden" />
+                                    <div className="flex items-center justify-center gap-6 lg:justify-start">
+                                        {navegacion ? (
+                                            <ApplicationLogo className="h-auto w-36 lg:hidden" />
+                                        ) : (
+                                            <LogoSinPanel inicio={inicio} />
+                                        )}
                                         <Migas migas={migas} />
                                     </div>
                                 ) : (
@@ -154,7 +165,8 @@ export default function MarcoPortal({
                                 ))}
                         </div>
 
-                        {usuario && <MenuDeUsuario usuario={usuario} enlaces={enlaces} salir={salir} />}
+                        {volver && botonMenu}
+                        {usuario && <MenuDeUsuario usuario={usuario} enlaces={enlaces} salir={salir} conTema={conTema && ! navegacion} />}
                     </div>
 
                     {abierto && navegacion && (
@@ -237,7 +249,11 @@ function Migas({ migas }) {
                     ) : (
                         <Fragment key={miga.etiqueta}>
                             <li>
-                                {miga.href ? (
+                                {miga.href && miga.externo ? (
+                                    <a href={miga.href} className={clases}>
+                                        {miga.etiqueta}
+                                    </a>
+                                ) : miga.href ? (
                                     <Link href={miga.href} className={clases}>
                                         {miga.etiqueta}
                                     </Link>
@@ -257,6 +273,33 @@ function Migas({ migas }) {
                 )}
             </ol>
         </nav>
+    );
+}
+
+/** La flecha del celular a la izquierda de la cabecera: `externo` sale a otro sistema con un `a` común. */
+function Volver({ href, etiqueta, externo = false }) {
+    const props = {
+        href,
+        'aria-label': etiqueta,
+        title: etiqueta,
+        className:
+            'flex size-11 shrink-0 items-center justify-center rounded-xl text-primary transition-colors hover:bg-canvas dark:text-gray-100 dark:hover:bg-white/5 lg:hidden',
+    };
+    const icono = <Icono nombre="arrow_back" className="text-2xl" />;
+
+    return externo ? <a {...props}>{icono}</a> : <Link {...props}>{icono}</Link>;
+}
+
+/** Sin panel, el logo queda en la cabecera en todos los anchos; fuera del teclado, como el del panel. */
+function LogoSinPanel({ inicio }) {
+    const logo = <ApplicationLogo className="h-auto w-full" />;
+
+    return inicio ? (
+        <a href={inicio} tabIndex={-1} aria-hidden="true" className="block w-36 shrink-0">
+            {logo}
+        </a>
+    ) : (
+        <div className="w-36 shrink-0">{logo}</div>
     );
 }
 

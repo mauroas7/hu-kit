@@ -256,7 +256,15 @@ que lleva el panel.
   («Inicio › Cartilla médica › Cardiología»). Cada una mide 44 px de alto y
   lleva de vuelta, menos la última, que va en `font-semibold text-primary` con
   `aria-current="page"`. Se ven desde `lg`; en el celular, en su lugar, el logo
-  centrado.
+  centrado. Una miga `externo` (el inicio de otro sistema, como «Portal de
+  Pacientes» en el portal de quirofanohu) es un `<a>` común, no un `<Link>`.
+- **`volver`**, `{ href, etiqueta, externo }`: en el celular, donde no hay
+  migas, una flecha `arrow_back` de 44 px a la izquierda de la cabecera, con
+  `aria-label={etiqueta}`. Con ella, el botón del menú pasa a la derecha, antes
+  de la cuenta.
+- **Sin `navegacion`** no hay panel ni botón de menú: el logo de la cabecera se
+  ve en todos los anchos, delante de las migas, y con `inicio` es un enlace
+  fuera del teclado, como el del panel.
 - En el celular el panel pasa a un desplegable azul que cuelga de la cabecera
   (`animate-menu-in`), con la `accion` arriba; elegir un ítem lo cierra.
   Abierto, el fondo no se desplaza, el contenido queda `inert` y la
@@ -270,8 +278,9 @@ que lleva el panel.
 - **`conTema`** suma el interruptor «Modo oscuro» al final de la navegación del
   panel (con `mt-auto`, dentro de lo que se desplaza) y del menú del celular:
   una fila como las del panel, `role="switch"` con `aria-checked`, y una
-  perilla que se desliza en 200 ms. No hay botón de tema en la cabecera. Sólo en
-  el dashboard con sesión. En oscuro el panel pasa a `surface-dark` con
+  perilla que se desliza en 200 ms. No hay botón de tema en la cabecera. Sin
+  panel, el interruptor va en el menú de la cuenta (abajo). Sólo en el
+  dashboard con sesión. En oscuro el panel pasa a `surface-dark` con
   `border-white/10`, igual que la cabecera. Ver `modo-oscuro.md`.
 - El `pie` es una franja clara (`bg-white`, `dark:bg-surface-dark`) dentro de la
   columna del contenido, nunca `primary`: con el panel azul al costado, un pie
@@ -320,7 +329,10 @@ arme una propia. Con `tamano="app"` (el de `MarcoApp`) no cambia.
 - El menú abre con nombre, `detalle` y correo arriba. `detalle` (el DNI del
   paciente) va sólo ahí, nunca en el botón. El paciente no lleva `rol`.
 - Ítems de 44 px, `rounded-xl text-sm font-semibold text-brandText`, con el
-  ícono en el mismo color. «Cerrar sesión» va al final, separado por una raya,
+  ícono en el mismo color. Con `conTema`, «Modo oscuro» va después de los
+  enlaces: un ítem igual, `role="switch"` con `aria-checked` y la perilla a la
+  derecha (`primary` prendida, `gray-500` apagada, 3:1 sobre blanco); elegirlo
+  no cierra el menú. «Cerrar sesión» va al final, separado por una raya,
   en `red-700` con `logout`, sin mayúscula. Con `salir` en null no aparece.
 
 ## Avisos: estado o evento
