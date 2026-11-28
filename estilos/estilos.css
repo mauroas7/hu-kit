@@ -29,8 +29,8 @@
         outline-offset: 2px;
     }
 
-    /* Sobre un fondo oscuro o sobre `primary` el azul no se ve: pasa a dorado (5,1:1 o más). */
-    :where(.dark, .bg-primary) :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    /* Sobre un fondo oscuro, `primary` o `primary-dark` el azul no se ve: pasa a dorado (5,1:1 o más). */
+    :where(.dark, .bg-primary, .bg-primary-dark) :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
         outline-color: theme('colors.secondary.DEFAULT');
     }
 

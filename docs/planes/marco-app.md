@@ -99,7 +99,7 @@ está en un artifact privado del usuario: «Marco del personal».
   - con Tab, el foco se ve dorado sobre el panel del portal;
   - `CabeceraSeccion` sin las props nuevas se ve igual, y con un título largo
     sin espacios no se sale a 375 px.
-- Estado: pendiente
+- Estado: hecha
 
 ### U2 — hu-kit: el `MarcoApp` nuevo
 
