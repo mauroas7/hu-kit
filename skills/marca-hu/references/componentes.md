@@ -332,6 +332,11 @@ arme una propia. Con `tamano="app"` (el de `MarcoApp`) no cambia.
 - Un **estado** (algo que sigue siendo cierto) va en el flujo de la pantalla,
   con `Alerta`: «Cirugía cancelada» en la ficha, el resultado de comprobar la
   disponibilidad.
+- Un sistema externo que no respondió es un estado: `Alerta tipo="aviso"
+  urgente={false} icono="cloud_off"`, con el nombre del sistema en negrita
+  («No pudimos consultar Laboratorio.») y qué significa («Lo que ves puede estar
+  incompleto.»). `urgente={false}`: se informa al cargar, no responde a nada que
+  se acabe de hacer, y no interrumpe al lector de pantalla.
 - Un **evento** (algo que acaba de pasar) es el toast: lo que el controlador
   deja en `flash` (`exito`, `error`, `aviso`, `info`). `MarcoApp` y
   `MarcoPortal` ya lo montan (`AvisoFlotante`, que `Flash` también nombra); una

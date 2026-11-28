@@ -3,6 +3,15 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.21.0 — 2026-11-27
+
+- `Alerta`: prop `urgente` (por defecto, `true` para `error` y `aviso`); en
+  `false` el rol es `status` y el lector de pantalla no se interrumpe, para un
+  sistema caído que se informa al cargar. Prop `icono`, que reemplaza el del
+  tipo (`cloud_off` para un sistema que no respondió).
+
+Qué hacer al adoptarla: nada; las dos props son opcionales.
+
 ## v1.20.0 — 2026-11-27
 
 - `MarcoPortal`: prop `lateral`, una columna a la derecha del contenido, a todo

@@ -17,13 +17,26 @@ const TAMANOS = {
     portal: ['px-4 py-4 text-base sm:px-5', 'text-2xl'],
 };
 
-export default function Alerta({ tipo = 'info', tamano = 'equipo', titulo = null, className = '', children }) {
-    const [clases, icono] = ESTILOS[tipo] ?? ESTILOS.info;
+/**
+ * `urgente` en false hace que un aviso o un error espere su turno (`status`): un
+ * sistema caído que se informa al cargar la pantalla no responde a nada que se
+ * acabe de hacer. `icono` reemplaza el del tipo.
+ */
+export default function Alerta({
+    tipo = 'info',
+    tamano = 'equipo',
+    titulo = null,
+    urgente = URGENTES.includes(tipo),
+    icono = null,
+    className = '',
+    children,
+}) {
+    const [clases, iconoDelTipo] = ESTILOS[tipo] ?? ESTILOS.info;
     const [caja, tamanoIcono] = TAMANOS[tamano] ?? TAMANOS.equipo;
 
     return (
-        <div role={URGENTES.includes(tipo) ? 'alert' : 'status'} className={`flex items-start gap-3 rounded-xl border ${caja} ${clases} ${className}`}>
-            <Icono nombre={icono} className={`mt-px shrink-0 ${tamanoIcono}`} relleno />
+        <div role={urgente ? 'alert' : 'status'} className={`flex items-start gap-3 rounded-xl border ${caja} ${clases} ${className}`}>
+            <Icono nombre={icono ?? iconoDelTipo} className={`mt-px shrink-0 ${tamanoIcono}`} relleno />
 
             {/* `min-w-0` deja que el texto largo se parta en vez de empujar el borde. */}
             <div className="min-w-0 flex-1 space-y-0.5 break-words">
