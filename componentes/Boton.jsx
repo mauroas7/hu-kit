@@ -45,17 +45,14 @@ const VARIANTES = {
 const SOBRE_PRIMARIO = ['secundario', 'contornoSobrePrimario'];
 
 /*
- * El tamaño se elige con la prop y no con `className`: una clase de padding
- * que llega de afuera pierde contra la de acá según el orden del CSS. Cada
- * tamaño trae su peso y su ícono con el mismo alto de renglón que el texto.
- * `tactil` tiene 44 px de alto mínimo e `icono`, 44 × 44; `ingreso`, los 52 px
- * del login del portal contando el borde. `portal` (táctil en mayúscula) es
- * obsoleto: los botones van en tipo oración, con `tactil`.
+ * El tamaño va en la prop y no en `className`: un padding que llega de afuera
+ * pierde contra el de acá según el orden del CSS. Cada tamaño trae su peso y su
+ * ícono con el alto de renglón del texto. `tactil` mide 44 px de alto mínimo e
+ * `icono`, 44 × 44; `ingreso`, los 52 px del login del portal con el borde.
  */
 const TAMANOS = {
     normal: ['px-5 py-2.5 text-sm font-semibold', 'text-lg leading-5'],
     tactil: ['min-h-11 px-5 py-2.5 text-sm font-semibold', 'text-lg leading-5'],
-    portal: ['min-h-11 px-5 py-2.5 text-sm font-black uppercase tracking-wider', 'text-lg leading-5'],
     compacto: ['px-3 py-1 text-xs font-semibold', 'text-base leading-4'],
     icono: ['size-11 text-sm font-semibold', 'text-[22px] leading-none'],
     iconoCompacto: ['p-1 text-xs font-semibold', 'text-base leading-4'],

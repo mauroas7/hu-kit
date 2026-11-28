@@ -69,20 +69,16 @@ export default function Botones() {
                 ))}
             </Muestra>
 
-            <Muestra nombre="Boton tamano" uso="El tamaño va por la prop y no por className. «tactil» mide 44 px de alto, para las pantallas que se usan con el dedo.">
+            <Muestra
+                nombre="Boton tamano"
+                uso="El tamaño va por la prop y no por className. «tactil» mide 44 px de alto, para las pantallas que se usan con el dedo. Un enlace que no puede ser un Boton lleva las mismas clases con claseBoton({ variante, forma, tamano })."
+            >
                 <Boton tipo="button" icono="save">normal</Boton>
                 <Boton tipo="button" tamano="tactil" icono="save">tactil</Boton>
                 <Boton tipo="button" tamano="compacto" icono="save">compacto</Boton>
                 <Boton tipo="button" tamano="icono" icono="edit" aria-label="Editar" />
                 <Boton tipo="button" tamano="iconoCompacto" icono="edit" aria-label="Editar" />
                 <Boton tipo="button" tamano="ingreso" className="w-64">Ingresar</Boton>
-            </Muestra>
-
-            <Muestra
-                nombre="Boton tamano='portal' (obsoleto)"
-                uso="Táctil en mayúscula, el botón anterior del portal. Se reemplaza por tamano='tactil' y sale en v2.0.0. Un enlace que no puede ser un Boton lleva las mismas clases con claseBoton({ variante, forma, tamano })."
-            >
-                <Boton tipo="button" forma="grupo" tamano="portal" icono="upload_file">Subir documentación</Boton>
             </Muestra>
 
             <Muestra

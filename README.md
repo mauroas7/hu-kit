@@ -57,7 +57,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `MenuDeUsuario` | El menú de la cuenta del encabezado, suelto para otro marco: el botón muestra el nombre y el `rol` (si lo hay); el menú suma `detalle` (el DNI del paciente), los `enlaces` y cerrar sesión (`salir`; en null, sin salida) |
 | `rutaActiva`, `rutaActual` | En qué ruta de Ziggy se está: un patrón terminado en `.` es un prefijo. Para marcar la sección `activa` del menú |
 | `PanelAutenticacion` | La pantalla de ingreso, copiada del login del portal de pacientes. La página le pasa los textos y el formulario. Va siempre en claro: con `useSoloClaro` ignora el modo oscuro |
-| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños: `tactil` (44 px), `icono` (44 × 44), `ingreso`; `portal` es obsoleto (va `tactil`). `cargando` con `textoCargando` gira el ícono sin atenuar ni cambiar de ancho; el foco es un anillo dorado. `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
+| `Boton`, `claseBoton` | Las dos formas del manual (`confirmacion`, `grupo`), las variantes de color (`contornoSobrePrimario`, para una acción secundaria sobre `primary`) y los tamaños: `tactil` (44 px), `icono` (44 × 44), `ingreso`. `cargando` con `textoCargando` gira el ícono sin atenuar ni cambiar de ancho; el foco es un anillo dorado. `claseBoton` da sus clases para un enlace que no puede ser un `Boton` |
 | `Campo`, `claseControl`, `descritoPor` | La etiqueta, la ayuda y el error de un campo, la clase del control y su `aria-describedby`, para un control propio adentro de `Campo`. Variantes `normal` e `ingreso` |
 | `Input`, `PasswordInput`, `Textarea` | El campo de texto, el de contraseña con el ojito y el de varias líneas |
 | `Select` | El desplegable; recibe pares `[valor, etiqueta]` en el orden en que se muestran. Un mapa `{ valor: etiqueta }` con claves numéricas, como el de un `pluck('nombre', 'id')`, se muestra ordenado por clave |
@@ -65,7 +65,7 @@ import { Boton, Input, PanelAutenticacion } from 'hu-kit/componentes';
 | `SelectorFecha` | El campo de fecha con su calendario desplegable, con las celdas de `Calendario`: habla `YYYY-MM-DD`, nunca un `type="date"` del navegador |
 | `Calendario` | El calendario siempre abierto (el día de un turnero, el mes de una agenda): semana desde el lunes, celdas de 44 px, `disponible(fecha)`, `sinPasado` y `contenidoDelDia(fecha)` para dibujar algo en cada día. Sin marco: lo pone quien lo usa |
 | `Buscador` | El campo de búsqueda con lupa y botón para borrar, de 44 px. `onChange` recibe el texto, como `SelectorFecha`; `ancho` es el del conjunto (`'w-full lg:w-80'`) |
-| `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera de 61 px (el título en un `Rotulo`, `contador` y `acciones`), y el marco para lo que no es una tarjeta con cabecera. `icono` es obsoleto: no se muestra |
+| `Tarjeta`, `marcoTarjeta` | El contenedor de contenido con su cabecera de 61 px (el título en un `Rotulo`, `contador` y `acciones`), y el marco para lo que no es una tarjeta con cabecera |
 | `CabeceraSeccion` | El título de una pantalla, con el filete dorado y `subtitulo`; `children` a la derecha (un selector, un buscador, un botón) |
 | `FechaChip` | El mini calendario de una fila (mes y día, 48 px); `pasado` lo apaga. Decorativo: la fila lleva la fecha en texto |
 | `SeparadorDeMes` | El renglón que abre cada mes en un listado agrupado; `como="li"` dentro de una lista |

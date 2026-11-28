@@ -9,7 +9,7 @@ export default function Formulario() {
 
     return (
         <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-            <Tarjeta titulo="El pedido" icono="add_box">
+            <Tarjeta titulo="El pedido">
                 <div className="grid gap-5 md:grid-cols-2">
                     <div className="md:col-span-2">
                         <Input nombre="insumo" etiqueta="Insumo" valor={datos.insumo} onChange={cambiar('insumo')} requerido />

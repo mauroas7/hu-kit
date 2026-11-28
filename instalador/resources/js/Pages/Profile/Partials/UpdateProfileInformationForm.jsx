@@ -15,7 +15,7 @@ export default function UpdateProfileInformationForm({ mustVerifyEmail, status }
     };
 
     return (
-        <Tarjeta titulo="Datos de la cuenta" icono="person">
+        <Tarjeta titulo="Datos de la cuenta">
             <form onSubmit={guardar} className="space-y-5">
                 <Input
                     nombre="name"

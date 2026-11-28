@@ -16,7 +16,7 @@ export default function DeleteUserForm() {
     };
 
     return (
-        <Tarjeta titulo="Eliminar la cuenta" icono="delete">
+        <Tarjeta titulo="Eliminar la cuenta">
             <form onSubmit={pedirConfirmacion} className="space-y-5">
                 <p className="text-sm text-brandText-muted dark:text-brandText-mutedDark">
                     Al eliminarla se borran todos sus datos. Para confirmar que sos vos, escribí tu contraseña.

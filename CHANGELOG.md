@@ -3,6 +3,19 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v2.0.0 — 2026-11-28
+
+- Sale lo que v1.19.0 dejó obsoleto:
+  - `Boton` y `claseBoton` pierden `tamano="portal"` (táctil en mayúscula). Un
+    `portal` que quede cae en `normal`: 42 px y no 44.
+  - `Tarjeta` pierde `icono`, que desde v1.19.0 no se mostraba.
+- Siguen igual el `tamano="portal"` de `SeccionesDelMenu` (la fila del panel
+  del paciente) y el de `Alerta`: son otras props.
+
+Qué hacer al adoptarla: si se hizo lo de v1.19.0, nada. Si no,
+`tamano="portal"` → `tactil` en cada `Boton`, `SelectorDeArchivo` y
+`claseBoton`, y sacar el `icono` de cada `Tarjeta`.
+
 ## v1.22.0 — 2026-11-28
 
 - `MenuDeUsuario` deja `@headlessui/react`: es una divulgación (botón con

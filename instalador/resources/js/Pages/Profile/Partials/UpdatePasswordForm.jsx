@@ -24,7 +24,7 @@ export default function UpdatePasswordForm() {
     };
 
     return (
-        <Tarjeta titulo="Contraseña" icono="lock">
+        <Tarjeta titulo="Contraseña">
             <form onSubmit={guardar} className="space-y-5">
                 {CAMPOS.map(([id, etiqueta, autoComplete]) => (
                     <Campo key={id} id={id} etiqueta={etiqueta} error={errors[id]}>

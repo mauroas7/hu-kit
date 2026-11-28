@@ -8,8 +8,7 @@ export const marcoTarjeta =
 /**
  * El contenedor de contenido. `contador` va pegado al título y `acciones`, a la
  * derecha. El cuerpo ocupa todo el alto, para que el pie de tarjetas vecinas
- * quede parejo; `relleno={false}` lo lleva hasta el borde. `icono` es
- * obsoleta: se acepta, no se muestra y sale en v2.0.0.
+ * quede parejo; `relleno={false}` lo lleva hasta el borde.
  */
 export default function Tarjeta({
     id = undefined,

@@ -88,7 +88,7 @@ export default function Paciente() {
                     Presentate 15 minutos antes de tu turno en admisión, con tu documento y la orden médica.
                 </Alerta>
 
-                <Tarjeta titulo="Tu próximo turno" icono="event">
+                <Tarjeta titulo="Tu próximo turno">
                     <div className="mb-4">
                         <Estado tono="exito" icono="check_circle">
                             Confirmado

@@ -28,7 +28,7 @@ const esperar = () => new Promise((listo) => setTimeout(listo, 800));
 function Resumen() {
     return (
         <div className="grid gap-6 md:grid-cols-2">
-            <Tarjeta titulo="Datos del pedido" icono="description">
+            <Tarjeta titulo="Datos del pedido">
                 <div className="grid grid-cols-2 gap-4">
                     <Dato etiqueta="Insumo" valor="Guantes de látex talle M" />
                     <Dato etiqueta="Cantidad" valor="40 unidades" detalle="Consumo habitual: 30 por semana" />
@@ -36,7 +36,7 @@ function Resumen() {
                     <Dato etiqueta="Para cuándo" valor="jueves 30 de octubre" />
                 </div>
             </Tarjeta>
-            <Tarjeta titulo="Entrega" icono="local_shipping">
+            <Tarjeta titulo="Entrega">
                 <div className="grid grid-cols-2 gap-4">
                     <Dato etiqueta="Proveedor" valor={null} siFalta="Sin asignar" />
                     <Dato etiqueta="Remito" valor={null} siFalta="Todavía no llegó" />
@@ -48,7 +48,7 @@ function Resumen() {
 
 function Historial() {
     return (
-        <Tarjeta titulo="Historial" icono="history" relleno={false}>
+        <Tarjeta titulo="Historial" relleno={false}>
             <table className="w-full text-sm">
                 <thead>
                     <tr className={encabezadoTabla}>
@@ -81,7 +81,7 @@ function Archivos() {
     }, []);
 
     return (
-        <Tarjeta titulo="Archivos" icono="folder">
+        <Tarjeta titulo="Archivos">
             <Rotulo como="h3" linea className="mb-4">
                 Remito
             </Rotulo>
