@@ -115,6 +115,9 @@ function Piezas() {
                     </Alerta>
                     <Alerta tipo="aviso">El pedido supera el consumo habitual del área.</Alerta>
                     <Alerta tipo="info">Los pedidos se aprueban de lunes a viernes.</Alerta>
+                    <Alerta tipo="aviso" urgente={false} icono="cloud_off">
+                        <strong className="font-semibold">No pudimos consultar Laboratorio.</strong> Lo que ves puede estar incompleto.
+                    </Alerta>
                 </div>
             </Tarjeta>
         </div>
