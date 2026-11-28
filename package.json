@@ -1,10 +1,13 @@
 {
     "name": "hu-kit",
-    "version": "1.21.0",
+    "version": "1.21.1",
     "description": "Sistema de diseño de los sistemas del Hospital Universitario: preset de Tailwind, estilos base, fuentes y componentes de React.",
     "license": "UNLICENSED",
     "private": true,
     "type": "module",
+    "sideEffects": [
+        "**/*.css"
+    ],
     "bin": {
         "hu-kit": "bin/hu-kit.js"
     },

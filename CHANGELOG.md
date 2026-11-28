@@ -3,6 +3,16 @@
 Qué trae cada versión de hu-kit, la más nueva arriba. Cómo se numeran y cómo
 se publica una, en [`estilos/README.md`](estilos/README.md#versiones).
 
+## v1.21.1 — 2026-11-28
+
+- `package.json` declara `"sideEffects": ["**/*.css"]`: sólo los `.css` hacen
+  algo al importarse, así que el bundler descarta las piezas de
+  `hu-kit/componentes` que una página no usa. Sin esto, el portal metía
+  `react-day-picker` (≈80 kB) en su chunk de entrada porque `app.jsx` importa
+  `ErrorBoundary` y `ThemeProvider` del barrel.
+
+Qué hacer al adoptarla: nada.
+
 ## v1.21.0 — 2026-11-27
 
 - `Alerta`: prop `urgente` (por defecto, `true` para `error` y `aviso`); en
