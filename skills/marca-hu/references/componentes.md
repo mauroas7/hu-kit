@@ -51,7 +51,6 @@ const VARIANTES = {
 const TAMANOS = {
     normal: 'px-5 py-2.5 text-sm font-semibold', // default, 42 px como un campo
     tactil: 'min-h-11 px-5 py-2.5 text-sm font-semibold',
-    portal: 'min-h-11 px-5 py-2.5 text-sm font-black uppercase tracking-wider', // obsoleto
     compacto: 'px-3 py-1 text-xs font-semibold',
     icono: 'size-11 text-sm font-semibold', // 44 × 44, ícono de 22 px
     iconoCompacto: 'p-1 text-xs font-semibold',
@@ -90,8 +89,6 @@ intención, no el lugar. Una sola acción llena por pantalla o por modal.
   alto. `normal` (42 px, como un campo) queda para las pantallas del personal;
   `compacto` e `iconoCompacto`, para dentro de una tabla densa. El envío del
   ingreso es `ingreso`, la única excepción en mayúscula.
-- **`tamano="portal"` es obsoleto**: era `tactil` en mayúscula. Se acepta y
-  sale en v2.0.0; en su lugar va `tactil`.
 - **Forma**: `confirmacion` en pies de modal y formularios; `grupo` en filas,
   tarjetas, paneles y cabeceras.
 - **Íconos**: `icono` va adelante. `arrow_forward` va sólo al final de
@@ -137,8 +134,7 @@ adentro (`hu-kit/componentes/Tarjeta.jsx`, sin los pares `dark:`):
 `rounded-2xl`, borde sutil en `brandText-soft` (o su equivalente al 70% de
 opacidad), `shadow-sm` — no sombras más marcadas. La cabecera mide 61 px con o
 sin botones, así dos tarjetas vecinas quedan a la par. El título es un
-`Rotulo` y va sin ícono: `icono` es obsoleto, se acepta, no se muestra y sale
-en v2.0.0.
+`Rotulo` y va sin ícono.
 
 ## Cabecera de sección
 

@@ -28,7 +28,6 @@ export default function Listado() {
     return (
         <Tarjeta
             titulo="Pedidos"
-            icono="list_alt"
             contador={PAGINADOR.total}
             acciones={
                 <Boton href={href('formulario')} forma="grupo" icono="add">

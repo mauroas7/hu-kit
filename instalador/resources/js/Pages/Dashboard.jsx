@@ -7,7 +7,7 @@ export default function Dashboard() {
         <AppLayout titulo="Tablero" subtitulo="Resumen del sistema">
             <Head title="Tablero" />
 
-            <Tarjeta titulo="Primera pantalla" icono="rocket_launch">
+            <Tarjeta titulo="Primera pantalla">
                 <EstadoVacio enTarjeta icono="dashboard_customize" titulo="Este tablero está vacío">
                     Armá acá la primera pantalla del sistema: este archivo es resources/js/Pages/Dashboard.jsx.
                 </EstadoVacio>

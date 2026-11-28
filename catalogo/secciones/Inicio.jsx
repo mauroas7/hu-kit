@@ -5,7 +5,7 @@ import { EJEMPLOS, PIEZAS } from '../Catalogo.jsx';
 export default function Inicio() {
     return (
         <div className="space-y-6">
-            <Tarjeta titulo="Qué es este catálogo" icono="info">
+            <Tarjeta titulo="Qué es este catálogo">
                 <div className="max-w-3xl space-y-3 text-sm text-brandText dark:text-brandText-dark">
                     <p>
                         Es la vidriera de <strong className="font-semibold">hu-kit</strong>: muestra armadas todas las piezas que
@@ -25,7 +25,7 @@ export default function Inicio() {
                 dirección que muestra la consola.
             </Alerta>
 
-            <Tarjeta titulo="Las piezas" icono="widgets">
+            <Tarjeta titulo="Las piezas">
                 <div className="flex flex-wrap gap-2">
                     {PIEZAS.slice(1).map((item) => (
                         <Boton key={item.clave} href={href(item.clave)} variante="contorno" forma="grupo" icono={item.icono}>
@@ -35,7 +35,7 @@ export default function Inicio() {
                 </div>
             </Tarjeta>
 
-            <Tarjeta titulo="Pantallas de ejemplo" icono="devices">
+            <Tarjeta titulo="Pantallas de ejemplo">
                 <p className="mb-4 max-w-3xl text-sm text-brandText dark:text-brandText-dark">
                     Un sistema inventado, «Pedidos HU», armado sólo con piezas de hu-kit: así se ve un sistema del hospital
                     de punta a punta.

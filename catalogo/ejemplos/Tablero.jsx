@@ -24,7 +24,6 @@ export default function Tablero() {
             <div className="grid gap-6 lg:grid-cols-2">
                 <Tarjeta
                     titulo="Pedidos por área"
-                    icono="bar_chart"
                     acciones={
                         <SelectorDeVista
                             etiqueta="Período"
@@ -46,7 +45,7 @@ export default function Tablero() {
                     </ul>
                 </Tarjeta>
 
-                <Tarjeta titulo="Últimos pedidos" icono="schedule" relleno={false}>
+                <Tarjeta titulo="Últimos pedidos" relleno={false}>
                     <table className="w-full text-sm">
                         <thead>
                             <tr className={encabezadoTabla}>
@@ -68,7 +67,7 @@ export default function Tablero() {
                 </Tarjeta>
             </div>
 
-            <Tarjeta titulo="Consumo del año" icono="timeline">
+            <Tarjeta titulo="Consumo del año">
                 <Cargando enTarjeta>Cargando el consumo del año…</Cargando>
             </Tarjeta>
         </div>
